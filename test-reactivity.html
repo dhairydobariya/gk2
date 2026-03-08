@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test UI Reactivity</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    .section {
+      margin: 20px 0;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+    button:hover {
+      background-color: #1d4ed8;
+    }
+    .success {
+      color: green;
+      font-weight: bold;
+    }
+    .info {
+      color: #666;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <h1>UI Reactivity Test</h1>
+  
+  <div class="section">
+    <h2>Instructions</h2>
+    <ol>
+      <li>Open the application in your browser (http://localhost:5173)</li>
+      <li>Open the Products page in one tab</li>
+      <li>Open the Admin panel in another tab (or same tab)</li>
+      <li>In the Admin panel, create, edit, or delete a product</li>
+      <li>Switch back to the Products page tab</li>
+      <li>Verify that the Products page has updated automatically without refreshing</li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2>Manual Test in Console</h2>
+    <p class="info">You can also test the event system directly in the browser console:</p>
+    <pre>
+// Simulate a product update
+const testProducts = [
+  {
+    id: "test-1",
+    name: "Test Product",
+    description: "This is a test product",
+    imageUrl: "",
+    variants: []
+  }
+];
+
+// Save products (this will trigger the event)
+localStorage.setItem('gelkrupa_products', JSON.stringify({ products: testProducts }));
+window.dispatchEvent(new CustomEvent('productsUpdated', { 
+  detail: { products: testProducts } 
+}));
+    </pre>
+  </div>
+
+  <div class="section">
+    <h2>Expected Behavior</h2>
+    <ul>
+      <li>✓ Products page loads initial data on mount</li>
+      <li>✓ Admin panel can create, edit, and delete products</li>
+      <li>✓ When Admin panel saves changes, a custom event is dispatched</li>
+      <li>✓ Products page listens for the custom event</li>
+      <li>✓ Products page updates its state when the event is received</li>
+      <li>✓ Changes are reflected immediately without page refresh</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Implementation Details</h2>
+    <p><strong>Custom Event System:</strong></p>
+    <ul>
+      <li><code>saveProducts()</code> in storage.js dispatches a 'productsUpdated' event</li>
+      <li>Products page listens for 'productsUpdated' events in useEffect</li>
+      <li>Event handler updates the products state with new data</li>
+      <li>Event listener is cleaned up on component unmount</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Cross-Tab Communication</h2>
+    <p class="info">Note: The current implementation works within the same browser window/tab. For cross-tab communication (when Products and Admin are in different tabs), you would need to use the 'storage' event:</p>
+    <pre>
+// In Products.jsx, add this to useEffect:
+window.addEventListener('storage', (e) => {
+  if (e.key === 'gelkrupa_products') {
+    const products = getProducts();
+    setProducts(products);
+  }
+});
+    </pre>
+    <p class="info">However, the 'storage' event only fires in OTHER tabs, not the one that made the change. The custom event handles same-tab updates.</p>
+  </div>
+</body>
+</html>

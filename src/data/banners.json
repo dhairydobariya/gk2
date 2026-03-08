@@ -1,0 +1,54 @@
+{
+  "banners": [
+    {
+      "id": "banner-001",
+      "title": "Premium Electrical Protection Solutions",
+      "subtitle": "Powering Safety Through Innovation",
+      "description": "Leading manufacturer of Miniature Circuit Breakers (MCBs) and electrical switchgear products",
+      "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1920&q=80",
+      "buttonText": "Explore Products",
+      "buttonLink": "/products",
+      "isActive": true,
+      "order": 1,
+      "showOn": [
+        "home",
+        "products"
+      ],
+      "backgroundColor": "from-blue-900 via-blue-800 to-blue-950"
+    },
+    {
+      "id": "banner-002",
+      "title": "New MCB Series Launch",
+      "subtitle": "10KA Breaking Capacity",
+      "description": "Discover our latest range of high-performance circuit breakers",
+      "image": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1920&q=80",
+      "buttonText": "View Details",
+      "buttonLink": "/products/sdp-c-32a",
+      "isActive": true,
+      "order": 2,
+      "showOn": [
+        "home"
+      ],
+      "backgroundColor": "from-gray-900 via-blue-900 to-gray-900"
+    },
+    {
+      "title": "MADE YOUR BRAND WITH US",
+      "subtitle": "WE ARE TOP MANUFACUTRING IN OUR COUNTRY",
+      "description": "HEY GUYS",
+      "image": "/uploads/1772995779390-mczt3rb4wngg1tnbljgs.jpg",
+      "buttonText": "Explore Products",
+      "buttonLink": "/products",
+      "isActive": true,
+      "order": 1,
+      "showOn": [
+        "home",
+        "products",
+        "about",
+        "distributors",
+        "contact"
+      ],
+      "backgroundColor": "from-gray-900 via-blue-900 to-gray-900",
+      "id": "banner-1772995779399"
+    }
+  ]
+}

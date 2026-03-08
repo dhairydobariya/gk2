@@ -1,0 +1,42 @@
+{
+  "distributors": [
+    {
+      "id": "dist-001",
+      "name": "Sharma Electricals",
+      "logo": "/distributors/logo.png",
+      "image": "/distributors/store.jpg",
+      "contactPerson": "Rajesh Sharma",
+      "email": "rajesh@sharmaelectricals.com",
+      "phone": "+91 98765 43210",
+      "address": "123 Industrial Area, Phase 1, New Delhi - 110001",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "pincode": "110001",
+      "established": "2015",
+      "coverage": [
+        "Delhi",
+        "NCR",
+        "Haryana"
+      ]
+    },
+    {
+      "name": "dhairy",
+      "logo": "/distributors/logo.png",
+      "image": "/distributors/store.jpg",
+      "contactPerson": "dobariyya",
+      "email": "dhairy@gmail.com",
+      "phone": "558330238990",
+      "address": "324 , opera homes ",
+      "city": "surat",
+      "state": "GUJARAT",
+      "pincode": "34393",
+      "established": "2015",
+      "coverage": [
+        "VARACCHA",
+        "SARTHANA",
+        "ROYAL"
+      ],
+      "id": "dist-1772991795598"
+    }
+  ]
+}

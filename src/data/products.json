@@ -1,0 +1,322 @@
+{
+  "categories": [
+    {
+      "id": "single-double-pole-c-series",
+      "name": "Single & Double Pole MCB 'C' Series 10KA",
+      "description": "Premium quality MCBs with 10KA breaking capacity for residential and commercial applications"
+    },
+    {
+      "id": "triple-four-pole-c-series",
+      "name": "Triple & Four Pole MCB 'C' Series 10KA",
+      "description": "High-performance MCBs for three-phase industrial applications"
+    },
+    {
+      "id": "modular-mcb",
+      "name": "Modular Single & Double Pole MCB",
+      "description": "Compact modular design for space-saving installations"
+    },
+    {
+      "id": "tiny-mcb",
+      "name": "Tiny Single & Double Pole MCB",
+      "description": "Ultra-compact MCBs for space-constrained areas"
+    }
+  ],
+  "products": [
+    {
+      "id": "sdp-c-06a",
+      "name": "06A Single & Double Pole MCB",
+      "category": "single-double-pole-c-series",
+      "rating": "6A , 3e",
+      "poles": "1P, 2P",
+      "breakingCapacity": "10KA",
+      "series": "C Series",
+      "price": "₹245",
+      "image": "/placeholder.png",
+      "inStock": true,
+      "features": [
+        "10KA breaking capacity",
+        "C-curve tripping characteristic",
+        "Single and double pole options",
+        "Compact design",
+        "Easy installation"
+      ],
+      "specifications": {
+        "ratedCurrent": "6A",
+        "ratedVoltage": "230/400V AC",
+        "frequency": "50Hz",
+        "breakingCapacity": "10000A",
+        "trippingCurve": "C",
+        "poles": "1P, 2P",
+        "standard": "IEC 60898-1"
+      }
+    },
+    {
+      "id": "sdp-c-10a",
+      "name": "10A Single & Double Pole MCB",
+      "category": "single-double-pole-c-series",
+      "rating": "10A",
+      "poles": "1P, 2P",
+      "breakingCapacity": "10KA",
+      "series": "C Series",
+      "price": "₹250",
+      "image": "/placeholder.png",
+      "inStock": true,
+      "features": [
+        "10KA breaking capacity",
+        "C-curve tripping characteristic",
+        "Single and double pole options",
+        "Compact design",
+        "Easy installation"
+      ],
+      "specifications": {
+        "ratedCurrent": "10A",
+        "ratedVoltage": "230/400V AC",
+        "frequency": "50Hz",
+        "breakingCapacity": "10000A",
+        "trippingCurve": "C",
+        "poles": "1P, 2P",
+        "standard": "IEC 60898-1"
+      }
+    },
+    {
+      "id": "sdp-c-16a",
+      "name": "16A Single & Double Pole MCB",
+      "category": "single-double-pole-c-series",
+      "rating": "16A",
+      "poles": "1P, 2P",
+      "breakingCapacity": "10KA",
+      "series": "C Series",
+      "price": "₹260",
+      "image": "/placeholder.png",
+      "inStock": true,
+      "features": [
+        "10KA breaking capacity",
+        "C-curve tripping characteristic",
+        "Single and double pole options",
+        "Compact design",
+        "Easy installation"
+      ],
+      "specifications": {
+        "ratedCurrent": "16A",
+        "ratedVoltage": "230/400V AC",
+        "frequency": "50Hz",
+        "breakingCapacity": "10000A",
+        "trippingCurve": "C",
+        "poles": "1P, 2P",
+        "standard": "IEC 60898-1"
+      }
+    },
+    {
+      "id": "sdp-c-20a",
+      "name": "20A Single & Double Pole MCB",
+      "category": "single-double-pole-c-series",
+      "rating": "20A",
+      "poles": "1P, 2P",
+      "breakingCapacity": "10KA",
+      "series": "C Series",
+      "price": "₹270",
+      "image": "/placeholder.png",
+      "inStock": true,
+      "features": [
+        "10KA breaking capacity",
+        "C-curve tripping characteristic",
+        "Single and double pole options",
+        "Compact design",
+        "Easy installation"
+      ],
+      "specifications": {
+        "ratedCurrent": "20A",
+        "ratedVoltage": "230/400V AC",
+        "frequency": "50Hz",
+        "breakingCapacity": "10000A",
+        "trippingCurve": "C",
+        "poles": "1P, 2P",
+        "standard": "IEC 60898-1"
+      }
+    },
+    {
+      "id": "sdp-c-25a",
+      "name": "25A Single & Double Pole MCB",
+      "category": "single-double-pole-c-series",
+      "rating": "25A",
+      "poles": "1P, 2P",
+      "breakingCapacity": "10KA",
+      "series": "C Series",
+      "price": "₹280",
+      "image": "/placeholder.png",
+      "inStock": true,
+      "features": [
+        "10KA breaking capacity",
+        "C-curve tripping characteristic",
+        "Single and double pole options",
+        "Compact design",
+        "Easy installation"
+      ],
+      "specifications": {
+        "ratedCurrent": "25A",
+        "ratedVoltage": "230/400V AC",
+        "frequency": "50Hz",
+        "breakingCapacity": "10000A",
+        "trippingCurve": "C",
+        "poles": "1P, 2P",
+        "standard": "IEC 60898-1"
+      }
+    },
+    {
+      "id": "sdp-c-32a",
+      "name": "32A Single & Double Pole MCB",
+      "category": "single-double-pole-c-series",
+      "rating": "32A",
+      "poles": "1P, 2P",
+      "breakingCapacity": "10KA",
+      "series": "C Series",
+      "price": "₹295",
+      "image": "/placeholder.png",
+      "inStock": true,
+      "features": [
+        "10KA breaking capacity",
+        "C-curve tripping characteristic",
+        "Single and double pole options",
+        "Compact design",
+        "Easy installation"
+      ],
+      "specifications": {
+        "ratedCurrent": "32A",
+        "ratedVoltage": "230/400V AC",
+        "frequency": "50Hz",
+        "breakingCapacity": "10000A",
+        "trippingCurve": "C",
+        "poles": "1P, 2P",
+        "standard": "IEC 60898-1"
+      }
+    },
+    {
+      "id": "sdp-c-40a",
+      "name": "40A Single & Double Pole MCB",
+      "category": "single-double-pole-c-series",
+      "rating": "40A",
+      "poles": "1P, 2P",
+      "breakingCapacity": "10KA",
+      "series": "C Series",
+      "price": "₹310",
+      "image": "/placeholder.png",
+      "inStock": true,
+      "features": [
+        "10KA breaking capacity",
+        "C-curve tripping characteristic",
+        "Single and double pole options",
+        "Compact design",
+        "Easy installation"
+      ],
+      "specifications": {
+        "ratedCurrent": "40A",
+        "ratedVoltage": "230/400V AC",
+        "frequency": "50Hz",
+        "breakingCapacity": "10000A",
+        "trippingCurve": "C",
+        "poles": "1P, 2P",
+        "standard": "IEC 60898-1"
+      }
+    },
+    {
+      "id": "sdp-c-63a",
+      "name": "63A Single & Double Pole MCB",
+      "category": "single-double-pole-c-series",
+      "rating": "63A",
+      "poles": "1P, 2P",
+      "breakingCapacity": "10KA",
+      "series": "C Series",
+      "price": "₹340",
+      "image": "/placeholder.png",
+      "inStock": true,
+      "features": [
+        "10KA breaking capacity",
+        "C-curve tripping characteristic",
+        "Single and double pole options",
+        "Compact design",
+        "Easy installation"
+      ],
+      "specifications": {
+        "ratedCurrent": "63A",
+        "ratedVoltage": "230/400V AC",
+        "frequency": "50Hz",
+        "breakingCapacity": "10000A",
+        "trippingCurve": "C",
+        "poles": "1P, 2P",
+        "standard": "IEC 60898-1"
+      }
+    },
+    {
+      "id": "tfp-c-06a",
+      "name": "06A Triple & Four Pole MCB",
+      "category": "triple-four-pole-c-series",
+      "rating": "6A",
+      "poles": "3P, 4P",
+      "breakingCapacity": "10KA",
+      "series": "C Series",
+      "price": "₹485",
+      "image": "/placeholder.png",
+      "inStock": true,
+      "features": [
+        "10KA breaking capacity",
+        "C-curve tripping characteristic",
+        "Triple and four pole options",
+        "Industrial grade",
+        "Three-phase protection"
+      ],
+      "specifications": {
+        "ratedCurrent": "6A",
+        "ratedVoltage": "400V AC",
+        "frequency": "50Hz",
+        "breakingCapacity": "10000A",
+        "trippingCurve": "C",
+        "poles": "3P, 4P",
+        "standard": "IEC 60898-1"
+      }
+    },
+    {
+      "id": "tfp-c-10a",
+      "name": "10A Triple & Four Pole MCB",
+      "category": "triple-four-pole-c-series",
+      "rating": "10A",
+      "poles": "3P, 4P",
+      "breakingCapacity": "10KA",
+      "series": "C Series",
+      "price": "₹495",
+      "image": "/placeholder.png",
+      "inStock": true,
+      "features": [
+        "10KA breaking capacity",
+        "C-curve tripping characteristic",
+        "Triple and four pole options",
+        "Industrial grade",
+        "Three-phase protection"
+      ],
+      "specifications": {
+        "ratedCurrent": "10A",
+        "ratedVoltage": "400V AC",
+        "frequency": "50Hz",
+        "breakingCapacity": "10000A",
+        "trippingCurve": "C",
+        "poles": "3P, 4P",
+        "standard": "IEC 60898-1"
+      }
+    },
+    {
+      "name": "G",
+      "category": "tiny-mcb",
+      "rating": "ASDF",
+      "poles": "SDG,WS",
+      "breakingCapacity": "10KA",
+      "series": "C Series",
+      "price": "444",
+      "image": "/uploads/1772992760673-Peacock.png",
+      "image2": "/uploads/1772992700967-Woodpecker.png",
+      "image3": "/uploads/1772992703662-parrot.png",
+      "inStock": true,
+      "id": "tiny-mcb-1772992780783",
+      "features": [],
+      "specifications": {}
+    }
+  ]
+}

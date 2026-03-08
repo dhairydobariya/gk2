@@ -1,0 +1,338 @@
+import React, { useState, useEffect, useRef } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import logo from '../assets/logo.png'
+import { getProducts } from '../utils/dataManager'
+import ImageWithFallback from './ImageWithFallback'
+
+function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchResults, setSearchResults] = useState([])
+  const [showResults, setShowResults] = useState(false)
+  const [selectedIndex, setSelectedIndex] = useState(-1)
+  const [allProducts, setAllProducts] = useState([])
+  const searchRef = useRef(null)
+  const navigate = useNavigate()
+
+  // Load products on mount
+  useEffect(() => {
+    loadProducts()
+    
+    // Listen for data updates
+    const handleDataUpdate = (event) => {
+      if (event.detail.key === 'products') {
+        loadProducts()
+      }
+    };
+    
+    window.addEventListener('dataUpdated', handleDataUpdate);
+    return () => window.removeEventListener('dataUpdated', handleDataUpdate);
+  }, [])
+
+  const loadProducts = async () => {
+    const productsData = await getProducts()
+    setAllProducts(productsData || [])
+  }
+
+  // Close search results when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowResults(false)
+        setSelectedIndex(-1)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  // Search products
+  useEffect(() => {
+    if (searchQuery.trim().length > 0 && allProducts.length > 0) {
+      const filtered = allProducts.filter(product =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.rating.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchQuery.toLowerCase())
+      ).slice(0, 5) // Limit to 5 results
+      
+      setSearchResults(filtered)
+      setShowResults(true)
+      setSelectedIndex(-1) // Reset selection when results change
+    } else {
+      setSearchResults([])
+      setShowResults(false)
+      setSelectedIndex(-1)
+    }
+  }, [searchQuery, allProducts])
+
+  const handleProductClick = (productId) => {
+    navigate(`/products/${productId}`)
+    setSearchQuery('')
+    setShowResults(false)
+    setSelectedIndex(-1)
+  }
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault()
+    if (searchResults.length > 0) {
+      const targetIndex = selectedIndex >= 0 ? selectedIndex : 0
+      navigate(`/products/${searchResults[targetIndex].id}`)
+      setSearchQuery('')
+      setShowResults(false)
+      setSelectedIndex(-1)
+    }
+  }
+
+  // Keyboard navigation
+  const handleKeyDown = (e) => {
+    if (!showResults || searchResults.length === 0) return
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault()
+        setSelectedIndex(prev => 
+          prev < searchResults.length - 1 ? prev + 1 : prev
+        )
+        break
+      case 'ArrowUp':
+        e.preventDefault()
+        setSelectedIndex(prev => prev > 0 ? prev - 1 : -1)
+        break
+      case 'Escape':
+        setShowResults(false)
+        setSelectedIndex(-1)
+        break
+      case 'Enter':
+        e.preventDefault()
+        if (selectedIndex >= 0 && searchResults[selectedIndex]) {
+          handleProductClick(searchResults[selectedIndex].id)
+        } else if (searchResults.length > 0) {
+          handleProductClick(searchResults[0].id)
+        }
+        break
+      default:
+        break
+    }
+  }
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen)
+  }
+
+  const navLinkClasses = ({ isActive }) =>
+    `px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+      isActive
+        ? 'bg-blue-700 text-white'
+        : 'text-gray-300 hover:bg-blue-600 hover:text-white'
+    }`
+
+  const mobileNavLinkClasses = ({ isActive }) =>
+    `block px-3 py-2 rounded-md text-base font-medium ${
+      isActive
+        ? 'bg-blue-700 text-white'
+        : 'text-gray-300 hover:bg-blue-600 hover:text-white'
+    }`
+
+  return (
+    <header className="bg-blue-800 shadow-lg">
+      <nav className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-14 sm:h-16 gap-4">
+          {/* Logo/Company Name */}
+          <div className="flex-shrink-0">
+            <NavLink to="/" className="flex items-center hover:opacity-80 transition-opacity">
+              <img 
+                src={logo} 
+                alt="GK2 Logo" 
+                className="h-10 sm:h-12 w-auto"
+                style={{
+                  filter: 'brightness(0) invert(1)'
+                }}
+              />
+            </NavLink>
+          </div>
+
+          {/* Global Search Bar */}
+          <div className="hidden md:block flex-1 max-w-md relative" ref={searchRef}>
+            <form onSubmit={handleSearchSubmit}>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Search products..."
+                  className="w-full px-4 py-2 pl-10 rounded-lg bg-blue-700 text-white placeholder-blue-200 border border-blue-600 focus:outline-none focus:ring-2 focus:ring-white focus:bg-blue-600"
+                />
+                <svg
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-blue-200"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+            </form>
+
+            {/* Search Results Dropdown */}
+            {showResults && searchResults.length > 0 && (
+              <div className="absolute top-full mt-2 w-full bg-white rounded-lg shadow-xl border border-gray-200 z-50 max-h-96 overflow-y-auto">
+                {searchResults.map((product, index) => (
+                  <button
+                    key={product.id}
+                    onClick={() => handleProductClick(product.id)}
+                    onMouseEnter={() => setSelectedIndex(index)}
+                    className={`w-full flex items-center gap-3 p-3 transition-colors border-b border-gray-100 last:border-b-0 text-left ${
+                      selectedIndex === index
+                        ? 'bg-blue-50 border-l-4 border-l-blue-600'
+                        : 'hover:bg-gray-50'
+                    }`}
+                  >
+                    <div className="w-12 h-12 flex-shrink-0">
+                      <ImageWithFallback
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-contain bg-gray-50 rounded"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className={`font-medium truncate ${
+                        selectedIndex === index ? 'text-blue-900' : 'text-gray-900'
+                      }`}>
+                        {product.name}
+                      </div>
+                      <div className="text-sm text-gray-500 flex gap-2">
+                        <span>{product.rating}</span>
+                        <span>•</span>
+                        <span>{product.price}</span>
+                      </div>
+                    </div>
+                    <svg 
+                      className={`w-5 h-5 ${
+                        selectedIndex === index ? 'text-blue-600' : 'text-gray-400'
+                      }`} 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                ))}
+                
+                {/* Keyboard hint */}
+                <div className="px-3 py-2 bg-gray-50 border-t border-gray-200 text-xs text-gray-500 flex items-center justify-center gap-4">
+                  <span className="flex items-center gap-1">
+                    <kbd className="px-2 py-1 bg-white border border-gray-300 rounded text-xs">↑</kbd>
+                    <kbd className="px-2 py-1 bg-white border border-gray-300 rounded text-xs">↓</kbd>
+                    <span>Navigate</span>
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <kbd className="px-2 py-1 bg-white border border-gray-300 rounded text-xs">Enter</kbd>
+                    <span>Select</span>
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <kbd className="px-2 py-1 bg-white border border-gray-300 rounded text-xs">Esc</kbd>
+                    <span>Close</span>
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {showResults && searchQuery && searchResults.length === 0 && (
+              <div className="absolute top-full mt-2 w-full bg-white rounded-lg shadow-xl border border-gray-200 z-50 p-4 text-center text-gray-500">
+                No products found
+              </div>
+            )}
+          </div>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex md:space-x-4">
+            <NavLink to="/" className={navLinkClasses}>
+              Home
+            </NavLink>
+            <NavLink to="/about" className={navLinkClasses}>
+              About Us
+            </NavLink>
+            <NavLink to="/products" className={navLinkClasses}>
+              Products
+            </NavLink>
+            <NavLink to="/distributors" className={navLinkClasses}>
+              Distributors
+            </NavLink>
+            <NavLink to="/contact" className={navLinkClasses}>
+              Contact Us
+            </NavLink>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button
+              onClick={toggleMobileMenu}
+              className="text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white p-2"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? (
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden pb-3 pt-2 space-y-1">
+            {/* Mobile Search */}
+            <div className="px-3 pb-3">
+              <form onSubmit={handleSearchSubmit}>
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    placeholder="Search products..."
+                    className="w-full px-4 py-2 pl-10 rounded-lg bg-blue-700 text-white placeholder-blue-200 border border-blue-600 focus:outline-none focus:ring-2 focus:ring-white"
+                  />
+                  <svg
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-blue-200"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+              </form>
+            </div>
+
+            <NavLink to="/" className={mobileNavLinkClasses} onClick={toggleMobileMenu}>
+              Home
+            </NavLink>
+            <NavLink to="/about" className={mobileNavLinkClasses} onClick={toggleMobileMenu}>
+              About Us
+            </NavLink>
+            <NavLink to="/products" className={mobileNavLinkClasses} onClick={toggleMobileMenu}>
+              Products
+            </NavLink>
+            <NavLink to="/distributors" className={mobileNavLinkClasses} onClick={toggleMobileMenu}>
+              Distributors
+            </NavLink>
+            <NavLink to="/contact" className={mobileNavLinkClasses} onClick={toggleMobileMenu}>
+              Contact Us
+            </NavLink>
+          </div>
+        )}
+      </nav>
+    </header>
+  )
+}
+
+export default Header
