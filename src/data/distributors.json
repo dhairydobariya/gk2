@@ -1,42 +1,307 @@
 {
   "distributors": [
     {
-      "id": "dist-001",
-      "name": "Sharma Electricals",
-      "logo": "/distributors/logo.png",
-      "image": "/distributors/store.jpg",
-      "contactPerson": "Rajesh Sharma",
-      "email": "rajesh@sharmaelectricals.com",
+      "id": "dist-delhi-001",
+      "name": "Delhi Electrical Solutions",
+      "logo": "/placeholder.png",
+      "image": "/placeholder.png",
+      "contactPerson": "Rajesh Kumar",
+      "email": "contact@delhielectrical.com",
       "phone": "+91 98765 43210",
-      "address": "123 Industrial Area, Phase 1, New Delhi - 110001",
+      "address": "Shop No. 45, Nehru Place Market, Nehru Place",
       "city": "New Delhi",
       "state": "Delhi",
-      "pincode": "110001",
-      "established": "2015",
+      "pincode": "110019",
+      "established": "2010",
       "coverage": [
         "Delhi",
         "NCR",
+        "Noida",
+        "Gurgaon",
+        "Faridabad"
+      ]
+    },
+    {
+      "id": "dist-mumbai-001",
+      "name": "Mumbai Power Systems",
+      "logo": "/placeholder.png",
+      "image": "/placeholder.png",
+      "contactPerson": "Amit Patel",
+      "email": "info@mumbaipowersystems.com",
+      "phone": "+91 98765 43211",
+      "address": "Building 12, Andheri Industrial Estate, Andheri East",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "pincode": "400069",
+      "established": "2008",
+      "coverage": [
+        "Mumbai",
+        "Thane",
+        "Navi Mumbai",
+        "Pune",
+        "Maharashtra"
+      ]
+    },
+    {
+      "id": "dist-bangalore-001",
+      "name": "Bangalore Switchgear Hub",
+      "logo": "/placeholder.png",
+      "image": "/placeholder.png",
+      "contactPerson": "Suresh Reddy",
+      "email": "sales@bangaloreswitchgear.com",
+      "phone": "+91 98765 43212",
+      "address": "No. 234, Peenya Industrial Area, 4th Phase",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "pincode": "560058",
+      "established": "2012",
+      "coverage": [
+        "Bangalore",
+        "Mysore",
+        "Mangalore",
+        "Karnataka"
+      ]
+    },
+    {
+      "id": "dist-chennai-001",
+      "name": "Chennai Electrical Traders",
+      "logo": "/placeholder.png",
+      "image": "/placeholder.png",
+      "contactPerson": "Venkatesh Iyer",
+      "email": "contact@chennaielectrical.com",
+      "phone": "+91 98765 43213",
+      "address": "Plot 56, Ambattur Industrial Estate, Ambattur",
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "pincode": "600058",
+      "established": "2009",
+      "coverage": [
+        "Chennai",
+        "Coimbatore",
+        "Madurai",
+        "Tamil Nadu"
+      ]
+    },
+    {
+      "id": "dist-hyderabad-001",
+      "name": "Hyderabad MCB Distributors",
+      "logo": "/placeholder.png",
+      "image": "/placeholder.png",
+      "contactPerson": "Krishna Rao",
+      "email": "info@hyderabadmcb.com",
+      "phone": "+91 98765 43214",
+      "address": "Shop 78, Balanagar Industrial Area, Balanagar",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "pincode": "500037",
+      "established": "2015",
+      "coverage": [
+        "Hyderabad",
+        "Secunderabad",
+        "Warangal",
+        "Telangana"
+      ]
+    },
+    {
+      "id": "dist-kolkata-001",
+      "name": "Kolkata Power Solutions",
+      "logo": "/placeholder.png",
+      "image": "/placeholder.png",
+      "contactPerson": "Debashis Sen",
+      "email": "sales@kolkatapower.com",
+      "phone": "+91 98765 43215",
+      "address": "Unit 23, Kasba Industrial Estate, Kasba",
+      "city": "Kolkata",
+      "state": "West Bengal",
+      "pincode": "700042",
+      "established": "2011",
+      "coverage": [
+        "Kolkata",
+        "Howrah",
+        "Durgapur",
+        "West Bengal"
+      ]
+    },
+    {
+      "id": "dist-ahmedabad-001",
+      "name": "Ahmedabad Electrical Works",
+      "logo": "/placeholder.png",
+      "image": "/placeholder.png",
+      "contactPerson": "Kiran Shah",
+      "email": "contact@ahmedabadelectrical.com",
+      "phone": "+91 98765 43216",
+      "address": "Plot 145, Naroda Industrial Estate, Naroda",
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "pincode": "382330",
+      "established": "2007",
+      "coverage": [
+        "Ahmedabad",
+        "Surat",
+        "Vadodara",
+        "Gujarat"
+      ]
+    },
+    {
+      "id": "dist-jaipur-001",
+      "name": "Jaipur Switchgear Suppliers",
+      "logo": "/placeholder.png",
+      "image": "/placeholder.png",
+      "contactPerson": "Mahesh Sharma",
+      "email": "info@jaipurswitchgear.com",
+      "phone": "+91 98765 43217",
+      "address": "Shop 89, Sitapura Industrial Area, Sitapura",
+      "city": "Jaipur",
+      "state": "Rajasthan",
+      "pincode": "302022",
+      "established": "2013",
+      "coverage": [
+        "Jaipur",
+        "Jodhpur",
+        "Udaipur",
+        "Rajasthan"
+      ]
+    },
+    {
+      "id": "dist-lucknow-001",
+      "name": "Lucknow MCB Center",
+      "logo": "/placeholder.png",
+      "image": "/placeholder.png",
+      "contactPerson": "Anil Verma",
+      "email": "sales@lucknowmcb.com",
+      "phone": "+91 98765 43218",
+      "address": "Building 34, Amausi Industrial Area, Amausi",
+      "city": "Lucknow",
+      "state": "Uttar Pradesh",
+      "pincode": "226009",
+      "established": "2014",
+      "coverage": [
+        "Lucknow",
+        "Kanpur",
+        "Agra",
+        "Uttar Pradesh"
+      ]
+    },
+    {
+      "id": "dist-chandigarh-001",
+      "name": "Chandigarh Electrical Hub",
+      "logo": "/placeholder.png",
+      "image": "/placeholder.png",
+      "contactPerson": "Harpreet Singh",
+      "email": "contact@chandigarhelectrical.com",
+      "phone": "+91 98765 43219",
+      "address": "SCO 456, Industrial Area Phase 2, Chandigarh",
+      "city": "Chandigarh",
+      "state": "Punjab",
+      "pincode": "160002",
+      "established": "2016",
+      "coverage": [
+        "Chandigarh",
+        "Mohali",
+        "Panchkula",
+        "Punjab",
         "Haryana"
       ]
     },
     {
-      "name": "dhairy",
-      "logo": "/distributors/logo.png",
-      "image": "/distributors/store.jpg",
-      "contactPerson": "dobariyya",
-      "email": "dhairy@gmail.com",
-      "phone": "558330238990",
-      "address": "324 , opera homes ",
-      "city": "surat",
-      "state": "GUJARAT",
-      "pincode": "34393",
-      "established": "2015",
+      "id": "dist-indore-001",
+      "name": "Indore Power Distributors",
+      "logo": "/placeholder.png",
+      "image": "/placeholder.png",
+      "contactPerson": "Prakash Jain",
+      "email": "info@indorepower.com",
+      "phone": "+91 98765 43220",
+      "address": "Plot 67, Sanwer Road Industrial Area, Sanwer Road",
+      "city": "Indore",
+      "state": "Madhya Pradesh",
+      "pincode": "452015",
+      "established": "2010",
       "coverage": [
-        "VARACCHA",
-        "SARTHANA",
-        "ROYAL"
-      ],
-      "id": "dist-1772991795598"
+        "Indore",
+        "Bhopal",
+        "Gwalior",
+        "Madhya Pradesh"
+      ]
+    },
+    {
+      "id": "dist-nagpur-001",
+      "name": "Nagpur Switchgear Solutions",
+      "logo": "/placeholder.png",
+      "image": "/placeholder.png",
+      "contactPerson": "Ramesh Deshmukh",
+      "email": "sales@nagpurswitchgear.com",
+      "phone": "+91 98765 43221",
+      "address": "Unit 12, Hingna Industrial Estate, Hingna",
+      "city": "Nagpur",
+      "state": "Maharashtra",
+      "pincode": "440016",
+      "established": "2012",
+      "coverage": [
+        "Nagpur",
+        "Amravati",
+        "Akola",
+        "Vidarbha"
+      ]
+    },
+    {
+      "id": "dist-surat-001",
+      "name": "Surat Electrical Enterprises",
+      "logo": "/placeholder.png",
+      "image": "/placeholder.png",
+      "contactPerson": "Jayesh Patel",
+      "email": "contact@suratelectrical.com",
+      "phone": "+91 98765 43222",
+      "address": "Shop 234, Sachin Industrial Area, Sachin",
+      "city": "Surat",
+      "state": "Gujarat",
+      "pincode": "394230",
+      "established": "2011",
+      "coverage": [
+        "Surat",
+        "Valsad",
+        "Navsari",
+        "South Gujarat"
+      ]
+    },
+    {
+      "id": "dist-coimbatore-001",
+      "name": "Coimbatore MCB Traders",
+      "logo": "/placeholder.png",
+      "image": "/placeholder.png",
+      "contactPerson": "Murugan Pillai",
+      "email": "info@coimbatoremcb.com",
+      "phone": "+91 98765 43223",
+      "address": "Plot 89, Kurichi Industrial Estate, Kurichi",
+      "city": "Coimbatore",
+      "state": "Tamil Nadu",
+      "pincode": "641021",
+      "established": "2013",
+      "coverage": [
+        "Coimbatore",
+        "Tirupur",
+        "Erode",
+        "Western Tamil Nadu"
+      ]
+    },
+    {
+      "id": "dist-visakhapatnam-001",
+      "name": "Visakhapatnam Power Systems",
+      "logo": "/placeholder.png",
+      "image": "/placeholder.png",
+      "contactPerson": "Srinivas Rao",
+      "email": "sales@vizagpower.com",
+      "phone": "+91 98765 43224",
+      "address": "Building 45, Autonagar Industrial Area, Autonagar",
+      "city": "Visakhapatnam",
+      "state": "Andhra Pradesh",
+      "pincode": "530012",
+      "established": "2014",
+      "coverage": [
+        "Visakhapatnam",
+        "Vijayawada",
+        "Guntur",
+        "Andhra Pradesh"
+      ]
     }
   ]
 }

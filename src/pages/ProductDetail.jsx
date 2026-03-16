@@ -1,60 +1,59 @@
-import { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { getProducts } from '../utils/dataManager';
+import { useState, useEffect, useRef } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { getProductsData } from '../utils/dataManager';
 import ImageWithFallback from '../components/ImageWithFallback';
 
 function ProductDetail() {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const [product, setProduct] = useState(null);
-  const [relatedProducts, setRelatedProducts] = useState([]);
-  const [selectedImage, setSelectedImage] = useState(0);
-  const [allProducts, setAllProducts] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedVariant, setSelectedVariant] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+
+  const { products } = getProductsData();
+  const product = products.find(p => p.id === id);
+  const relatedProducts = product
+    ? products.filter(p => p.category === product.category && p.id !== id).slice(0, 4)
+    : [];
+
+  const images = product ? [product.image, product.image2, product.image3].filter(Boolean) : [];
 
   useEffect(() => {
-    loadData();
-  }, []);
-
-  const loadData = async () => {
-    const productsData = await getProducts();
-    setAllProducts(productsData || []);
-  };
-
-  useEffect(() => {
-    if (allProducts.length > 0) {
-      const foundProduct = allProducts.find(p => p.id === id);
-      if (foundProduct) {
-        setProduct(foundProduct);
-        
-        // Get related products from same category
-        const related = allProducts
-          .filter(p => p.category === foundProduct.category && p.id !== foundProduct.id)
-          .slice(0, 4);
-        setRelatedProducts(related);
-      }
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    setCurrentIndex(0);
+    setQuantity(1);
+    if (product?.variants?.length > 0) {
+      setSelectedVariant(product.variants[0]);
+    } else {
+      setSelectedVariant(null);
     }
-  }, [id, allProducts]);
+  }, [id]);
+
+  const handleQuantityChange = (delta) => setQuantity(Math.max(1, quantity + delta));
+
+  const prev = () => setCurrentIndex(i => (i - 1 + images.length) % images.length);
+  const next = () => setCurrentIndex(i => (i + 1) % images.length);
+
+  // Touch swipe
+  const touchStartX = useRef(null);
+  const onTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+  const onTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
+    touchStartX.current = null;
+  };
 
   if (!product) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="text-6xl mb-4">📦</div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Product Not Found</h2>
-          <Link to="/products" className="text-blue-600 hover:underline">
-            Back to Products
-          </Link>
+          <Link to="/products" className="text-blue-600 hover:underline font-medium">← Back to Products</Link>
         </div>
       </div>
     );
   }
-
-  // Build images array from product data
-  const images = [
-    product.image,
-    product.image2 || product.image,
-    product.image3 || product.image
-  ].filter(Boolean);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -71,39 +70,98 @@ function ProductDetail() {
         </div>
       </div>
 
-      {/* Product Detail Section */}
       <section className="py-8 sm:py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
-            {/* Left: Product Images */}
+            {/* Images */}
             <div>
-              <div className="bg-white rounded-xl border border-gray-200 p-6 mb-4">
-                <div className="aspect-square flex items-center justify-center bg-gray-50 rounded-lg overflow-hidden">
-                  <ImageWithFallback
-                    src={images[selectedImage]}
-                    alt={product.name}
-                    className="w-full h-full object-contain"
-                  />
+              {/* Main slider */}
+              <div className="bg-white rounded-2xl border-2 border-gray-200 shadow-sm mb-3 overflow-hidden">
+                <div
+                  className="relative aspect-square overflow-hidden bg-gradient-to-br from-gray-50 to-blue-50"
+                  onTouchStart={onTouchStart}
+                  onTouchEnd={onTouchEnd}
+                >
+                  {/* Strip: all images side by side, translateX moves to current */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      width: `${images.length * 100}%`,
+                      height: '100%',
+                      transform: `translateX(-${(currentIndex * 100) / images.length}%)`,
+                      transition: 'transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                    }}
+                  >
+                    {images.map((img, i) => (
+                      <div
+                        key={i}
+                        style={{ width: `${100 / images.length}%`, flexShrink: 0, padding: '24px' }}
+                        className="flex items-center justify-center"
+                      >
+                        <img
+                          src={img}
+                          alt={`${product.name} ${i + 1}`}
+                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                          onError={e => { e.target.style.display = 'none'; }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Corner decorations */}
+                  <div className="absolute top-4 right-4 w-10 h-10 border-t-2 border-r-2 border-blue-200 pointer-events-none z-10" />
+                  <div className="absolute bottom-4 left-4 w-10 h-10 border-b-2 border-l-2 border-blue-200 pointer-events-none z-10" />
+
+                  {/* Arrows */}
+                  {images.length > 1 && (
+                    <>
+                      <button
+                        onClick={prev}
+                        className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 border border-gray-200 shadow flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200 z-20 text-xl leading-none"
+                        aria-label="Previous image"
+                      >‹</button>
+                      <button
+                        onClick={next}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 border border-gray-200 shadow flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200 z-20 text-xl leading-none"
+                        aria-label="Next image"
+                      >›</button>
+
+                      {/* Dots */}
+                      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
+                        {images.map((_, i) => (
+                          <button
+                            key={i}
+                            onClick={() => setCurrentIndex(i)}
+                            className={`rounded-full transition-all duration-200 ${
+                              i === currentIndex ? 'w-5 h-2 bg-blue-600' : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
+                            }`}
+                            aria-label={`Image ${i + 1}`}
+                          />
+                        ))}
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
-              
-              {/* Thumbnail Images */}
+
+              {/* Thumbnails */}
               {images.length > 1 && (
                 <div className="flex gap-3">
                   {images.map((img, index) => (
                     <button
                       key={index}
-                      onClick={() => setSelectedImage(index)}
-                      className={`flex-1 aspect-square bg-white rounded-lg border-2 p-2 transition-all ${
-                        selectedImage === index
-                          ? 'border-blue-600'
-                          : 'border-gray-200 hover:border-gray-300'
+                      onClick={() => setCurrentIndex(index)}
+                      className={`flex-1 aspect-square bg-white rounded-xl border-2 p-2 transition-all duration-200 hover:scale-105 ${
+                        currentIndex === index
+                          ? 'border-blue-600 shadow-md ring-2 ring-blue-200'
+                          : 'border-gray-200 hover:border-blue-300'
                       }`}
                     >
-                      <ImageWithFallback
+                      <img
                         src={img}
-                        alt={`${product.name} ${index + 1}`}
+                        alt={`${product.name} view ${index + 1}`}
                         className="w-full h-full object-contain"
+                        onError={e => { e.target.style.display = 'none'; }}
                       />
                     </button>
                   ))}
@@ -111,130 +169,178 @@ function ProductDetail() {
               )}
             </div>
 
-            {/* Right: Product Info - Sticky */}
+            {/* Product Info */}
             <div className="lg:sticky lg:top-4 lg:self-start">
-              <div className="bg-white rounded-xl border border-gray-200 p-6 sm:p-8">
-                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-                  {product.name}
-                </h1>
+              <div className="bg-white rounded-2xl border-2 border-gray-200 p-6 sm:p-8 shadow-sm">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 leading-tight">{product.name}</h1>
+                {product.series && (
+                  <p className="text-blue-600 font-medium mb-4">{product.series} · {product.breakingCapacity}</p>
+                )}
 
-                <div className="flex items-center gap-3 mb-6">
-                  {product.inStock ? (
-                    <span className="flex items-center gap-2 text-green-600 font-medium">
-                      <span className="w-2 h-2 bg-green-600 rounded-full"></span>
-                      In Stock
-                    </span>
-                  ) : (
-                    <span className="flex items-center gap-2 text-red-600 font-medium">
-                      <span className="w-2 h-2 bg-red-600 rounded-full"></span>
-                      Out of Stock
-                    </span>
-                  )}
-                </div>
 
+
+                {/* Variant / Amperage Selector */}
+                {product.variants && product.variants.length > 0 && (
+                  <div className="mb-6">
+                    <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                      <span className="text-blue-600">⚡</span> Select Rating
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {product.variants.map((variant, i) => (
+                        <button
+                          key={i}
+                          onClick={() => setSelectedVariant(variant)}
+                          className={`px-4 py-2 rounded-lg border-2 font-semibold text-sm transition-all duration-200 hover:scale-105 ${
+                            selectedVariant === variant
+                              ? 'border-blue-600 bg-blue-600 text-white shadow-md'
+                              : 'border-gray-200 bg-white text-gray-700 hover:border-blue-400'
+                          }`}
+                        >
+                          {variant.capacity}
+                        </button>
+                      ))}
+                    </div>
+                    {selectedVariant && (
+                      <p className="mt-2 text-sm text-gray-500">
+                        Selected: <span className="font-semibold text-blue-600">{selectedVariant.capacity} — {selectedVariant.poles}</span>
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {/* Specs quick view */}
+                {product.specifications && (
+                  <div className="mb-6 p-4 bg-gray-50 rounded-xl">
+                    <h3 className="font-bold text-gray-900 mb-3">Key Specifications</h3>
+                    <ul className="space-y-2">
+                      {Object.entries(product.specifications).map(([key, value]) => (
+                        <li key={key} className="flex items-start gap-2 text-sm">
+                          <span className="text-blue-600 mt-0.5">✓</span>
+                          <span className="text-gray-700">
+                            <span className="font-medium capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}:</span> {value}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Quantity */}
                 <div className="mb-6">
-                  <span className="text-3xl sm:text-4xl font-bold text-blue-600">
-                    {product.price}
-                  </span>
-                  <span className="text-gray-500 ml-2">+ GST</span>
-                </div>
-
-                {/* Key Features */}
-                <div className="mb-6">
-                  <h3 className="font-bold text-gray-900 mb-3">Key Features:</h3>
-                  <ul className="space-y-2">
-                    {product.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-2 text-gray-700">
-                        <span className="text-blue-600 mt-1">✓</span>
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Quick Specs */}
-                <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
-                  <div>
-                    <div className="text-sm text-gray-600">Rating</div>
-                    <div className="font-bold text-gray-900">{product.rating}</div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-gray-600">Poles</div>
-                    <div className="font-bold text-gray-900">{product.poles}</div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-gray-600">Breaking Capacity</div>
-                    <div className="font-bold text-gray-900">{product.breakingCapacity}</div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-gray-600">Series</div>
-                    <div className="font-bold text-gray-900">{product.series}</div>
+                  <h3 className="font-bold text-gray-900 mb-3">Quantity</h3>
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center border-2 border-gray-200 rounded-lg overflow-hidden">
+                      <button onClick={() => handleQuantityChange(-1)} className="px-4 py-2 bg-gray-50 hover:bg-gray-100 font-bold text-gray-700">−</button>
+                      <input
+                        type="number"
+                        value={quantity}
+                        onChange={e => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                        className="w-16 text-center font-semibold border-x-2 border-gray-200 py-2 focus:outline-none"
+                        min="1"
+                      />
+                      <button onClick={() => handleQuantityChange(1)} className="px-4 py-2 bg-gray-50 hover:bg-gray-100 font-bold text-gray-700">+</button>
+                    </div>
                   </div>
                 </div>
 
-                {/* CTA Buttons */}
+                {/* CTA */}
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Link
                     to="/contact"
-                    className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all text-center"
+                    className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-4 rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 transition-all text-center shadow-lg hover:shadow-xl transform hover:scale-105"
                   >
                     Request Quote
                   </Link>
-                  <button
-                    onClick={() => navigate('/contact')}
-                    className="flex-1 bg-white text-blue-600 border-2 border-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-all"
+                  <a
+                    href={(() => {
+                      const variant = selectedVariant
+                        ? `${selectedVariant.capacity} (${selectedVariant.poles})`
+                        : 'Not selected';
+                      const msg = `Hello GK2,\n\nI'm interested in the following product:\n\n*Product:* ${product.name}\n*Series:* ${product.series || 'N/A'}\n*Rating:* ${variant}\n*Quantity:* ${quantity}\n\nPlease share availability and pricing details.\n\nThank you.`;
+                      return `https://wa.me/919876543210?text=${encodeURIComponent(msg)}`;
+                    })()}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bc5a] text-white px-6 py-4 rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
                   >
-                    Contact Us
-                  </button>
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 flex-shrink-0">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L.057 23.882a.5.5 0 0 0 .61.61l6.086-1.461A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.006-1.371l-.36-.214-3.724.894.924-3.638-.235-.374A9.818 9.818 0 1 1 12 21.818z"/>
+                    </svg>
+                    WhatsApp
+                  </a>
+                </div>
+
+                {/* Trust Badges */}
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <div className="grid grid-cols-3 gap-4 text-center">
+                    <div><div className="text-2xl mb-1">✓</div><div className="text-xs text-gray-600">Genuine Product</div></div>
+                    <div><div className="text-2xl mb-1">🚚</div><div className="text-xs text-gray-600">Fast Delivery</div></div>
+                    <div><div className="text-2xl mb-1">🔒</div><div className="text-xs text-gray-600">Secure Payment</div></div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Technical Specifications */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6 sm:p-8 mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Technical Specifications</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {Object.entries(product.specifications).map(([key, value]) => (
-                <div key={key} className="flex justify-between items-center py-3 border-b border-gray-200">
-                  <span className="text-gray-600 capitalize">
-                    {key.replace(/([A-Z])/g, ' $1').trim()}
-                  </span>
-                  <span className="font-semibold text-gray-900">{value}</span>
-                </div>
-              ))}
+          {/* Features */}
+          {product.features && product.features.length > 0 && (
+            <div className="bg-white rounded-2xl border-2 border-gray-200 p-6 sm:p-8 mb-12 shadow-sm">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <span className="text-blue-600">⚡</span> Features
+              </h2>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {product.features.map((feature, i) => (
+                  <li key={i} className="flex items-start gap-2 text-gray-700">
+                    <span className="text-blue-600 mt-0.5 font-bold">✓</span>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
+          )}
+
+          {/* Technical Specifications */}
+          {product.specifications && (
+            <div className="bg-white rounded-2xl border-2 border-gray-200 p-6 sm:p-8 mb-12 shadow-sm">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <span className="text-blue-600">📋</span> Technical Specifications
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                {Object.entries(product.specifications).map(([key, value]) => (
+                  <div key={key} className="flex justify-between items-center py-3 border-b border-gray-200">
+                    <span className="text-gray-600 font-medium capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
+                    <span className="font-semibold text-gray-900">{value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Related Products */}
           {relatedProducts.length > 0 && (
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">You May Also Like</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <span className="text-blue-600">🔗</span> You May Also Like
+              </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {relatedProducts.map((relatedProduct) => (
+                {relatedProducts.map(related => (
                   <Link
-                    key={relatedProduct.id}
-                    to={`/products/${relatedProduct.id}`}
-                    className="group bg-white rounded-xl border border-gray-200 hover:border-blue-400 transition-all duration-300 hover:shadow-xl overflow-hidden"
+                    key={related.id}
+                    to={`/products/${related.id}`}
+                    className="group bg-white rounded-xl border-2 border-gray-200 hover:border-blue-400 transition-all duration-300 hover:shadow-xl overflow-hidden transform hover:scale-105"
                   >
-                    <div className="relative bg-gray-50 aspect-square flex items-center justify-center p-6">
+                    <div className="bg-gradient-to-br from-gray-50 to-blue-50 aspect-square flex items-center justify-center p-6">
                       <ImageWithFallback
-                        src={relatedProduct.image}
-                        alt={relatedProduct.name}
+                        src={related.image}
+                        alt={related.name}
                         className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
                       />
                     </div>
                     <div className="p-4">
-                      <h3 className="font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
-                        {relatedProduct.name}
-                      </h3>
-                      <div className="flex items-center justify-between">
-                        <span className="text-lg font-bold text-blue-600">
-                          {relatedProduct.price}
-                        </span>
-                        <span className="text-sm text-blue-600 font-medium">
-                          View →
-                        </span>
+                      <h3 className="font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">{related.name}</h3>
+                      <div className="flex items-center justify-end">
+                        <span className="text-sm text-blue-600 font-medium group-hover:translate-x-1 transition-transform">View →</span>
                       </div>
                     </div>
                   </Link>

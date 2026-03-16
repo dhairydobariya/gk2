@@ -1,54 +1,100 @@
 {
   "banners": [
     {
-      "id": "banner-001",
-      "title": "Premium Electrical Protection Solutions",
-      "subtitle": "Powering Safety Through Innovation",
-      "description": "Leading manufacturer of Miniature Circuit Breakers (MCBs) and electrical switchgear products",
-      "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1920&q=80",
+      "id": "banner-home-001",
+      "title": "Powering Safety Across India",
+      "subtitle": "Premium MCB Manufacturer",
+      "image": "/banners/banner-1.png",
       "buttonText": "Explore Products",
       "buttonLink": "/products",
       "isActive": true,
       "order": 1,
-      "showOn": [
-        "home",
-        "products"
-      ],
+      "showOn": ["home"],
+      "backgroundColor": "from-blue-950/80 via-blue-900/70 to-blue-950/90"
+    },
+    {
+      "id": "banner-home-002",
+      "title": "10KA Breaking Capacity",
+      "subtitle": "Superior Protection for Every Application",
+      "image": "/banners/banner-2.png",
+      "buttonText": "View Products",
+      "buttonLink": "/products",
+      "isActive": true,
+      "order": 2,
+      "showOn": ["home"],
+      "backgroundColor": "from-gray-950/80 via-blue-950/70 to-gray-950/90"
+    },
+    {
+      "id": "banner-home-003",
+      "title": "IEC 60898-1 Certified",
+      "subtitle": "International Quality Standards",
+      "image": "/banners/banner-3.png",
+      "buttonText": "About Us",
+      "buttonLink": "/about",
+      "isActive": true,
+      "order": 3,
+      "showOn": ["home"],
+      "backgroundColor": "from-blue-950/80 via-indigo-950/70 to-blue-950/90"
+    },
+    {
+      "id": "banner-home-004",
+      "title": "Trusted by 50+ Partners",
+      "subtitle": "Nationwide Distribution Network",
+      "image": "/banners/banner-4.png",
+      "buttonText": "Find Distributors",
+      "buttonLink": "/distributors",
+      "isActive": true,
+      "order": 4,
+      "showOn": ["home"],
+      "backgroundColor": "from-gray-950/80 via-blue-950/70 to-gray-950/90"
+    },
+    {
+      "id": "banner-products-001",
+      "title": "Our Product Range",
+      "subtitle": "Quality MCBs for Every Need",
+      "image": "",
+      "buttonText": "Browse Catalog",
+      "buttonLink": "/products",
+      "isActive": true,
+      "order": 1,
+      "showOn": ["products"],
       "backgroundColor": "from-blue-900 via-blue-800 to-blue-950"
     },
     {
-      "id": "banner-002",
-      "title": "New MCB Series Launch",
-      "subtitle": "10KA Breaking Capacity",
-      "description": "Discover our latest range of high-performance circuit breakers",
-      "image": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1920&q=80",
-      "buttonText": "View Details",
-      "buttonLink": "/products/sdp-c-32a",
-      "isActive": true,
-      "order": 2,
-      "showOn": [
-        "home"
-      ],
-      "backgroundColor": "from-gray-900 via-blue-900 to-gray-900"
-    },
-    {
-      "title": "MADE YOUR BRAND WITH US",
-      "subtitle": "WE ARE TOP MANUFACUTRING IN OUR COUNTRY",
-      "description": "HEY GUYS",
-      "image": "/uploads/1772995779390-mczt3rb4wngg1tnbljgs.jpg",
-      "buttonText": "Explore Products",
-      "buttonLink": "/products",
+      "id": "banner-about-001",
+      "title": "About GK2",
+      "subtitle": "Years of Excellence",
+      "image": "",
+      "buttonText": "Learn More",
+      "buttonLink": "/about",
       "isActive": true,
       "order": 1,
-      "showOn": [
-        "home",
-        "products",
-        "about",
-        "distributors",
-        "contact"
-      ],
-      "backgroundColor": "from-gray-900 via-blue-900 to-gray-900",
-      "id": "banner-1772995779399"
+      "showOn": ["about"],
+      "backgroundColor": "from-blue-900 via-blue-800 to-blue-950"
+    },
+    {
+      "id": "banner-distributors-001",
+      "title": "Find Authorized Distributors",
+      "subtitle": "Nationwide Network",
+      "image": "",
+      "buttonText": "View Distributors",
+      "buttonLink": "/distributors",
+      "isActive": true,
+      "order": 1,
+      "showOn": ["distributors"],
+      "backgroundColor": "from-blue-900 via-blue-800 to-blue-950"
+    },
+    {
+      "id": "banner-contact-001",
+      "title": "Get in Touch",
+      "subtitle": "We're Here to Help",
+      "image": "",
+      "buttonText": "Contact Us",
+      "buttonLink": "/contact",
+      "isActive": true,
+      "order": 1,
+      "showOn": ["contact"],
+      "backgroundColor": "from-blue-900 via-blue-800 to-blue-950"
     }
   ]
 }

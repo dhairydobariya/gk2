@@ -2,29 +2,27 @@ import { useState, useEffect } from 'react';
 import AdminLogin from '../components/AdminLogin';
 import AdminDashboard from '../components/AdminDashboard';
 
+const ADMIN_USERNAME = 'gk2';
+const ADMIN_PASSWORD = '123456';
+const SESSION_KEY = 'admin_authenticated';
+
 function Admin() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    () => sessionStorage.getItem(SESSION_KEY) === 'true'
+  );
 
-  useEffect(() => {
-    // Check if user is already logged in
-    const authStatus = sessionStorage.getItem('admin_authenticated');
-    if (authStatus === 'true') {
+  const handleLogin = async (username, password) => {
+    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+      sessionStorage.setItem(SESSION_KEY, 'true');
       setIsAuthenticated(true);
+      return { success: true };
     }
-  }, []);
-
-  const handleLogin = (username, password) => {
-    if (username === 'gk2' && password === '123456') {
-      setIsAuthenticated(true);
-      sessionStorage.setItem('admin_authenticated', 'true');
-      return true;
-    }
-    return false;
+    return { success: false, error: 'Invalid username or password' };
   };
 
   const handleLogout = () => {
+    sessionStorage.removeItem(SESSION_KEY);
     setIsAuthenticated(false);
-    sessionStorage.removeItem('admin_authenticated');
   };
 
   if (!isAuthenticated) {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getBanners, saveBanners } from '../../utils/dataManager';
+import { bannerAPI } from '../../utils/api';
 import { uploadImage, validateImageFile, deleteImage } from '../../utils/imageUpload';
 import Toast from '../Toast';
 import AdminSearchBar from './AdminSearchBar';
@@ -19,42 +19,28 @@ function BannerManagement() {
     title: '',
     subtitle: '',
     description: '',
-    image: '',
+    imageUrl: '',
     buttonText: 'Explore Products',
     buttonLink: '/products',
     isActive: true,
-    order: 1,
-    showOn: ['home'],
-    backgroundColor: 'from-blue-900 via-blue-800 to-blue-950'
+    order: 1
   });
-
-  const pageOptions = ['home', 'products', 'about', 'distributors', 'contact'];
-  const bgColorOptions = [
-    { label: 'Blue Gradient', value: 'from-blue-900 via-blue-800 to-blue-950' },
-    { label: 'Dark Blue', value: 'from-gray-900 via-blue-900 to-gray-900' },
-    { label: 'Purple Gradient', value: 'from-purple-900 via-purple-800 to-purple-950' },
-    { label: 'Green Gradient', value: 'from-green-900 via-green-800 to-green-950' },
-    { label: 'Red Gradient', value: 'from-red-900 via-red-800 to-red-950' }
-  ];
 
   // Load data on mount
   useEffect(() => {
     loadData();
-    
-    // Listen for data updates
-    const handleDataUpdate = (event) => {
-      if (event.detail.key === 'banners') {
-        loadData();
-      }
-    };
-    
-    window.addEventListener('dataUpdated', handleDataUpdate);
-    return () => window.removeEventListener('dataUpdated', handleDataUpdate);
   }, []);
 
   const loadData = async () => {
-    const bannersData = await getBanners();
-    setBanners(bannersData || []);
+    try {
+      const result = await bannerAPI.getAll();
+      if (result.success) {
+        setBanners(result.data || []);
+      }
+    } catch (error) {
+      console.error('Error loading banners:', error);
+      setToast({ message: 'Failed to load banners', type: 'error' });
+    }
   };
 
   // Use admin table hook
@@ -88,7 +74,7 @@ function BannerManagement() {
       let uploadedData = { ...formData };
       if (pendingFile) {
         const imageUrl = await uploadImage(pendingFile);
-        uploadedData.image = imageUrl;
+        uploadedData.imageUrl = imageUrl;
       }
       
       // Delete marked image after successful upload
@@ -96,26 +82,33 @@ function BannerManagement() {
         await deleteImage(imageToDelete);
       }
       
-      let updatedBanners;
+      const bannerData = {
+        title: uploadedData.title,
+        subtitle: uploadedData.subtitle,
+        description: uploadedData.description,
+        imageUrl: uploadedData.imageUrl || '',
+        buttonText: uploadedData.buttonText,
+        buttonLink: uploadedData.buttonLink,
+        isActive: uploadedData.isActive,
+        order: parseInt(uploadedData.order)
+      };
       
+      let result;
       if (editingId) {
-        updatedBanners = banners.map(b => 
-          b.id === editingId ? { ...uploadedData, id: editingId } : b
-        );
-        setEditingId(null);
+        result = await bannerAPI.update(editingId, bannerData);
       } else {
-        const newBanner = {
-          ...uploadedData,
-          id: `banner-${Date.now()}`
-        };
-        updatedBanners = [...banners, newBanner];
+        result = await bannerAPI.create(bannerData);
       }
       
-      setBanners(updatedBanners);
-      await saveBanners(updatedBanners);
-      setToast({ message: 'Banner saved successfully!', type: 'success' });
-      resetForm();
+      if (result.success) {
+        setToast({ message: editingId ? 'Banner updated successfully!' : 'Banner created successfully!', type: 'success' });
+        await loadData();
+        resetForm();
+      } else {
+        setToast({ message: result.message || 'Failed to save banner', type: 'error' });
+      }
     } catch (error) {
+      console.error('Error saving banner:', error);
       setToast({ message: `Failed to save: ${error.message}`, type: 'error' });
     } finally {
       setUploading(false);
@@ -127,13 +120,11 @@ function BannerManagement() {
       title: '',
       subtitle: '',
       description: '',
-      image: '',
+      imageUrl: '',
       buttonText: 'Explore Products',
       buttonLink: '/products',
       isActive: true,
-      order: 1,
-      showOn: ['home'],
-      backgroundColor: 'from-blue-900 via-blue-800 to-blue-950'
+      order: 1
     });
     setPendingFile(null);
     setOldImage('');
@@ -143,50 +134,57 @@ function BannerManagement() {
   };
 
   const handleEdit = (banner) => {
-    setFormData(banner);
-    setOldImage(banner.image);
+    setFormData({
+      title: banner.title,
+      subtitle: banner.subtitle || '',
+      description: banner.description || '',
+      imageUrl: banner.imageUrl || '',
+      buttonText: banner.buttonText || 'Explore Products',
+      buttonLink: banner.buttonLink || '/products',
+      isActive: banner.isActive !== undefined ? banner.isActive : true,
+      order: banner.order || 1
+    });
+    setOldImage(banner.imageUrl);
     setPendingFile(null);
     setImageToDelete('');
-    setEditingId(banner.id);
+    setEditingId(banner._id);
     setIsAdding(true);
   };
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this banner?')) {
-      const banner = banners.find(b => b.id === id);
-      
-      // Delete associated image
-      if (banner && banner.image && banner.image.startsWith('/uploads/')) {
-        await deleteImage(banner.image);
+      try {
+        const result = await bannerAPI.delete(id);
+        
+        if (result.success) {
+          setToast({ message: 'Banner deleted successfully!', type: 'success' });
+          await loadData();
+        } else {
+          setToast({ message: result.message || 'Failed to delete banner', type: 'error' });
+        }
+      } catch (error) {
+        console.error('Error deleting banner:', error);
+        setToast({ message: `Failed to delete: ${error.message}`, type: 'error' });
       }
-      
-      const updatedBanners = banners.filter(b => b.id !== id);
-      setBanners(updatedBanners);
-      await saveBanners(updatedBanners);
-      setToast({ message: 'Banner deleted successfully!', type: 'success' });
     }
   };
 
   const toggleActive = async (id) => {
-    const updatedBanners = banners.map(b => 
-      b.id === id ? { ...b, isActive: !b.isActive } : b
-    );
-    setBanners(updatedBanners);
-    await saveBanners(updatedBanners);
-  };
-
-  const handleShowOnChange = (page) => {
-    const currentShowOn = formData.showOn || [];
-    if (currentShowOn.includes(page)) {
-      setFormData({
-        ...formData,
-        showOn: currentShowOn.filter(p => p !== page)
+    try {
+      const banner = banners.find(b => b._id === id);
+      if (!banner) return;
+      
+      const result = await bannerAPI.update(id, {
+        ...banner,
+        isActive: !banner.isActive
       });
-    } else {
-      setFormData({
-        ...formData,
-        showOn: [...currentShowOn, page]
-      });
+      
+      if (result.success) {
+        await loadData();
+      }
+    } catch (error) {
+      console.error('Error toggling banner status:', error);
+      setToast({ message: 'Failed to update banner status', type: 'error' });
     }
   };
 
@@ -203,7 +201,7 @@ function BannerManagement() {
       
       // Create preview URL
       const previewUrl = URL.createObjectURL(file);
-      setFormData({ ...formData, image: previewUrl });
+      setFormData({ ...formData, imageUrl: previewUrl });
       
       setToast({ message: 'Image selected. Click Add/Update to save.', type: 'success' });
     } catch (error) {
@@ -222,7 +220,7 @@ function BannerManagement() {
     setPendingFile(null);
     
     // Reset to empty
-    setFormData({ ...formData, image: '' });
+    setFormData({ ...formData, imageUrl: '' });
     setToast({ message: 'Image will be removed when you save.', type: 'success' });
   };
 
@@ -255,7 +253,9 @@ function BannerManagement() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Title <span className="text-red-500">*</span>
+                </label>
                 <input
                   type="text"
                   value={formData.title}
@@ -293,9 +293,9 @@ function BannerManagement() {
               </label>
               
               <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-blue-400 transition-colors">
-                {formData.image ? (
+                {formData.imageUrl ? (
                   <div className="mb-3">
-                    <img src={formData.image} alt="Banner preview" className="w-full h-40 object-cover bg-gray-50 rounded" onError={(e) => {
+                    <img src={formData.imageUrl} alt="Banner preview" className="w-full h-40 object-cover bg-gray-50 rounded" onError={(e) => {
                       e.target.style.display = 'none';
                       e.target.nextSibling.style.display = 'flex';
                     }} />
@@ -342,8 +342,8 @@ function BannerManagement() {
                   
                   <input
                     type="text"
-                    value={formData.image}
-                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                    value={formData.imageUrl}
+                    onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="https://example.com/image.jpg or /images/banner.jpg"
                   />
@@ -384,47 +384,15 @@ function BannerManagement() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Background Color</label>
-                <select
-                  value={formData.backgroundColor}
-                  onChange={(e) => setFormData({ ...formData, backgroundColor: e.target.value })}
-                  className="w-full px-4 py-2 border rounded-lg"
-                >
-                  {bgColorOptions.map(option => (
-                    <option key={option.value} value={option.value}>{option.label}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Display Order</label>
-                <input
-                  type="number"
-                  value={formData.order}
-                  onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) })}
-                  className="w-full px-4 py-2 border rounded-lg"
-                  min="1"
-                />
-              </div>
-            </div>
-
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Show On Pages</label>
-              <div className="flex flex-wrap gap-3">
-                {pageOptions.map(page => (
-                  <label key={page} className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={formData.showOn.includes(page)}
-                      onChange={() => handleShowOnChange(page)}
-                      className="w-4 h-4"
-                    />
-                    <span className="text-sm capitalize">{page}</span>
-                  </label>
-                ))}
-              </div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Display Order</label>
+              <input
+                type="number"
+                value={formData.order}
+                onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) })}
+                className="w-full px-4 py-2 border rounded-lg"
+                min="1"
+              />
             </div>
 
             <div className="flex items-center gap-2">
@@ -438,10 +406,19 @@ function BannerManagement() {
             </div>
 
             <div className="flex gap-3">
-              <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-                {editingId ? 'Update' : 'Add'} Banner
+              <button 
+                type="submit" 
+                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+                disabled={uploading}
+              >
+                {uploading ? 'Saving...' : (editingId ? 'Update' : 'Add')} Banner
               </button>
-              <button type="button" onClick={resetForm} className="bg-gray-200 px-6 py-2 rounded-lg hover:bg-gray-300">
+              <button 
+                type="button" 
+                onClick={resetForm} 
+                className="bg-gray-200 px-6 py-2 rounded-lg hover:bg-gray-300"
+                disabled={uploading}
+              >
                 Cancel
               </button>
             </div>
@@ -481,31 +458,21 @@ function BannerManagement() {
                   )}
                 </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Show On</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
               <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y">
             {currentData.map((banner) => (
-              <tr key={banner.id} className="hover:bg-gray-50">
+              <tr key={banner._id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 font-medium">{banner.order}</td>
                 <td className="px-6 py-4">
                   <div className="font-medium">{banner.title}</div>
                   <div className="text-sm text-gray-500">{banner.subtitle}</div>
                 </td>
                 <td className="px-6 py-4">
-                  <div className="flex flex-wrap gap-1">
-                    {banner.showOn.map(page => (
-                      <span key={page} className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded capitalize">
-                        {page}
-                      </span>
-                    ))}
-                  </div>
-                </td>
-                <td className="px-6 py-4">
                   <button
-                    onClick={() => toggleActive(banner.id)}
+                    onClick={() => toggleActive(banner._id)}
                     className={`px-3 py-1 rounded text-xs font-medium ${
                       banner.isActive 
                         ? 'bg-green-100 text-green-800' 
@@ -519,7 +486,7 @@ function BannerManagement() {
                   <button onClick={() => handleEdit(banner)} className="text-blue-600 hover:text-blue-800 mr-4">
                     Edit
                   </button>
-                  <button onClick={() => handleDelete(banner.id)} className="text-red-600 hover:text-red-800">
+                  <button onClick={() => handleDelete(banner._id)} className="text-red-600 hover:text-red-800">
                     Delete
                   </button>
                 </td>

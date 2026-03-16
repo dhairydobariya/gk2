@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Integration Test - GelKrupa Electronics</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #2563eb;
+      border-bottom: 3px solid #2563eb;
+      padding-bottom: 10px;
+    }
+    h2 {
+      color: #1e40af;
+      margin-top: 30px;
+    }
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 5px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    button:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+    .result {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 15px;
+      margin: 10px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .success {
+      border-left: 4px solid #10b981;
+      background: #f0fdf4;
+    }
+    .error {
+      border-left: 4px solid #ef4444;
+      background: #fef2f2;
+    }
+    .info {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 6px;
+    }
+    .test-section {
+      margin: 20px 0;
+      padding: 20px;
+      background: #fafafa;
+      border-radius: 6px;
+    }
+    .status {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+    .status.success {
+      background: #10b981;
+      color: white;
+    }
+    .status.error {
+      background: #ef4444;
+      color: white;
+    }
+    .status.pending {
+      background: #f59e0b;
+      color: white;
+    }
+    input {
+      padding: 8px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      margin: 5px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔌 GelKrupa Electronics - API Integration Test</h1>
+    
+    <div class="info">
+      <strong>📋 Instructions:</strong>
+      <ol>
+        <li>Make sure backend is running at <code>http://localhost:5000</code></li>
+        <li>Make sure MongoDB is running at <code>127.0.0.1:27017</code></li>
+        <li>Click the test buttons below to verify API integration</li>
+      </ol>
+    </div>
+
+    <!-- Authentication Tests -->
+    <div class="test-section">
+      <h2>🔐 Authentication Tests</h2>
+      
+      <div>
+        <input type="text" id="username" placeholder="Username" value="gk2">
+        <input type="password" id="password" placeholder="Password" value="123456">
+        <button onclick="testLogin()">Test Login</button>
+        <button onclick="testVerify()" id="verifyBtn" disabled>Test Verify Token</button>
+      </div>
+      
+      <div id="authResult"></div>
+    </div>
+
+    <!-- Category Tests -->
+    <div class="test-section">
+      <h2>📁 Category Tests</h2>
+      
+      <button onclick="testGetCategories()">Get All Categories</button>
+      <button onclick="testCreateCategory()">Create Test Category</button>
+      
+      <div id="categoryResult"></div>
+    </div>
+
+    <!-- Product Tests -->
+    <div class="test-section">
+      <h2>📦 Product Tests</h2>
+      
+      <button onclick="testGetProducts()">Get All Products</button>
+      <button onclick="testCreateProduct()">Create Test Product</button>
+      
+      <div id="productResult"></div>
+    </div>
+
+    <!-- Banner Tests -->
+    <div class="test-section">
+      <h2>🎨 Banner Tests</h2>
+      
+      <button onclick="testGetBanners()">Get All Banners</button>
+      <button onclick="testGetBannersByPage()">Get Home Banners</button>
+      
+      <div id="bannerResult"></div>
+    </div>
+
+    <!-- Distributor Tests -->
+    <div class="test-section">
+      <h2>🏢 Distributor Tests</h2>
+      
+      <button onclick="testGetDistributors()">Get All Distributors</button>
+      <button onclick="testGetDistributorsByCity()">Get Mumbai Distributors</button>
+      
+      <div id="distributorResult"></div>
+    </div>
+
+    <!-- Connection Test -->
+    <div class="test-section">
+      <h2>🌐 Connection Test</h2>
+      
+      <button onclick="testConnection()">Test Backend Connection</button>
+      
+      <div id="connectionResult"></div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE_URL = 'http://localhost:5000/api/v1';
+    let authToken = null;
+
+    function displayResult(elementId, data, isSuccess = true) {
+      const element = document.getElementById(elementId);
+      const resultClass = isSuccess ? 'success' : 'error';
+      element.innerHTML = `<div class="result ${resultClass}">${JSON.stringify(data, null, 2)}</div>`;
+    }
+
+    async function apiRequest(endpoint, options = {}) {
+      try {
+        const headers = {
+          'Content-Type': 'application/json',
+          ...options.headers
+        };
+
+        if (authToken) {
+          headers['Authorization'] = `Bearer ${authToken}`;
+        }
+
+        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+          ...options,
+          headers
+        });
+
+        const data = await response.json();
+        return { success: response.ok, data };
+      } catch (error) {
+        return { success: false, error: error.message };
+      }
+    }
+
+    // Authentication Tests
+    async function testLogin() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      const result = await apiRequest('/Auth/Login', {
+        method: 'POST',
+        body: JSON.stringify({ username, password })
+      });
+
+      if (result.success && result.data.status === 1) {
+        authToken = result.data.data.token;
+        document.getElementById('verifyBtn').disabled = false;
+        displayResult('authResult', {
+          message: 'Login successful!',
+          token: authToken.substring(0, 20) + '...',
+          fullResponse: result.data
+        }, true);
+      } else {
+        displayResult('authResult', result, false);
+      }
+    }
+
+    async function testVerify() {
+      if (!authToken) {
+        displayResult('authResult', { error: 'Please login first' }, false);
+        return;
+      }
+
+      const result = await apiRequest('/Auth/Verify', {
+        method: 'POST'
+      });
+
+      displayResult('authResult', result, result.success);
+    }
+
+    // Category Tests
+    async function testGetCategories() {
+      const result = await apiRequest('/Category/GetAll');
+      displayResult('categoryResult', result, result.success);
+    }
+
+    async function testCreateCategory() {
+      if (!authToken) {
+        displayResult('categoryResult', { error: 'Please login first' }, false);
+        return;
+      }
+
+      const result = await apiRequest('/Category/Create', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: 'Test Category ' + Date.now(),
+          description: 'Test category created from API test'
+        })
+      });
+
+      displayResult('categoryResult', result, result.success);
+    }
+
+    // Product Tests
+    async function testGetProducts() {
+      const result = await apiRequest('/Product/GetAll');
+      displayResult('productResult', result, result.success);
+    }
+
+    async function testCreateProduct() {
+      if (!authToken) {
+        displayResult('productResult', { error: 'Please login first' }, false);
+        return;
+      }
+
+      displayResult('productResult', {
+        message: 'Product creation requires FormData with image upload.',
+        note: 'Use the admin panel to test product creation with images.'
+      }, true);
+    }
+
+    // Banner Tests
+    async function testGetBanners() {
+      const result = await apiRequest('/Banner/GetAll');
+      displayResult('bannerResult', result, result.success);
+    }
+
+    async function testGetBannersByPage() {
+      const result = await apiRequest('/Banner/GetByPage/home');
+      displayResult('bannerResult', result, result.success);
+    }
+
+    // Distributor Tests
+    async function testGetDistributors() {
+      const result = await apiRequest('/Distributor/GetAll');
+      displayResult('distributorResult', result, result.success);
+    }
+
+    async function testGetDistributorsByCity() {
+      const result = await apiRequest('/Distributor/GetByCity/Mumbai');
+      displayResult('distributorResult', result, result.success);
+    }
+
+    // Connection Test
+    async function testConnection() {
+      try {
+        const response = await fetch(`${API_BASE_URL.replace('/api/v1', '')}/swagger.json`);
+        const data = await response.json();
+        
+        displayResult('connectionResult', {
+          status: 'Connected ✅',
+          message: 'Backend is running and accessible',
+          swaggerVersion: data.info?.version || 'N/A',
+          apiTitle: data.info?.title || 'N/A'
+        }, true);
+      } catch (error) {
+        displayResult('connectionResult', {
+          status: 'Connection Failed ❌',
+          error: error.message,
+          message: 'Make sure backend is running at http://localhost:5000'
+        }, false);
+      }
+    }
+
+    // Auto-test connection on load
+    window.addEventListener('load', () => {
+      testConnection();
+    });
+  </script>
+</body>
+</html>

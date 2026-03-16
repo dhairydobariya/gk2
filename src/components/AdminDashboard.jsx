@@ -39,7 +39,7 @@ function AdminDashboard({ onLogout }) {
           
           {/* Simple footer line */}
           <div className="mt-8 pt-4 border-t border-gray-300 text-center text-sm text-gray-600">
-            <p>&copy; {new Date().getFullYear()} GK2 (GelKrupa Electronics). All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} GK2. All rights reserved.</p>
           </div>
         </div>
       </div>

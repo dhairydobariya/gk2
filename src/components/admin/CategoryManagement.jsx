@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { getCategories, saveCategories, getProducts, saveProducts } from '../../utils/dataManager';
+import { categoryAPI, productAPI } from '../../utils/api';
+import Toast from '../Toast';
 import AdminSearchBar from './AdminSearchBar';
 import AdminPagination from './AdminPagination';
 import useAdminTable from '../../hooks/useAdminTable';
@@ -9,8 +10,8 @@ function CategoryManagement() {
   const [products, setProducts] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState(null);
+  const [toast, setToast] = useState(null);
   const [formData, setFormData] = useState({
-    id: '',
     name: '',
     description: ''
   });
@@ -18,25 +19,26 @@ function CategoryManagement() {
   // Load data on mount
   useEffect(() => {
     loadData();
-    
-    // Listen for data updates from other components
-    const handleDataUpdate = (event) => {
-      if (event.detail.key === 'categories' || event.detail.key === 'products') {
-        loadData();
-      }
-    };
-    
-    window.addEventListener('dataUpdated', handleDataUpdate);
-    return () => window.removeEventListener('dataUpdated', handleDataUpdate);
   }, []);
 
   const loadData = async () => {
-    const [categoriesData, productsData] = await Promise.all([
-      getCategories(),
-      getProducts()
-    ]);
-    setCategories(categoriesData || []);
-    setProducts(productsData || []);
+    try {
+      const [categoriesResult, productsResult] = await Promise.all([
+        categoryAPI.getAll(),
+        productAPI.getAll()
+      ]);
+      
+      if (categoriesResult.success) {
+        setCategories(categoriesResult.data || []);
+      }
+      
+      if (productsResult.success) {
+        setProducts(productsResult.data || []);
+      }
+    } catch (error) {
+      console.error('Error loading data:', error);
+      setToast({ message: 'Failed to load data', type: 'error' });
+    }
   };
 
   // Use admin table hook
@@ -63,77 +65,97 @@ function CategoryManagement() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    let updatedCategories;
-    
-    if (editingId) {
-      // Update existing category
-      updatedCategories = categories.map(cat => 
-        cat.id === editingId ? { ...formData, id: editingId } : cat
-      );
-    } else {
-      // Add new category
-      const newCategory = {
-        ...formData,
-        id: formData.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+    try {
+      const categoryData = {
+        name: formData.name,
+        description: formData.description
       };
-      updatedCategories = [...categories, newCategory];
+      
+      let result;
+      if (editingId) {
+        result = await categoryAPI.update(editingId, categoryData);
+      } else {
+        result = await categoryAPI.create(categoryData);
+      }
+      
+      if (result.success) {
+        setToast({ message: editingId ? 'Category updated successfully!' : 'Category created successfully!', type: 'success' });
+        await loadData();
+        resetForm();
+      } else {
+        setToast({ message: result.message || 'Failed to save category', type: 'error' });
+      }
+    } catch (error) {
+      console.error('Error saving category:', error);
+      setToast({ message: `Failed to save: ${error.message}`, type: 'error' });
     }
-    
-    setCategories(updatedCategories);
-    await saveCategories(updatedCategories);
-    
-    setFormData({ id: '', name: '', description: '' });
+  };
+
+  const resetForm = () => {
+    setFormData({ name: '', description: '' });
     setIsAdding(false);
     setEditingId(null);
   };
 
   const handleEdit = (category) => {
-    setFormData(category);
-    setEditingId(category.id);
+    setFormData({
+      name: category.name,
+      description: category.description
+    });
+    setEditingId(category._id);
     setIsAdding(true);
   };
 
   const handleDelete = async (id) => {
     // Check if any products use this category
-    const productsInCategory = products.filter(p => p.category === id);
+    const productsInCategory = products.filter(p => p.categoryId === id);
     
     if (productsInCategory.length > 0) {
-      const confirmMsg = `This category has ${productsInCategory.length} product(s). These products will be moved to "Uncategorized". Continue?`;
-      if (!window.confirm(confirmMsg)) {
-        return;
-      }
-      
-      // Move products to uncategorized
-      const updatedProducts = products.map(p => 
-        p.category === id ? { ...p, category: 'uncategorized' } : p
-      );
-      setProducts(updatedProducts);
-      await saveProducts(updatedProducts);
-    } else {
-      if (!window.confirm('Are you sure you want to delete this category?')) {
-        return;
-      }
+      setToast({ 
+        message: `Cannot delete category with ${productsInCategory.length} product(s). Please reassign or delete products first.`, 
+        type: 'error' 
+      });
+      return;
     }
     
-    const updatedCategories = categories.filter(cat => cat.id !== id);
-    setCategories(updatedCategories);
-    await saveCategories(updatedCategories);
+    if (!window.confirm('Are you sure you want to delete this category?')) {
+      return;
+    }
+    
+    try {
+      const result = await categoryAPI.delete(id);
+      
+      if (result.success) {
+        setToast({ message: 'Category deleted successfully!', type: 'success' });
+        await loadData();
+      } else {
+        setToast({ message: result.message || 'Failed to delete category', type: 'error' });
+      }
+    } catch (error) {
+      console.error('Error deleting category:', error);
+      setToast({ message: `Failed to delete: ${error.message}`, type: 'error' });
+    }
   };
 
   const handleCancel = () => {
-    setFormData({ id: '', name: '', description: '' });
-    setIsAdding(false);
-    setEditingId(null);
+    resetForm();
   };
 
   // Count products per category
   const getProductCount = (categoryId) => {
     if (!Array.isArray(products)) return 0;
-    return products.filter(p => p.category === categoryId).length;
+    return products.filter(p => p.categoryId === categoryId).length;
   };
 
   return (
     <div>
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-gray-900">Category Management</h1>
         {!isAdding && (
@@ -154,7 +176,7 @@ function CategoryManagement() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Category Name
+                Category Name <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -167,7 +189,7 @@ function CategoryManagement() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Description
+                Description <span className="text-red-500">*</span>
               </label>
               <textarea
                 value={formData.description}
@@ -224,30 +246,13 @@ function CategoryManagement() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {/* Uncategorized (default) */}
-            <tr className="hover:bg-gray-50 bg-yellow-50">
-              <td className="px-6 py-4 font-medium text-gray-900">
-                Uncategorized
-                <span className="ml-2 text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Default</span>
-              </td>
-              <td className="px-6 py-4 text-gray-600">Products without a category</td>
-              <td className="px-6 py-4 text-center">
-                <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-                  {getProductCount('uncategorized')}
-                </span>
-              </td>
-              <td className="px-6 py-4 text-right text-gray-400">
-                Cannot delete
-              </td>
-            </tr>
-            
             {currentData.map((category) => (
-              <tr key={category.id} className="hover:bg-gray-50">
+              <tr key={category._id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 font-medium text-gray-900">{category.name}</td>
                 <td className="px-6 py-4 text-gray-600">{category.description}</td>
                 <td className="px-6 py-4 text-center">
                   <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-                    {getProductCount(category.id)}
+                    {getProductCount(category._id)}
                   </span>
                 </td>
                 <td className="px-6 py-4 text-right">
@@ -258,7 +263,7 @@ function CategoryManagement() {
                     Edit
                   </button>
                   <button
-                    onClick={() => handleDelete(category.id)}
+                    onClick={() => handleDelete(category._id)}
                     className="text-red-600 hover:text-red-800"
                   >
                     Delete

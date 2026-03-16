@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { getCategories, getProducts, saveProducts } from '../../utils/dataManager';
+import { productAPI, categoryAPI } from '../../utils/api';
 import { uploadImage, validateImageFile, deleteImage } from '../../utils/imageUpload';
 import Toast from '../Toast';
 import AdminSearchBar from './AdminSearchBar';
 import AdminPagination from './AdminPagination';
 import useAdminTable from '../../hooks/useAdminTable';
+import VariantManager from './VariantManager';
 
 function ProductManagement() {
   const [products, setProducts] = useState([]);
@@ -19,40 +20,37 @@ function ProductManagement() {
   const [imagesToDelete, setImagesToDelete] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
-    category: '',
-    rating: '',
-    poles: '',
-    breakingCapacity: '10KA',
-    series: 'C Series',
-    price: '',
-    image: '/placeholder.png',
+    description: '',
+    categoryId: '',
+    imageUrl: '/placeholder.png',
     image2: '/placeholder.png',
     image3: '/placeholder.png',
-    inStock: true
+    variants: [{ capacity: '', name: '', price: '', mrp: '', specifications: {} }]
   });
 
   // Load data on mount
   useEffect(() => {
     loadData();
-    
-    // Listen for data updates
-    const handleDataUpdate = (event) => {
-      if (event.detail.key === 'categories' || event.detail.key === 'products') {
-        loadData();
-      }
-    };
-    
-    window.addEventListener('dataUpdated', handleDataUpdate);
-    return () => window.removeEventListener('dataUpdated', handleDataUpdate);
   }, []);
 
   const loadData = async () => {
-    const [productsData, categoriesData] = await Promise.all([
-      getProducts(),
-      getCategories()
-    ]);
-    setProducts(productsData || []);
-    setCategories(categoriesData || []);
+    try {
+      const [productsResult, categoriesResult] = await Promise.all([
+        productAPI.getAll(),
+        categoryAPI.getAll()
+      ]);
+      
+      if (productsResult.success) {
+        setProducts(productsResult.data || []);
+      }
+      
+      if (categoriesResult.success) {
+        setCategories(categoriesResult.data || []);
+      }
+    } catch (error) {
+      console.error('Error loading data:', error);
+      setToast({ message: 'Failed to load data', type: 'error' });
+    }
   };
 
   // Use admin table hook
@@ -72,11 +70,11 @@ function ProductManagement() {
     handlePageChange,
     handleItemsPerPageChange
   } = useAdminTable(products, {
-    searchFields: ['name', 'rating', 'price'],
-    defaultSortField: 'id',
+    searchFields: ['name', 'description'],
+    defaultSortField: '_id',
     defaultSortOrder: 'desc',
     defaultItemsPerPage: 10,
-    filterField: 'category'
+    filterField: 'categoryId'
   });
 
   // Update selectedCategory when filter changes
@@ -86,6 +84,34 @@ function ProductManagement() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validation
+    if (!formData.categoryId) {
+      setToast({ message: 'Please select a category', type: 'error' });
+      return;
+    }
+    
+    if (!formData.variants || formData.variants.length === 0) {
+      setToast({ message: 'At least one variant is required', type: 'error' });
+      return;
+    }
+    
+    // Validate each variant
+    for (let i = 0; i < formData.variants.length; i++) {
+      const variant = formData.variants[i];
+      if (!variant.capacity || !variant.name || !variant.price) {
+        setToast({ message: `Variant ${i + 1}: Capacity, Name, and Price are required`, type: 'error' });
+        return;
+      }
+      if (parseFloat(variant.price) <= 0) {
+        setToast({ message: `Variant ${i + 1}: Price must be greater than 0`, type: 'error' });
+        return;
+      }
+      if (variant.mrp && parseFloat(variant.mrp) < parseFloat(variant.price)) {
+        setToast({ message: `Variant ${i + 1}: MRP must be greater than or equal to Price`, type: 'error' });
+        return;
+      }
+    }
     
     try {
       setUploading(true);
@@ -104,27 +130,39 @@ function ProductManagement() {
         await deleteImage(imageUrl);
       }
       
-      let updatedProducts;
+      // Prepare data for API
+      const productData = {
+        name: uploadedData.name,
+        description: uploadedData.description,
+        categoryId: uploadedData.categoryId,
+        imageUrl: uploadedData.imageUrl === '/placeholder.png' ? '' : uploadedData.imageUrl,
+        image2: uploadedData.image2 === '/placeholder.png' ? '' : uploadedData.image2,
+        image3: uploadedData.image3 === '/placeholder.png' ? '' : uploadedData.image3,
+        variants: uploadedData.variants.map(v => ({
+          capacity: v.capacity,
+          name: v.name,
+          price: parseFloat(v.price),
+          mrp: v.mrp ? parseFloat(v.mrp) : undefined,
+          specifications: v.specifications || {}
+        }))
+      };
       
+      let result;
       if (editingId) {
-        updatedProducts = products.map(p => 
-          p.id === editingId ? { ...uploadedData, id: editingId } : p
-        );
+        result = await productAPI.update(editingId, productData);
       } else {
-        const newProduct = {
-          ...uploadedData,
-          id: `${uploadedData.category}-${Date.now()}`,
-          features: [],
-          specifications: {}
-        };
-        updatedProducts = [...products, newProduct];
+        result = await productAPI.create(productData);
       }
       
-      setProducts(updatedProducts);
-      await saveProducts(updatedProducts);
-      setToast({ message: 'Product saved successfully!', type: 'success' });
-      resetForm();
+      if (result.success) {
+        setToast({ message: editingId ? 'Product updated successfully!' : 'Product created successfully!', type: 'success' });
+        await loadData();
+        resetForm();
+      } else {
+        setToast({ message: result.message || 'Failed to save product', type: 'error' });
+      }
     } catch (error) {
+      console.error('Error saving product:', error);
       setToast({ message: `Failed to save: ${error.message}`, type: 'error' });
     } finally {
       setUploading(false);
@@ -134,16 +172,12 @@ function ProductManagement() {
   const resetForm = () => {
     setFormData({
       name: '',
-      category: '',
-      rating: '',
-      poles: '',
-      breakingCapacity: '10KA',
-      series: 'C Series',
-      price: '',
-      image: '/placeholder.png',
+      description: '',
+      categoryId: '',
+      imageUrl: '/placeholder.png',
       image2: '/placeholder.png',
       image3: '/placeholder.png',
-      inStock: true
+      variants: [{ capacity: '', name: '', price: '', mrp: '', specifications: {} }]
     });
     setPendingFiles({});
     setOldImages({});
@@ -153,36 +187,43 @@ function ProductManagement() {
   };
 
   const handleEdit = (product) => {
-    setFormData(product);
+    setFormData({
+      name: product.name,
+      description: product.description,
+      categoryId: product.categoryId,
+      imageUrl: product.imageUrl || '/placeholder.png',
+      image2: product.image2 || '/placeholder.png',
+      image3: product.image3 || '/placeholder.png',
+      variants: product.variants && product.variants.length > 0 
+        ? product.variants 
+        : [{ capacity: '', name: '', price: '', mrp: '', specifications: {} }]
+    });
     setOldImages({
-      image: product.image,
+      imageUrl: product.imageUrl,
       image2: product.image2,
       image3: product.image3
     });
     setPendingFiles({});
     setImagesToDelete([]);
-    setEditingId(product.id);
+    setEditingId(product._id);
     setIsAdding(true);
   };
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
-      const product = products.find(p => p.id === id);
-      
-      // Delete associated images
-      if (product) {
-        const imageFields = ['image', 'image2', 'image3'];
-        for (const field of imageFields) {
-          if (product[field] && product[field].startsWith('/uploads/')) {
-            await deleteImage(product[field]);
-          }
+      try {
+        const result = await productAPI.delete(id);
+        
+        if (result.success) {
+          setToast({ message: 'Product deleted successfully!', type: 'success' });
+          await loadData();
+        } else {
+          setToast({ message: result.message || 'Failed to delete product', type: 'error' });
         }
+      } catch (error) {
+        console.error('Error deleting product:', error);
+        setToast({ message: `Failed to delete: ${error.message}`, type: 'error' });
       }
-      
-      const updatedProducts = products.filter(p => p.id !== id);
-      setProducts(updatedProducts);
-      await saveProducts(updatedProducts);
-      setToast({ message: 'Product deleted successfully!', type: 'success' });
     }
   };
 
@@ -224,6 +265,22 @@ function ProductManagement() {
     setToast({ message: 'Image will be removed when you save.', type: 'success' });
   };
 
+  // Get category name by ID
+  const getCategoryName = (categoryId) => {
+    const category = categories.find(c => c._id === categoryId);
+    return category ? category.name : 'Unknown';
+  };
+
+  // Get price range from variants
+  const getPriceRange = (variants) => {
+    if (!variants || variants.length === 0) return 'N/A';
+    const prices = variants.map(v => v.price).filter(p => p);
+    if (prices.length === 0) return 'N/A';
+    const min = Math.min(...prices);
+    const max = Math.max(...prices);
+    return min === max ? `₹${min}` : `₹${min} - ₹${max}`;
+  };
+
   return (
     <div>
       {toast && (
@@ -250,99 +307,70 @@ function ProductManagement() {
           <h2 className="text-xl font-bold mb-4">
             {editingId ? 'Edit Product' : 'Add New Product'}
           </h2>
-          <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Product Name <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Category <span className="text-red-500">*</span>
+                </label>
+                <select
+                  value={formData.categoryId}
+                  onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
+                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                  required
+                >
+                  <option value="">Select Category</option>
+                  {categories.map(cat => (
+                    <option key={cat._id} value={cat._id}>{cat.name}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Product Name</label>
-              <input
-                type="text"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Description <span className="text-red-500">*</span>
+              </label>
+              <textarea
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                rows="3"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
-              <select
-                value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                required
-              >
-                <option value="">Select Category</option>
-                <option value="uncategorized">Uncategorized</option>
-                {categories.map(cat => (
-                  <option key={cat.id} value={cat.id}>{cat.name}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Rating</label>
-              <input
-                type="text"
-                value={formData.rating}
-                onChange={(e) => setFormData({ ...formData, rating: e.target.value })}
-                className="w-full px-4 py-2 border rounded-lg"
-                placeholder="e.g., 6A"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Poles</label>
-              <input
-                type="text"
-                value={formData.poles}
-                onChange={(e) => setFormData({ ...formData, poles: e.target.value })}
-                className="w-full px-4 py-2 border rounded-lg"
-                placeholder="e.g., 1P, 2P"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Price</label>
-              <input
-                type="text"
-                value={formData.price}
-                onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                className="w-full px-4 py-2 border rounded-lg"
-                placeholder="e.g., ₹245"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Breaking Capacity</label>
-              <input
-                type="text"
-                value={formData.breakingCapacity}
-                onChange={(e) => setFormData({ ...formData, breakingCapacity: e.target.value })}
-                className="w-full px-4 py-2 border rounded-lg"
-                placeholder="e.g., 10KA"
-              />
-            </div>
-
-            <div className="col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-3">
                 Product Images
               </label>
               <div className="grid grid-cols-3 gap-4">
-                {/* Image 1 */}
+                {/* Image URL */}
                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-blue-400 transition-colors">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-sm font-medium text-gray-700">Main Image</span>
                     <span className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded">Required</span>
                   </div>
                   
-                  {formData.image && formData.image !== '/placeholder.png' ? (
+                  {formData.imageUrl && formData.imageUrl !== '/placeholder.png' ? (
                     <div className="mb-3">
-                      <img src={formData.image} alt="Preview" className="w-full h-32 object-contain bg-gray-50 rounded" onError={(e) => e.target.src = '/placeholder.png'} />
+                      <img src={formData.imageUrl} alt="Preview" className="w-full h-32 object-contain bg-gray-50 rounded" onError={(e) => e.target.src = '/placeholder.png'} />
                       <button
                         type="button"
-                        onClick={() => handleImageRemove('image')}
+                        onClick={() => handleImageRemove('imageUrl')}
                         className="mt-2 w-full text-xs text-red-600 hover:text-red-800"
                       >
                         Remove Image
@@ -360,7 +388,7 @@ function ProductManagement() {
                       <input
                         type="file"
                         accept="image/*"
-                        onChange={(e) => handleImageUpload(e, 'image')}
+                        onChange={(e) => handleImageUpload(e, 'imageUrl')}
                         className="block w-full text-xs text-gray-500 file:mr-3 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:cursor-pointer"
                         disabled={uploading}
                       />
@@ -375,8 +403,8 @@ function ProductManagement() {
                     </div>
                     <input
                       type="text"
-                      value={formData.image === '/placeholder.png' ? '' : formData.image}
-                      onChange={(e) => setFormData({ ...formData, image: e.target.value || '/placeholder.png' })}
+                      value={formData.imageUrl === '/placeholder.png' ? '' : formData.imageUrl}
+                      onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value || '/placeholder.png' })}
                       className="w-full px-3 py-2 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       placeholder="Enter image URL"
                     />
@@ -500,21 +528,25 @@ function ProductManagement() {
               )}
             </div>
 
-            <div className="col-span-2 flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={formData.inStock}
-                onChange={(e) => setFormData({ ...formData, inStock: e.target.checked })}
-                className="w-4 h-4"
-              />
-              <label className="text-sm font-medium text-gray-700">In Stock</label>
-            </div>
+            <VariantManager
+              variants={formData.variants}
+              onChange={(newVariants) => setFormData({ ...formData, variants: newVariants })}
+            />
 
-            <div className="col-span-2 flex gap-3">
-              <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-                {editingId ? 'Update' : 'Add'} Product
+            <div className="flex gap-3 pt-4">
+              <button 
+                type="submit" 
+                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+                disabled={uploading}
+              >
+                {uploading ? 'Saving...' : (editingId ? 'Update' : 'Add')} Product
               </button>
-              <button type="button" onClick={resetForm} className="bg-gray-200 px-6 py-2 rounded-lg hover:bg-gray-300">
+              <button 
+                type="button" 
+                onClick={resetForm} 
+                className="bg-gray-200 px-6 py-2 rounded-lg hover:bg-gray-300"
+                disabled={uploading}
+              >
                 Cancel
               </button>
             </div>
@@ -528,10 +560,7 @@ function ProductManagement() {
         placeholder="Search products..."
         filterValue={filterValue}
         onFilterChange={handleFilterChange}
-        filterOptions={[
-          { value: 'uncategorized', label: 'Uncategorized' },
-          ...categories.map(cat => ({ value: cat.id, label: cat.name }))
-        ]}
+        filterOptions={categories.map(cat => ({ value: cat._id, label: cat.name }))}
         filterLabel="All Categories"
         showFilter={true}
       />
@@ -548,49 +577,39 @@ function ProductManagement() {
                   )}
                 </div>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer hover:bg-gray-100" onClick={() => handleSort('rating')}>
-                <div className="flex items-center gap-1">
-                  Rating
-                  {sortField === 'rating' && (
-                    <span>{sortOrder === 'asc' ? '↑' : '↓'}</span>
-                  )}
-                </div>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                Category
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer hover:bg-gray-100" onClick={() => handleSort('price')}>
-                <div className="flex items-center gap-1">
-                  Price
-                  {sortField === 'price' && (
-                    <span>{sortOrder === 'asc' ? '↑' : '↓'}</span>
-                  )}
-                </div>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                Variants
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer hover:bg-gray-100" onClick={() => handleSort('inStock')}>
-                <div className="flex items-center gap-1">
-                  Stock
-                  {sortField === 'inStock' && (
-                    <span>{sortOrder === 'asc' ? '↑' : '↓'}</span>
-                  )}
-                </div>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                Price Range
               </th>
               <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y">
             {currentData.map((product) => (
-              <tr key={product.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4 font-medium">{product.name}</td>
-                <td className="px-6 py-4">{product.rating}</td>
-                <td className="px-6 py-4">{product.price}</td>
+              <tr key={product._id} className="hover:bg-gray-50">
                 <td className="px-6 py-4">
-                  <span className={`px-2 py-1 rounded text-xs ${product.inStock ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                    {product.inStock ? 'In Stock' : 'Out of Stock'}
-                  </span>
+                  <div className="font-medium">{product.name}</div>
+                  {product.variants && product.variants.length > 1 && (
+                    <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded mt-1 inline-block">
+                      {product.variants.length} variants
+                    </span>
+                  )}
                 </td>
+                <td className="px-6 py-4">{getCategoryName(product.categoryId)}</td>
+                <td className="px-6 py-4">
+                  {product.variants && product.variants[0] ? product.variants[0].capacity : 'N/A'}
+                </td>
+                <td className="px-6 py-4">{getPriceRange(product.variants)}</td>
                 <td className="px-6 py-4 text-right">
                   <button onClick={() => handleEdit(product)} className="text-blue-600 hover:text-blue-800 mr-4">
                     Edit
                   </button>
-                  <button onClick={() => handleDelete(product.id)} className="text-red-600 hover:text-red-800">
+                  <button onClick={() => handleDelete(product._id)} className="text-red-600 hover:text-red-800">
                     Delete
                   </button>
                 </td>

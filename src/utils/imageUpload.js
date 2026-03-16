@@ -1,6 +1,6 @@
 // Image Upload Utility
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
 
 /**
  * Upload a single image file
@@ -10,10 +10,16 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api'
 export async function uploadImage(file) {
   try {
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append('file', file);
+    formData.append('folder', 'products'); // Default folder
 
-    const response = await fetch(`${API_BASE_URL}/upload`, {
+    const token = localStorage.getItem('token');
+    
+    const response = await fetch(`${BACKEND_URL}/api/v1/Upload/AddFile`, {
       method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
       body: formData
     });
 
@@ -22,7 +28,11 @@ export async function uploadImage(file) {
     }
 
     const data = await response.json();
-    return data.url;
+    if (data.status === 1) {
+      return data.data; // Returns the file path
+    } else {
+      throw new Error(data.message || 'Upload failed');
+    }
   } catch (error) {
     console.error('Error uploading image:', error);
     throw error;
@@ -36,22 +46,8 @@ export async function uploadImage(file) {
  */
 export async function uploadMultipleImages(files) {
   try {
-    const formData = new FormData();
-    files.forEach(file => {
-      formData.append('images', file);
-    });
-
-    const response = await fetch(`${API_BASE_URL}/upload-multiple`, {
-      method: 'POST',
-      body: formData
-    });
-
-    if (!response.ok) {
-      throw new Error('Upload failed');
-    }
-
-    const data = await response.json();
-    return data.urls;
+    const uploadPromises = files.map(file => uploadImage(file));
+    return await Promise.all(uploadPromises);
   } catch (error) {
     console.error('Error uploading images:', error);
     throw error;
@@ -90,18 +86,29 @@ export function validateImageFile(file) {
  */
 export async function deleteImage(imageUrl) {
   try {
-    // Extract filename from URL
-    const filename = imageUrl.split('/').pop();
+    if (!imageUrl || !imageUrl.startsWith('/uploads/')) {
+      return false; // Not an uploaded file, skip deletion
+    }
+
+    const token = localStorage.getItem('token');
     
-    const response = await fetch(`${API_BASE_URL}/upload/${filename}`, {
-      method: 'DELETE'
+    const response = await fetch(`${BACKEND_URL}/api/v1/Upload/RemoveFile`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        file: [{ filePath: imageUrl }]
+      })
     });
 
     if (!response.ok) {
       throw new Error('Delete failed');
     }
 
-    return true;
+    const data = await response.json();
+    return data.status === 1;
   } catch (error) {
     console.error('Error deleting image:', error);
     return false;

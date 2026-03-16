@@ -59,8 +59,8 @@ function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <span className="font-medium">Email:</span>{' '}
-                <a href="mailto:info@gelkrupa.com" className="hover:text-white transition-colors">
-                  info@gelkrupa.com
+                <a href="mailto:info@gk2.com" className="hover:text-white transition-colors">
+                  info@gk2.com
                 </a>
               </li>
               <li>
@@ -88,7 +88,7 @@ function Footer() {
                 filter: 'brightness(0) invert(1)'
               }}
             />
-            <span>(GelKrupa Electronics). All rights reserved.</span>
+            <span>All rights reserved.</span>
           </p>
         </div>
       </div>
