@@ -49,8 +49,12 @@ function HeroSlider({ banners }) {
   const b = banners[current];
 
   return (
-    <section className="relative w-full overflow-hidden"
-      style={{ height: 'min(100vh, 680px)', minHeight: '480px' }}>
+    <section className="relative w-full overflow-hidden hero-slider-height">
+      <style>{`
+        .hero-slider-height { height: 52vw; min-height: 320px; max-height: 680px; }
+        @media (max-width: 640px) { .hero-slider-height { height: 70vw; min-height: 260px; max-height: 420px; } }
+        @keyframes progress-bar { from { width: 0%; } to { width: 100%; } }
+      `}</style>
 
       {/* Background slides */}
       {banners.map((banner, i) => (
@@ -134,9 +138,7 @@ function HeroSlider({ banners }) {
           style={{ animation: 'progress-bar 5.5s linear forwards' }} />
       </div>
 
-      <style>{`
-        @keyframes progress-bar { from { width: 0%; } to { width: 100%; } }
-      `}</style>
+
     </section>
   );
 }

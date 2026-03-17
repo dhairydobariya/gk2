@@ -257,7 +257,7 @@ function ProductDetail() {
                         ? `${selectedVariant.capacity} (${selectedVariant.poles})`
                         : 'Not selected';
                       const msg = `Hello GK2,\n\nI'm interested in the following product:\n\n*Product:* ${product.name}\n*Series:* ${product.series || 'N/A'}\n*Rating:* ${variant}\n*Quantity:* ${quantity}\n\nPlease share availability and pricing details.\n\nThank you.`;
-                      return `https://wa.me/919876543210?text=${encodeURIComponent(msg)}`;
+                      return `https://wa.me/919687084620?text=${encodeURIComponent(msg)}`;
                     })()}
                     target="_blank"
                     rel="noreferrer"
