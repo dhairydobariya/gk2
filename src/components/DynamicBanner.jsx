@@ -30,6 +30,7 @@ function HeroSlider({ banners }) {
   const [current, setCurrent] = useState(0);
   const [animating, setAnimating] = useState(false);
   const timerRef = useRef(null);
+  const touchStartX = useRef(null);
 
   const goTo = (index) => {
     if (animating || index === current) return;
@@ -46,10 +47,22 @@ function HeroSlider({ banners }) {
     return () => clearInterval(timerRef.current);
   }, [current, banners.length]);
 
+  const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
+    touchStartX.current = null;
+  };
+
   const b = banners[current];
 
   return (
-    <section className="relative w-full overflow-hidden hero-slider-height">
+    <section
+      className="relative w-full overflow-hidden hero-slider-height"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <style>{`
         .hero-slider-height { height: 52vw; min-height: 320px; max-height: 680px; }
         @media (max-width: 640px) { .hero-slider-height { height: 70vw; min-height: 260px; max-height: 420px; } }
@@ -114,14 +127,6 @@ function HeroSlider({ banners }) {
         <span className="mx-1">/</span>
         <span>{String(banners.length).padStart(2, '0')}</span>
       </div>
-
-      {/* Prev / Next arrows — smaller on mobile */}
-      <button onClick={prev}
-        className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-30 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-black/30 sm:bg-white/10 border border-white/20 hover:bg-white/25 backdrop-blur-sm flex items-center justify-center text-white text-lg sm:text-2xl transition-all duration-200"
-        aria-label="Previous slide">‹</button>
-      <button onClick={next}
-        className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-30 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-black/30 sm:bg-white/10 border border-white/20 hover:bg-white/25 backdrop-blur-sm flex items-center justify-center text-white text-lg sm:text-2xl transition-all duration-200"
-        aria-label="Next slide">›</button>
 
       {/* Dot indicators */}
       <div className="absolute bottom-5 sm:bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 sm:gap-3">

@@ -1,21 +1,20 @@
 {
   "categories": [
-    {
-      "id": "modular-mcb",
-      "name": "Modular Single & Double Pole MCB",
-      "description": "Compact modular design for space-saving installations"
-    },
-    {
-      "id": "tiny-mcb",
-      "name": "Tiny Single & Double Pole MCB",
-      "description": "Ultra-compact tiny MCB for space-constrained installations"
-    }
+    { "id": "mcb", "name": "MCB", "description": "Miniature Circuit Breakers — C Series, 10KA, IEC 60898-1 certified" },
+    { "id": "reverse-forward", "name": "Reverse Forward", "description": "Heavy duty reverse forward switches with CR sheet enclosure, phosphated & powder coated" },
+    { "id": "busbar", "name": "Busbar", "description": "Silver plated copper strip busbars, 63A to 630A, IP23 protection, flame proof insulation" },
+    { "id": "fuse", "name": "Fuse", "description": "HRC Fuse Base & Fuse Links, IS:13703 & IEC:269, 80KA breaking capacity, 500V AC" },
+    { "id": "switch-disconnector-fuse", "name": "Switch Disconnector Fuse", "description": "32A to 630A, IS/IEC:60947-3, quick make & break, fully insulated DMC body" },
+    { "id": "onload-changeover-switch", "name": "Onload Changeover Switch", "description": "63A to 1000A, quick make & break, compact model, open execution & sheet steel enclosure" },
+    { "id": "onload-isolator", "name": "Onload Isolator / Load Break Switch", "description": "63A to 1000A, IS/IEC:60947-3, 80KA breaking capacity, quick make & break, open execution & sheet steel enclosure" },
+    { "id": "offload-changeover-switch", "name": "Offload Changeover Switch", "description": "63A to 1000A, IS/IEC:60947-3, quick make & break, door interlock, CRC sheet enclosure" },
+    { "id": "main-switch-rewirable", "name": "Main Switch Rewirable", "description": "32A to 200A, IS/IEC:60947-3, quick make & break, door interlock, CRC sheet enclosure" }
   ],
   "products": [
     {
       "id": "modular-single-pole-mcb",
       "name": "Modular Single Pole MCB",
-      "category": "modular-mcb",
+      "category": "mcb",
       "breakingCapacity": "10KA",
       "series": "C Series",
       "image": "/products/product-1.jpeg",
@@ -31,96 +30,18 @@
         "IEC 60898-1 certified"
       ],
       "variants": [
-        {
-          "name": "6A",
-          "capacity": "6A",
-          "poles": "1P",
-          "specifications": {
-            "Rated Current": "6A",
-            "Rated Voltage": "230V AC",
-            "Frequency": "50Hz",
-            "Breaking Capacity": "10000A",
-            "Tripping Curve": "C",
-            "Poles": "1P",
-            "Standard": "IEC 60898-1"
-          }
-        },
-        {
-          "name": "10A",
-          "capacity": "10A",
-          "poles": "1P",
-          "specifications": {
-            "Rated Current": "10A",
-            "Rated Voltage": "230V AC",
-            "Frequency": "50Hz",
-            "Breaking Capacity": "10000A",
-            "Tripping Curve": "C",
-            "Poles": "1P",
-            "Standard": "IEC 60898-1"
-          }
-        },
-        {
-          "name": "16A",
-          "capacity": "16A",
-          "poles": "1P",
-          "specifications": {
-            "Rated Current": "16A",
-            "Rated Voltage": "230V AC",
-            "Frequency": "50Hz",
-            "Breaking Capacity": "10000A",
-            "Tripping Curve": "C",
-            "Poles": "1P",
-            "Standard": "IEC 60898-1"
-          }
-        },
-        {
-          "name": "20A",
-          "capacity": "20A",
-          "poles": "1P",
-          "specifications": {
-            "Rated Current": "20A",
-            "Rated Voltage": "230V AC",
-            "Frequency": "50Hz",
-            "Breaking Capacity": "10000A",
-            "Tripping Curve": "C",
-            "Poles": "1P",
-            "Standard": "IEC 60898-1"
-          }
-        },
-        {
-          "name": "25A",
-          "capacity": "25A",
-          "poles": "1P",
-          "specifications": {
-            "Rated Current": "25A",
-            "Rated Voltage": "230V AC",
-            "Frequency": "50Hz",
-            "Breaking Capacity": "10000A",
-            "Tripping Curve": "C",
-            "Poles": "1P",
-            "Standard": "IEC 60898-1"
-          }
-        },
-        {
-          "name": "32A",
-          "capacity": "32A",
-          "poles": "1P",
-          "specifications": {
-            "Rated Current": "32A",
-            "Rated Voltage": "230V AC",
-            "Frequency": "50Hz",
-            "Breaking Capacity": "10000A",
-            "Tripping Curve": "C",
-            "Poles": "1P",
-            "Standard": "IEC 60898-1"
-          }
-        }
+        { "name": "6A",  "capacity": "6A",  "poles": "1P", "specifications": { "Rated Current": "6A",  "Rated Voltage": "230V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "1P", "Standard": "IEC 60898-1" } },
+        { "name": "10A", "capacity": "10A", "poles": "1P", "specifications": { "Rated Current": "10A", "Rated Voltage": "230V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "1P", "Standard": "IEC 60898-1" } },
+        { "name": "16A", "capacity": "16A", "poles": "1P", "specifications": { "Rated Current": "16A", "Rated Voltage": "230V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "1P", "Standard": "IEC 60898-1" } },
+        { "name": "20A", "capacity": "20A", "poles": "1P", "specifications": { "Rated Current": "20A", "Rated Voltage": "230V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "1P", "Standard": "IEC 60898-1" } },
+        { "name": "25A", "capacity": "25A", "poles": "1P", "specifications": { "Rated Current": "25A", "Rated Voltage": "230V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "1P", "Standard": "IEC 60898-1" } },
+        { "name": "32A", "capacity": "32A", "poles": "1P", "specifications": { "Rated Current": "32A", "Rated Voltage": "230V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "1P", "Standard": "IEC 60898-1" } }
       ]
     },
     {
       "id": "modular-double-pole-mcb",
       "name": "Modular Double Pole MCB",
-      "category": "modular-mcb",
+      "category": "mcb",
       "breakingCapacity": "10KA",
       "series": "C Series",
       "image": "/products/product-3.jpeg",
@@ -136,96 +57,18 @@
         "IEC 60898-1 certified"
       ],
       "variants": [
-        {
-          "name": "6A",
-          "capacity": "6A",
-          "poles": "2P",
-          "specifications": {
-            "Rated Current": "6A",
-            "Rated Voltage": "230/400V AC",
-            "Frequency": "50Hz",
-            "Breaking Capacity": "10000A",
-            "Tripping Curve": "C",
-            "Poles": "2P",
-            "Standard": "IEC 60898-1"
-          }
-        },
-        {
-          "name": "10A",
-          "capacity": "10A",
-          "poles": "2P",
-          "specifications": {
-            "Rated Current": "10A",
-            "Rated Voltage": "230/400V AC",
-            "Frequency": "50Hz",
-            "Breaking Capacity": "10000A",
-            "Tripping Curve": "C",
-            "Poles": "2P",
-            "Standard": "IEC 60898-1"
-          }
-        },
-        {
-          "name": "16A",
-          "capacity": "16A",
-          "poles": "2P",
-          "specifications": {
-            "Rated Current": "16A",
-            "Rated Voltage": "230/400V AC",
-            "Frequency": "50Hz",
-            "Breaking Capacity": "10000A",
-            "Tripping Curve": "C",
-            "Poles": "2P",
-            "Standard": "IEC 60898-1"
-          }
-        },
-        {
-          "name": "20A",
-          "capacity": "20A",
-          "poles": "2P",
-          "specifications": {
-            "Rated Current": "20A",
-            "Rated Voltage": "230/400V AC",
-            "Frequency": "50Hz",
-            "Breaking Capacity": "10000A",
-            "Tripping Curve": "C",
-            "Poles": "2P",
-            "Standard": "IEC 60898-1"
-          }
-        },
-        {
-          "name": "25A",
-          "capacity": "25A",
-          "poles": "2P",
-          "specifications": {
-            "Rated Current": "25A",
-            "Rated Voltage": "230/400V AC",
-            "Frequency": "50Hz",
-            "Breaking Capacity": "10000A",
-            "Tripping Curve": "C",
-            "Poles": "2P",
-            "Standard": "IEC 60898-1"
-          }
-        },
-        {
-          "name": "32A",
-          "capacity": "32A",
-          "poles": "2P",
-          "specifications": {
-            "Rated Current": "32A",
-            "Rated Voltage": "230/400V AC",
-            "Frequency": "50Hz",
-            "Breaking Capacity": "10000A",
-            "Tripping Curve": "C",
-            "Poles": "2P",
-            "Standard": "IEC 60898-1"
-          }
-        }
+        { "name": "6A",  "capacity": "6A",  "poles": "2P", "specifications": { "Rated Current": "6A",  "Rated Voltage": "230/400V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "2P", "Standard": "IEC 60898-1" } },
+        { "name": "10A", "capacity": "10A", "poles": "2P", "specifications": { "Rated Current": "10A", "Rated Voltage": "230/400V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "2P", "Standard": "IEC 60898-1" } },
+        { "name": "16A", "capacity": "16A", "poles": "2P", "specifications": { "Rated Current": "16A", "Rated Voltage": "230/400V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "2P", "Standard": "IEC 60898-1" } },
+        { "name": "20A", "capacity": "20A", "poles": "2P", "specifications": { "Rated Current": "20A", "Rated Voltage": "230/400V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "2P", "Standard": "IEC 60898-1" } },
+        { "name": "25A", "capacity": "25A", "poles": "2P", "specifications": { "Rated Current": "25A", "Rated Voltage": "230/400V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "2P", "Standard": "IEC 60898-1" } },
+        { "name": "32A", "capacity": "32A", "poles": "2P", "specifications": { "Rated Current": "32A", "Rated Voltage": "230/400V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "2P", "Standard": "IEC 60898-1" } }
       ]
     },
     {
       "id": "tiny-single-pole-mcb",
       "name": "Tiny Single Pole MCB",
-      "category": "tiny-mcb",
+      "category": "mcb",
       "breakingCapacity": "10KA",
       "series": "C Series",
       "image": "/products/product-1.jpeg",
@@ -251,9 +94,9 @@
     {
       "id": "tiny-double-pole-mcb",
       "name": "Tiny Double Pole MCB",
-      "category": "tiny-mcb",
-      "breakingCapacity": " ",
-      "series": " ",
+      "category": "mcb",
+      "breakingCapacity": "10KA",
+      "series": "C Series",
       "image": "/products/product-3.jpeg",
       "image2": "/products/product-4.jpeg",
       "inStock": true,
@@ -273,7 +116,321 @@
         { "name": "25A", "capacity": "25A", "poles": "2P", "specifications": { "Rated Current": "25A", "Rated Voltage": "230/400V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "2P", "Standard": "IEC 60898-1" } },
         { "name": "32A", "capacity": "32A", "poles": "2P", "specifications": { "Rated Current": "32A", "Rated Voltage": "230/400V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "2P", "Standard": "IEC 60898-1" } }
       ]
+    },
+    {
+      "id": "single-pole-mcb",
+      "name": "Single Pole MCB",
+      "category": "mcb",
+      "breakingCapacity": "10KA",
+      "series": "C Series",
+      "image": "/products/product-1.jpeg",
+      "image2": "/products/product-2.jpeg",
+      "image3": "/products/product-3.jpeg",
+      "inStock": true,
+      "features": [
+        "Standard single pole design",
+        "10KA breaking capacity",
+        "C-curve tripping characteristic",
+        "DIN rail mounting",
+        "Wide current range 6A to 63A",
+        "IEC 60898-1 certified"
+      ],
+      "variants": [
+        { "name": "6A",  "capacity": "6A",  "poles": "1P", "specifications": { "Rated Current": "6A",  "Rated Voltage": "230V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "1P", "Standard": "IEC 60898-1" } },
+        { "name": "10A", "capacity": "10A", "poles": "1P", "specifications": { "Rated Current": "10A", "Rated Voltage": "230V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "1P", "Standard": "IEC 60898-1" } },
+        { "name": "16A", "capacity": "16A", "poles": "1P", "specifications": { "Rated Current": "16A", "Rated Voltage": "230V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "1P", "Standard": "IEC 60898-1" } },
+        { "name": "20A", "capacity": "20A", "poles": "1P", "specifications": { "Rated Current": "20A", "Rated Voltage": "230V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "1P", "Standard": "IEC 60898-1" } },
+        { "name": "25A", "capacity": "25A", "poles": "1P", "specifications": { "Rated Current": "25A", "Rated Voltage": "230V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "1P", "Standard": "IEC 60898-1" } },
+        { "name": "32A", "capacity": "32A", "poles": "1P", "specifications": { "Rated Current": "32A", "Rated Voltage": "230V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "1P", "Standard": "IEC 60898-1" } },
+        { "name": "40A", "capacity": "40A", "poles": "1P", "specifications": { "Rated Current": "40A", "Rated Voltage": "230V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "1P", "Standard": "IEC 60898-1" } },
+        { "name": "63A", "capacity": "63A", "poles": "1P", "specifications": { "Rated Current": "63A", "Rated Voltage": "230V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "1P", "Standard": "IEC 60898-1" } }
+      ]
+    },
+    {
+      "id": "double-pole-mcb",
+      "name": "Double Pole MCB",
+      "category": "mcb",
+      "breakingCapacity": "10KA",
+      "series": "C Series",
+      "image": "/products/product-3.jpeg",
+      "image2": "/products/product-4.jpeg",
+      "image3": "/products/product-3.jpeg",
+      "inStock": true,
+      "features": [
+        "Standard double pole design",
+        "10KA breaking capacity",
+        "C-curve tripping characteristic",
+        "Double pole protection for both live and neutral",
+        "Wide current range 6A to 63A",
+        "IEC 60898-1 certified"
+      ],
+      "variants": [
+        { "name": "6A",  "capacity": "6A",  "poles": "2P", "specifications": { "Rated Current": "6A",  "Rated Voltage": "230/400V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "2P", "Standard": "IEC 60898-1" } },
+        { "name": "10A", "capacity": "10A", "poles": "2P", "specifications": { "Rated Current": "10A", "Rated Voltage": "230/400V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "2P", "Standard": "IEC 60898-1" } },
+        { "name": "16A", "capacity": "16A", "poles": "2P", "specifications": { "Rated Current": "16A", "Rated Voltage": "230/400V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "2P", "Standard": "IEC 60898-1" } },
+        { "name": "20A", "capacity": "20A", "poles": "2P", "specifications": { "Rated Current": "20A", "Rated Voltage": "230/400V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "2P", "Standard": "IEC 60898-1" } },
+        { "name": "25A", "capacity": "25A", "poles": "2P", "specifications": { "Rated Current": "25A", "Rated Voltage": "230/400V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "2P", "Standard": "IEC 60898-1" } },
+        { "name": "32A", "capacity": "32A", "poles": "2P", "specifications": { "Rated Current": "32A", "Rated Voltage": "230/400V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "2P", "Standard": "IEC 60898-1" } },
+        { "name": "40A", "capacity": "40A", "poles": "2P", "specifications": { "Rated Current": "40A", "Rated Voltage": "230/400V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "2P", "Standard": "IEC 60898-1" } },
+        { "name": "63A", "capacity": "63A", "poles": "2P", "specifications": { "Rated Current": "63A", "Rated Voltage": "230/400V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "2P", "Standard": "IEC 60898-1" } }
+      ]
+    },
+    {
+      "id": "triple-pole-mcb",
+      "name": "Triple Pole MCB",
+      "category": "mcb",
+      "breakingCapacity": "10KA",
+      "series": "C Series",
+      "image": "/products/product-1.jpeg",
+      "image2": "/products/product-2.jpeg",
+      "image3": "/products/product-3.jpeg",
+      "inStock": true,
+      "features": [
+        "Triple pole three-phase protection",
+        "10KA breaking capacity",
+        "C-curve tripping characteristic",
+        "Simultaneous disconnection of all three phases",
+        "Wide current range 6A to 63A",
+        "IEC 60898-1 certified"
+      ],
+      "variants": [
+        { "name": "6A",  "capacity": "6A",  "poles": "3P", "specifications": { "Rated Current": "6A",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "3P", "Standard": "IEC 60898-1" } },
+        { "name": "10A", "capacity": "10A", "poles": "3P", "specifications": { "Rated Current": "10A", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "3P", "Standard": "IEC 60898-1" } },
+        { "name": "16A", "capacity": "16A", "poles": "3P", "specifications": { "Rated Current": "16A", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "3P", "Standard": "IEC 60898-1" } },
+        { "name": "20A", "capacity": "20A", "poles": "3P", "specifications": { "Rated Current": "20A", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "3P", "Standard": "IEC 60898-1" } },
+        { "name": "25A", "capacity": "25A", "poles": "3P", "specifications": { "Rated Current": "25A", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "3P", "Standard": "IEC 60898-1" } },
+        { "name": "32A", "capacity": "32A", "poles": "3P", "specifications": { "Rated Current": "32A", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "3P", "Standard": "IEC 60898-1" } },
+        { "name": "40A", "capacity": "40A", "poles": "3P", "specifications": { "Rated Current": "40A", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "3P", "Standard": "IEC 60898-1" } },
+        { "name": "63A", "capacity": "63A", "poles": "3P", "specifications": { "Rated Current": "63A", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "3P", "Standard": "IEC 60898-1" } }
+      ]
+    },
+    {
+      "id": "four-pole-mcb",
+      "name": "Four Pole MCB",
+      "category": "mcb",
+      "breakingCapacity": "10KA",
+      "series": "C Series",
+      "image": "/products/product-3.jpeg",
+      "image2": "/products/product-4.jpeg",
+      "image3": "/products/product-3.jpeg",
+      "inStock": true,
+      "features": [
+        "Four pole three-phase + neutral protection",
+        "10KA breaking capacity",
+        "C-curve tripping characteristic",
+        "Complete isolation of all phases and neutral",
+        "Wide current range 6A to 63A",
+        "IEC 60898-1 certified"
+      ],
+      "variants": [
+        { "name": "6A",  "capacity": "6A",  "poles": "4P", "specifications": { "Rated Current": "6A",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "4P", "Standard": "IEC 60898-1" } },
+        { "name": "10A", "capacity": "10A", "poles": "4P", "specifications": { "Rated Current": "10A", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "4P", "Standard": "IEC 60898-1" } },
+        { "name": "16A", "capacity": "16A", "poles": "4P", "specifications": { "Rated Current": "16A", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "4P", "Standard": "IEC 60898-1" } },
+        { "name": "20A", "capacity": "20A", "poles": "4P", "specifications": { "Rated Current": "20A", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "4P", "Standard": "IEC 60898-1" } },
+        { "name": "25A", "capacity": "25A", "poles": "4P", "specifications": { "Rated Current": "25A", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "4P", "Standard": "IEC 60898-1" } },
+        { "name": "32A", "capacity": "32A", "poles": "4P", "specifications": { "Rated Current": "32A", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "4P", "Standard": "IEC 60898-1" } },
+        { "name": "40A", "capacity": "40A", "poles": "4P", "specifications": { "Rated Current": "40A", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "4P", "Standard": "IEC 60898-1" } },
+        { "name": "63A", "capacity": "63A", "poles": "4P", "specifications": { "Rated Current": "63A", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "10000A", "Tripping Curve": "C", "Poles": "4P", "Standard": "IEC 60898-1" } }
+      ]
+    },
+    {
+      "id": "reverse-forward-switch",
+      "name": "Reverse Forward Switch",
+      "category": "reverse-forward",
+      "breakingCapacity": "—",
+      "series": "Heavy Duty",
+      "image": "/products/product-1.jpeg",
+      "image2": "/products/product-2.jpeg",
+      "inStock": true,
+      "features": [
+        "Heavy duty material ensures high strength and durability",
+        "Enclosure made of CR sheet duly phosphated & powder coated",
+        "Smooth forward and reverse motor operation",
+        "Robust construction for industrial environments",
+        "Available in 16A to 32A ratings",
+        "Suitable for three-phase motor control applications"
+      ],
+      "variants": [
+        { "name": "16 AMP", "capacity": "16 AMP", "poles": "3P", "specifications": { "Rated Current": "16 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Enclosure": "CR Sheet, Phosphated & Powder Coated", "Construction": "Heavy Duty", "Poles": "3P", "Application": "Motor Reverse Forward Control" } },
+        { "name": "32 AMP", "capacity": "32 AMP", "poles": "3P", "specifications": { "Rated Current": "32 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Enclosure": "CR Sheet, Phosphated & Powder Coated", "Construction": "Heavy Duty", "Poles": "3P", "Application": "Motor Reverse Forward Control" } }
+      ]
+    },
+    {
+      "id": "busbar",
+      "name": "Busbar",
+      "category": "busbar",
+      "breakingCapacity": "—",
+      "series": "Heavy Duty",
+      "image": "/products/product-1.jpeg",
+      "image2": "/products/product-2.jpeg",
+      "inStock": true,
+      "features": [
+        "Fitted with superior silver plated copper strips",
+        "Heavy duty material ensures high strength",
+        "Flame proof insulation",
+        "Protection category IP23",
+        "Wide current range 63A to 630A",
+        "Suitable for distribution boards and panel boards"
+      ],
+      "variants": [
+        { "name": "63 AMP",  "capacity": "63 AMP",  "poles": "—", "specifications": { "Rated Current": "63 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Material": "Silver Plated Copper Strips", "Protection": "IP23", "Insulation": "Flame Proof", "Construction": "Heavy Duty" } },
+        { "name": "630 AMP", "capacity": "630 AMP", "poles": "—", "specifications": { "Rated Current": "630 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Material": "Silver Plated Copper Strips", "Protection": "IP23", "Insulation": "Flame Proof", "Construction": "Heavy Duty" } }
+      ]
+    },
+    {
+      "id": "hrc-fuse-base",
+      "name": "HRC Fuse Base",
+      "category": "fuse",
+      "breakingCapacity": "80KA",
+      "series": "HRC",
+      "image": "/products/product-1.jpeg",
+      "image2": "/products/product-2.jpeg",
+      "inStock": true,
+      "features": [
+        "Range from 100 AMP to 630 AMP",
+        "Conforms to IS:13703 & IEC:269",
+        "Rated Voltage 500V, 50Hz AC",
+        "80KA breaking capacity",
+        "Low watt loss",
+        "Heavy duty construction for industrial use"
+      ],
+      "variants": [
+        { "name": "100 AMP", "capacity": "100 AMP", "poles": "—", "specifications": { "Rated Current": "100 AMP", "Rated Voltage": "500V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS:13703 & IEC:269", "Watt Loss": "Low" } },
+        { "name": "630 AMP", "capacity": "630 AMP", "poles": "—", "specifications": { "Rated Current": "630 AMP", "Rated Voltage": "500V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS:13703 & IEC:269", "Watt Loss": "Low" } }
+      ]
+    },
+    {
+      "id": "hrc-fuse-link",
+      "name": "HRC Fuse Link",
+      "category": "fuse",
+      "breakingCapacity": "80KA",
+      "series": "HRC",
+      "image": "/products/product-3.jpeg",
+      "image2": "/products/product-4.jpeg",
+      "inStock": true,
+      "features": [
+        "Range from 32 AMP to 630 AMP",
+        "Conforms to IS:13703 & IEC:269",
+        "Rated Voltage 500V, 50Hz AC",
+        "80KA breaking capacity",
+        "Low watt loss",
+        "Reliable short circuit and overload protection"
+      ],
+      "variants": [
+        { "name": "32 AMP",  "capacity": "32 AMP",  "poles": "—", "specifications": { "Rated Current": "32 AMP",  "Rated Voltage": "500V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS:13703 & IEC:269", "Watt Loss": "Low" } },
+        { "name": "630 AMP", "capacity": "630 AMP", "poles": "—", "specifications": { "Rated Current": "630 AMP", "Rated Voltage": "500V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS:13703 & IEC:269", "Watt Loss": "Low" } }
+      ]
+    },
+    {
+      "id": "switch-disconnector-fuse",
+      "name": "Switch Disconnector Fuse",
+      "category": "switch-disconnector-fuse",
+      "breakingCapacity": "—",
+      "series": "SDF",
+      "image": "/products/product-1.jpeg",
+      "image2": "/products/product-2.jpeg",
+      "inStock": true,
+      "features": [
+        "Range from 32 AMP to 630 AMP",
+        "Conforms to IS/IEC:60947-3",
+        "Quick make & break mechanism",
+        "Ensures high mechanical & electrical strength",
+        "Compact model fully insulated DMC body",
+        "Available in open execution & sheet steel enclosure"
+      ],
+      "variants": [
+        { "name": "32 AMP",  "capacity": "32 AMP",  "poles": "3P", "specifications": { "Rated Current": "32 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Body": "Fully Insulated DMC", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel" } },
+        { "name": "630 AMP", "capacity": "630 AMP", "poles": "3P", "specifications": { "Rated Current": "630 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Body": "Fully Insulated DMC", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel" } }
+      ]
+    },
+    {
+      "id": "onload-changeover-switch",
+      "name": "Onload Changeover Switch",
+      "category": "onload-changeover-switch",
+      "breakingCapacity": "—",
+      "series": "OCS",
+      "image": "/products/product-1.jpeg",
+      "image2": "/products/product-2.jpeg",
+      "inStock": true,
+      "features": [
+        "Range from 63 AMP to 1000 AMP",
+        "Quick make & break mechanism",
+        "Ensures high mechanical & electrical strength",
+        "Compact model design",
+        "Available in open execution & sheet steel enclosure",
+        "Suitable for generator and mains changeover applications"
+      ],
+      "variants": [
+        { "name": "63 AMP",   "capacity": "63 AMP",   "poles": "4P", "specifications": { "Rated Current": "63 AMP",   "Rated Voltage": "415V AC", "Frequency": "50Hz", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel", "Application": "Onload Changeover" } },
+        { "name": "1000 AMP", "capacity": "1000 AMP", "poles": "4P", "specifications": { "Rated Current": "1000 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel", "Application": "Onload Changeover" } }
+      ]
+    },
+    {
+      "id": "onload-isolator",
+      "name": "Onload Isolator / Load Break Switch",
+      "category": "onload-isolator",
+      "breakingCapacity": "80KA",
+      "series": "LBS",
+      "image": "/products/product-1.jpeg",
+      "image2": "/products/product-2.jpeg",
+      "inStock": true,
+      "features": [
+        "Range from 63 AMP to 1000 AMP",
+        "Conforms to IS/IEC:60947-3",
+        "Quick make & break mechanism",
+        "Ensures high mechanical & electrical strength",
+        "Compact model design",
+        "80KA breaking capacity",
+        "Available in open execution & sheet steel enclosure"
+      ],
+      "variants": [
+        { "name": "63 AMP",   "capacity": "63 AMP",   "poles": "4P", "specifications": { "Rated Current": "63 AMP",   "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel" } },
+        { "name": "1000 AMP", "capacity": "1000 AMP", "poles": "4P", "specifications": { "Rated Current": "1000 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel" } }
+      ]
+    },
+    {
+      "id": "offload-changeover-switch",
+      "name": "Offload Changeover Switch",
+      "category": "offload-changeover-switch",
+      "breakingCapacity": "—",
+      "series": "OCS",
+      "image": "/products/product-1.jpeg",
+      "image2": "/products/product-2.jpeg",
+      "inStock": true,
+      "features": [
+        "Range from 63 AMP to 1000 AMP",
+        "Conforms to IS/IEC:60947-3",
+        "Quick make & break mechanism",
+        "Comes with door interlock feature",
+        "Enclosure made up of CRC sheet",
+        "Safe and reliable source changeover"
+      ],
+      "variants": [
+        { "name": "63 AMP",   "capacity": "63 AMP",   "poles": "4P", "specifications": { "Rated Current": "63 AMP",   "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
+        { "name": "1000 AMP", "capacity": "1000 AMP", "poles": "4P", "specifications": { "Rated Current": "1000 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } }
+      ]
+    },
+    {
+      "id": "main-switch-rewirable",
+      "name": "Main Switch Rewirable",
+      "category": "main-switch-rewirable",
+      "breakingCapacity": "—",
+      "series": "MSR",
+      "image": "/products/product-1.jpeg",
+      "image2": "/products/product-2.jpeg",
+      "inStock": true,
+      "features": [
+        "Range from 32 AMP to 200 AMP",
+        "Conforms to IS/IEC:60947-3",
+        "Quick make & break mechanism",
+        "Comes with door interlock feature",
+        "Enclosure made up of CRC sheet",
+        "Rewirable design for easy maintenance"
+      ],
+      "variants": [
+        { "name": "32 AMP",  "capacity": "32 AMP",  "poles": "3P", "specifications": { "Rated Current": "32 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
+        { "name": "200 AMP", "capacity": "200 AMP", "poles": "3P", "specifications": { "Rated Current": "200 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } }
+      ]
     }
   ]
 }
-
