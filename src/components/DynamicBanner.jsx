@@ -49,59 +49,54 @@ function HeroSlider({ banners }) {
   const b = banners[current];
 
   return (
-    <section className="relative w-full overflow-hidden" style={{ height: '100vh', minHeight: '560px' }}>
+    <section className="relative w-full overflow-hidden"
+      style={{ height: 'min(100vh, 680px)', minHeight: '480px' }}>
+
       {/* Background slides */}
       {banners.map((banner, i) => (
         <div key={banner.id} className="absolute inset-0 transition-opacity duration-700"
           style={{ opacity: i === current ? 1 : 0, zIndex: i === current ? 1 : 0 }}>
           {banner.image
-            ? <img src={banner.image} alt={banner.title} className="w-full h-full object-cover" />
+            ? <img src={banner.image} alt={banner.title} className="w-full h-full object-cover object-center" />
             : <div className="w-full h-full bg-blue-950" />
           }
-          {/* Dark gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70" />
-          {/* Brand color tint */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/75" />
           <div className={`absolute inset-0 bg-gradient-to-br ${banner.backgroundColor || 'from-blue-950/60 via-transparent to-blue-950/60'}`} />
         </div>
       ))}
 
-      {/* Subtle grid texture */}
-      <div className="absolute inset-0 z-10 pointer-events-none opacity-10"
+      {/* Grid texture — desktop only */}
+      <div className="absolute inset-0 z-10 pointer-events-none opacity-10 hidden sm:block"
         style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px)', backgroundSize: '60px 60px' }} />
 
-      {/* Diagonal accent line */}
-      <div className="absolute top-0 right-0 w-1/3 h-full z-10 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 right-0 w-px h-full bg-gradient-to-b from-transparent via-blue-400/30 to-transparent" style={{ right: '30%' }} />
-        <div className="absolute top-0 right-0 w-px h-full bg-gradient-to-b from-transparent via-white/10 to-transparent" style={{ right: '60%' }} />
-      </div>
-
       {/* Main content */}
-      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4 text-center text-white">
+      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-5 sm:px-8 text-center text-white">
         {/* Logo */}
-        <div className="mb-6" style={{ transition: 'opacity 0.6s ease, transform 0.6s ease', opacity: animating ? 0 : 1, transform: animating ? 'translateY(-12px)' : 'translateY(0)' }}>
+        <div className="mb-4 sm:mb-6"
+          style={{ transition: 'opacity 0.6s ease, transform 0.6s ease', opacity: animating ? 0 : 1, transform: animating ? 'translateY(-10px)' : 'translateY(0)' }}>
           <img src={logo} alt="GK2"
-            className="h-20 sm:h-24 md:h-28 w-auto mx-auto"
-            style={{ filter: 'brightness(0) invert(1) drop-shadow(0 0 24px rgba(59,130,246,0.9))' }} />
+            className="h-14 sm:h-20 md:h-24 w-auto mx-auto"
+            style={{ filter: 'brightness(0) invert(1) drop-shadow(0 0 20px rgba(59,130,246,0.9))' }} />
         </div>
 
         {/* Slide text */}
-        <div style={{ transition: 'opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s', opacity: animating ? 0 : 1, transform: animating ? 'translateY(16px)' : 'translateY(0)' }}>
+        <div style={{ transition: 'opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s', opacity: animating ? 0 : 1, transform: animating ? 'translateY(14px)' : 'translateY(0)' }}>
           {b.subtitle && (
-            <p className="text-blue-300 font-semibold text-sm sm:text-base tracking-widest uppercase mb-3">{b.subtitle}</p>
+            <p className="text-blue-300 font-semibold text-xs sm:text-sm tracking-widest uppercase mb-2 sm:mb-3">{b.subtitle}</p>
           )}
           {b.title && (
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black leading-tight mb-6 max-w-3xl mx-auto">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-5 sm:mb-6 max-w-xs sm:max-w-2xl md:max-w-3xl mx-auto">
               {b.title}
             </h1>
           )}
           {b.buttonText && b.buttonLink && (
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-row gap-3 justify-center items-center flex-wrap">
               <Link to={b.buttonLink}
-                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition-all duration-200 shadow-lg shadow-blue-900/50 hover:shadow-blue-700/60 hover:-translate-y-0.5">
-                {b.buttonText} <span>→</span>
+                className="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold text-xs sm:text-sm transition-all duration-200 shadow-md">
+                {b.buttonText} →
               </Link>
               <Link to="/contact"
-                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 hover:border-white/50 text-white px-8 py-4 rounded-xl font-bold backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5">
+                className="inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 border border-white/30 text-white px-4 py-2 rounded-lg font-semibold text-xs sm:text-sm backdrop-blur-sm transition-all duration-200">
                 Contact Us
               </Link>
             </div>
@@ -109,26 +104,26 @@ function HeroSlider({ banners }) {
         </div>
       </div>
 
-      {/* Slide counter top-right */}
-      <div className="absolute top-6 right-6 z-30 text-white/60 text-sm font-mono">
+      {/* Slide counter — desktop only */}
+      <div className="absolute top-5 right-5 z-30 text-white/60 text-sm font-mono hidden sm:block">
         <span className="text-white font-bold">{String(current + 1).padStart(2, '0')}</span>
         <span className="mx-1">/</span>
         <span>{String(banners.length).padStart(2, '0')}</span>
       </div>
 
-      {/* Prev / Next arrows */}
+      {/* Prev / Next arrows — smaller on mobile */}
       <button onClick={prev}
-        className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/10 border border-white/20 hover:bg-white/25 hover:border-white/40 backdrop-blur-sm flex items-center justify-center text-white text-2xl transition-all duration-200"
+        className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-30 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-black/30 sm:bg-white/10 border border-white/20 hover:bg-white/25 backdrop-blur-sm flex items-center justify-center text-white text-lg sm:text-2xl transition-all duration-200"
         aria-label="Previous slide">‹</button>
       <button onClick={next}
-        className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/10 border border-white/20 hover:bg-white/25 hover:border-white/40 backdrop-blur-sm flex items-center justify-center text-white text-2xl transition-all duration-200"
+        className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-30 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-black/30 sm:bg-white/10 border border-white/20 hover:bg-white/25 backdrop-blur-sm flex items-center justify-center text-white text-lg sm:text-2xl transition-all duration-200"
         aria-label="Next slide">›</button>
 
       {/* Dot indicators */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-3">
+      <div className="absolute bottom-5 sm:bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 sm:gap-3">
         {banners.map((_, i) => (
           <button key={i} onClick={() => goTo(i)}
-            className={`rounded-full transition-all duration-300 ${i === current ? 'w-8 h-2.5 bg-white' : 'w-2.5 h-2.5 bg-white/40 hover:bg-white/70'}`}
+            className={`rounded-full transition-all duration-300 ${i === current ? 'w-6 sm:w-8 h-2 sm:h-2.5 bg-white' : 'w-2 h-2 sm:w-2.5 sm:h-2.5 bg-white/40 hover:bg-white/70'}`}
             aria-label={`Slide ${i + 1}`} />
         ))}
       </div>

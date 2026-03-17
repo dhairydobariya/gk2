@@ -203,13 +203,13 @@ export default function Home() {
       <DynamicBanner page="home" />
 
       {/* 2. STATS */}
-      <section className="bg-[#1e3a8a] py-14">
+      <section className="bg-[#1e3a8a] py-8 sm:py-14">
         <div className="container mx-auto px-4 max-w-5xl">
           <div ref={statsRef} className="stagger-child grid grid-cols-2 md:grid-cols-4 divide-x divide-blue-700">
             {stats.map((s, i) => (
-              <div key={i} className="text-center px-6 py-4">
-                <div className="text-4xl sm:text-5xl font-black text-white mb-1 tracking-tight">{s.value}</div>
-                <div className="text-blue-300 text-sm font-medium tracking-wide">{s.label}</div>
+              <div key={i} className="text-center px-3 sm:px-6 py-3 sm:py-4">
+                <div className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-1 tracking-tight">{s.value}</div>
+                <div className="text-blue-300 text-xs sm:text-sm font-medium tracking-wide">{s.label}</div>
               </div>
             ))}
           </div>
@@ -217,47 +217,45 @@ export default function Home() {
       </section>
 
       {/* 3. FEATURED PRODUCTS */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-14 sm:py-24 bg-gray-50">
         <div className="container mx-auto px-4 max-w-6xl">
           <div ref={prodRef} className="reveal-section">
-            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-14 gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-8 sm:mb-14 gap-3">
               <div>
-                <span className="inline-block text-blue-600 font-semibold text-xs tracking-widest uppercase mb-3 border-l-4 border-blue-600 pl-3">Our Products</span>
-                <h2 className="text-4xl sm:text-5xl font-black text-gray-900 leading-tight">
+                <span className="inline-block text-blue-600 font-semibold text-xs tracking-widest uppercase mb-2 sm:mb-3 border-l-4 border-blue-600 pl-3">Our Products</span>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 leading-tight">
                   MCB Product Range
                 </h2>
               </div>
               <Link to="/products"
-                className="inline-flex items-center gap-2 text-blue-600 font-semibold text-sm border border-blue-200 rounded-lg px-5 py-2.5 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200 self-start sm:self-auto">
-                View All Products →
+                className="inline-flex items-center gap-2 text-blue-600 font-semibold text-sm border border-blue-200 rounded-lg px-4 py-2 sm:px-5 sm:py-2.5 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200 self-start sm:self-auto">
+                View All →
               </Link>
             </div>
 
-            <div ref={prodGridRef} className="stagger-child grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div ref={prodGridRef} className="stagger-child grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
               {featured.map((product) => (
                 <Link key={product.id} to={`/products/${product.id}`}
-                  className="card-hover group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
-                  {/* Image */}
+                  className="card-hover group bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
                   <div className="relative bg-gradient-to-br from-slate-50 to-blue-50 aspect-square overflow-hidden">
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-contain p-4 sm:p-6 group-hover:scale-105 transition-transform duration-500"
                       onError={e => { e.target.style.display = 'none'; }}
                     />
-                    <div className="absolute top-3 right-3 bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded-full">
+                    <div className="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
                       {product.breakingCapacity}
                     </div>
                   </div>
-                  {/* Info */}
-                  <div className="p-5">
-                    <p className="text-xs text-blue-500 font-semibold uppercase tracking-wide mb-1">{product.series}</p>
-                    <h3 className="font-bold text-gray-900 text-base mb-3 group-hover:text-blue-600 transition-colors leading-snug">{product.name}</h3>
+                  <div className="p-3 sm:p-5">
+                    <p className="text-xs text-blue-500 font-semibold uppercase tracking-wide mb-1 hidden sm:block">{product.series}</p>
+                    <h3 className="font-bold text-gray-900 text-xs sm:text-base mb-2 sm:mb-3 group-hover:text-blue-600 transition-colors leading-snug">{product.name}</h3>
                     <div className="flex items-center justify-between">
-                      <span className="text-xs bg-blue-50 text-blue-700 border border-blue-100 px-2.5 py-1 rounded-full font-semibold">
+                      <span className="text-xs bg-blue-50 text-blue-700 border border-blue-100 px-2 py-0.5 rounded-full font-semibold">
                         {product.variants?.length || 0} Variants
                       </span>
-                      <span className="text-blue-600 text-sm font-semibold group-hover:translate-x-1 transition-transform duration-200 inline-block">
+                      <span className="text-blue-600 text-xs sm:text-sm font-semibold group-hover:translate-x-1 transition-transform duration-200 inline-block">
                         View →
                       </span>
                     </div>
@@ -270,21 +268,21 @@ export default function Home() {
       </section>
 
       {/* 4. WHY CHOOSE GK2 */}
-      <section className="py-24 bg-white">
+      <section className="py-14 sm:py-24 bg-white">
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10 sm:mb-16">
             <span className="inline-block text-blue-600 font-semibold text-xs tracking-widest uppercase mb-3 border-b-2 border-blue-600 pb-1">Why GK2</span>
-            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mt-3">The GK2 Advantage</h2>
-            <p className="text-gray-500 mt-4 max-w-xl mx-auto text-lg">Built on decades of manufacturing expertise and an uncompromising commitment to quality.</p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mt-3">The GK2 Advantage</h2>
+            <p className="text-gray-500 mt-3 max-w-xl mx-auto text-sm sm:text-lg">Built on decades of manufacturing expertise and an uncompromising commitment to quality.</p>
           </div>
-          <div ref={advRef} className="stagger-child grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div ref={advRef} className="stagger-child grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
             {advantages.map((a, i) => (
-              <div key={i} className="card-hover group relative bg-white border border-gray-100 rounded-2xl p-8 shadow-sm hover:border-blue-200">
+              <div key={i} className="card-hover group relative bg-white border border-gray-100 rounded-2xl p-6 sm:p-8 shadow-sm hover:border-blue-200">
                 <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl bg-gradient-to-r from-blue-600 to-blue-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mb-4 sm:mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
                   {a.icon}
                 </div>
-                <h3 className="font-bold text-gray-900 text-lg mb-3 group-hover:text-blue-600 transition-colors">{a.title}</h3>
+                <h3 className="font-bold text-gray-900 text-base sm:text-lg mb-2 sm:mb-3 group-hover:text-blue-600 transition-colors">{a.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{a.desc}</p>
               </div>
             ))}
@@ -293,43 +291,39 @@ export default function Home() {
       </section>
 
       {/* 5. QUALITY & STANDARDS */}
-      <section className="py-24 bg-[#0f172a] relative overflow-hidden">
-        {/* Background texture */}
+      <section className="py-14 sm:py-24 bg-[#0f172a] relative overflow-hidden">
         <div className="absolute inset-0 opacity-5"
           style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.1) 1px,transparent 1px)", backgroundSize: "50px 50px" }} />
         <div className="absolute top-0 left-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
-
         <div className="container mx-auto px-4 max-w-6xl relative">
-          <div ref={qualRef} className="reveal-section grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Left */}
+          <div ref={qualRef} className="reveal-section grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16 items-center">
             <div>
-              <span className="inline-block text-blue-400 font-semibold text-xs tracking-widest uppercase mb-4 border-l-4 border-blue-500 pl-3">Quality & Standards</span>
-              <h2 className="text-4xl sm:text-5xl font-black text-white leading-tight mb-6">
+              <span className="inline-block text-blue-400 font-semibold text-xs tracking-widest uppercase mb-3 sm:mb-4 border-l-4 border-blue-500 pl-3">Quality & Standards</span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight mb-4 sm:mb-6">
                 Built to the<br />
                 <span className="text-blue-400">Highest Standards</span>
               </h2>
-              <p className="text-slate-400 text-lg leading-relaxed mb-10">
+              <p className="text-slate-400 text-base sm:text-lg leading-relaxed mb-7 sm:mb-10">
                 Every GK2 product is engineered and tested to meet international electrical safety standards — giving you confidence in every installation.
               </p>
               <div className="flex flex-wrap gap-3">
                 <Link to="/products"
-                  className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-7 py-3.5 rounded-xl font-semibold transition-all duration-200 shadow-lg shadow-blue-900/40">
+                  className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-5 sm:px-7 py-3 sm:py-3.5 rounded-xl font-semibold transition-all duration-200 shadow-lg shadow-blue-900/40 text-sm sm:text-base">
                   Explore Products →
                 </Link>
                 <Link to="/about"
-                  className="inline-flex items-center gap-2 border border-slate-600 hover:border-blue-500 text-slate-300 hover:text-white px-7 py-3.5 rounded-xl font-semibold transition-all duration-200">
+                  className="inline-flex items-center gap-2 border border-slate-600 hover:border-blue-500 text-slate-300 hover:text-white px-5 sm:px-7 py-3 sm:py-3.5 rounded-xl font-semibold transition-all duration-200 text-sm sm:text-base">
                   About Us
                 </Link>
               </div>
             </div>
-            {/* Right: spec cards */}
-            <div ref={qualGridRef} className="stagger-child grid grid-cols-2 gap-4">
+            <div ref={qualGridRef} className="stagger-child grid grid-cols-2 gap-3 sm:gap-4">
               {standards.map((s, i) => (
-                <div key={i} className="card-hover bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-blue-500/40 hover:bg-white/8 backdrop-blur-sm">
-                  <div className={`w-2 h-8 ${s.color} rounded-full mb-4`} />
+                <div key={i} className="card-hover bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:border-blue-500/40 backdrop-blur-sm">
+                  <div className={`w-2 h-6 sm:h-8 ${s.color} rounded-full mb-3 sm:mb-4`} />
                   <p className="text-slate-400 text-xs font-medium uppercase tracking-wide mb-1">{s.label}</p>
-                  <p className="text-white font-black text-xl">{s.value}</p>
+                  <p className="text-white font-black text-base sm:text-xl">{s.value}</p>
                 </div>
               ))}
             </div>
@@ -338,33 +332,26 @@ export default function Home() {
       </section>
 
       {/* 6. INDUSTRIES */}
-      <section className="py-24 bg-white overflow-hidden">
+      <section className="py-14 sm:py-24 bg-white overflow-hidden">
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10 sm:mb-16">
             <span className="inline-block text-blue-600 font-semibold text-xs tracking-widest uppercase mb-3 border-b-2 border-blue-600 pb-1">Sectors We Serve</span>
-            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mt-3">Industries We Power</h2>
-            <p className="text-gray-500 mt-4 max-w-lg mx-auto text-base">From homes to heavy industry — GK2 MCBs protect every kind of electrical installation.</p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mt-3">Industries We Power</h2>
+            <p className="text-gray-500 mt-3 max-w-lg mx-auto text-sm sm:text-base">From homes to heavy industry — GK2 MCBs protect every kind of electrical installation.</p>
           </div>
-
-          <div ref={indRef} className="stagger-child grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div ref={indRef} className="stagger-child grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
             {industries.map((ind, i) => (
               <div key={i}
-                className={`group relative flex items-center gap-5 p-6 rounded-2xl border ${ind.border} ${ind.bg} overflow-hidden cursor-default transition-all duration-300 hover:shadow-lg hover:-translate-y-1`}>
-                {/* Decorative circle bg */}
+                className={`group relative flex items-center gap-4 p-4 sm:p-6 rounded-xl sm:rounded-2xl border ${ind.border} ${ind.bg} overflow-hidden cursor-default transition-all duration-300 hover:shadow-lg hover:-translate-y-1`}>
                 <div className={`absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-gradient-to-br ${ind.color} opacity-10 group-hover:opacity-20 transition-opacity duration-300`} />
-                {/* Accent bar */}
-                <div className={`absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl bg-gradient-to-b ${ind.color} scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top`} />
-
-                {/* Icon box */}
-                <div className={`relative flex-shrink-0 w-16 h-16 rounded-xl bg-white shadow-sm flex items-center justify-center ${ind.iconColor} group-hover:shadow-md transition-shadow duration-300`}>
+                <div className={`absolute left-0 top-0 bottom-0 w-1 rounded-l-xl sm:rounded-l-2xl bg-gradient-to-b ${ind.color} scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top`} />
+                <div className={`relative flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 rounded-xl bg-white shadow-sm flex items-center justify-center ${ind.iconColor}`}>
                   {ind.icon}
                 </div>
-
-                {/* Text */}
                 <div className="relative">
-                  <h3 className="font-black text-gray-900 text-lg leading-tight group-hover:text-gray-800">{ind.name}</h3>
-                  <p className="text-gray-500 text-sm mt-0.5">{ind.desc}</p>
-                  <div className={`mt-2 inline-flex items-center gap-1 text-xs font-semibold bg-gradient-to-r ${ind.color} bg-clip-text text-transparent`}>
+                  <h3 className="font-black text-gray-900 text-base sm:text-lg leading-tight">{ind.name}</h3>
+                  <p className="text-gray-500 text-xs sm:text-sm mt-0.5">{ind.desc}</p>
+                  <div className={`mt-1.5 inline-flex items-center gap-1 text-xs font-semibold bg-gradient-to-r ${ind.color} bg-clip-text text-transparent`}>
                     MCB Protected <span className="text-gray-400">→</span>
                   </div>
                 </div>
@@ -375,30 +362,29 @@ export default function Home() {
       </section>
 
       {/* 7. CTA */}
-      <section className="py-24 bg-white">
+      <section className="py-14 sm:py-24 bg-white">
         <div className="container mx-auto px-4 max-w-4xl">
-          <div ref={ctaRef} className="reveal-section relative bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-12 sm:p-16 text-center overflow-hidden shadow-2xl shadow-blue-200">
-            {/* Decorative circles */}
+          <div ref={ctaRef} className="reveal-section relative bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl sm:rounded-3xl p-8 sm:p-12 md:p-16 text-center overflow-hidden shadow-2xl shadow-blue-200">
             <div className="absolute -top-16 -right-16 w-64 h-64 bg-white/5 rounded-full" />
             <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-white/5 rounded-full" />
-            <div className="absolute top-6 left-6">
-              <img src={logo} alt="GK2" className="h-10 w-auto opacity-30"
+            <div className="absolute top-4 left-4 sm:top-6 sm:left-6">
+              <img src={logo} alt="GK2" className="h-8 sm:h-10 w-auto opacity-30"
                 style={{ filter: "brightness(0) invert(1)" }} />
             </div>
             <div className="relative">
-              <h2 className="text-3xl sm:text-4xl font-black text-white mb-4 leading-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 sm:mb-4 leading-tight">
                 Ready to Protect Your<br />Electrical Systems?
               </h2>
-              <p className="text-blue-200 text-lg mb-10 max-w-xl mx-auto">
+              <p className="text-blue-200 text-sm sm:text-lg mb-7 sm:mb-10 max-w-xl mx-auto">
                 Get in touch with our team for expert MCB solutions tailored to your residential, commercial, or industrial requirements.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <Link to="/products"
-                  className="px-9 py-4 bg-white text-blue-700 rounded-xl font-bold hover:bg-blue-50 transition-colors duration-200 shadow-lg text-base">
+                  className="px-7 sm:px-9 py-3.5 sm:py-4 bg-white text-blue-700 rounded-xl font-bold hover:bg-blue-50 transition-colors duration-200 shadow-lg text-sm sm:text-base">
                   Browse Products
                 </Link>
                 <Link to="/contact"
-                  className="px-9 py-4 border-2 border-white/40 text-white rounded-xl font-bold hover:bg-white/10 transition-colors duration-200 text-base">
+                  className="px-7 sm:px-9 py-3.5 sm:py-4 border-2 border-white/40 text-white rounded-xl font-bold hover:bg-white/10 transition-colors duration-200 text-sm sm:text-base">
                   Contact Us
                 </Link>
               </div>
