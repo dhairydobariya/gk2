@@ -169,24 +169,32 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. TRUST / CERTIFICATIONS BAR — new */}
-      <div className="bg-white border-y border-gray-100 py-4 overflow-hidden">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
-            {[
-              { label: "IEC 60898-1 Certified", icon: "🏅" },
-              { label: "IS:13703 Compliant",    icon: "✅" },
-              { label: "IS/IEC 60947-3",        icon: "✅" },
-              { label: "Made in India",          icon: "🇮🇳" },
-              { label: "10KA Breaking Capacity", icon: "⚡" },
-              { label: "80KA HRC Fuses",         icon: "🔒" },
-            ].map((t, i) => (
-              <div key={i} className="flex items-center gap-1.5 text-xs sm:text-sm text-gray-600 font-medium whitespace-nowrap">
-                <span>{t.icon}</span>
-                <span>{t.label}</span>
-              </div>
-            ))}
-          </div>
+      {/* 3. TRUST / CERTIFICATIONS BAR — infinite marquee */}
+      <div className="bg-white border-y border-gray-100 py-3 overflow-hidden">
+        <style>{`
+          @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+          .marquee-track { display: flex; width: max-content; animation: marquee 22s linear infinite; }
+          .marquee-track:hover { animation-play-state: paused; }
+        `}</style>
+        <div className="marquee-track">
+          {[...Array(2)].map((_, ri) => (
+            <div key={ri} className="flex items-center">
+              {[
+                { label: "IEC 60898-1 Certified", icon: "🏅" },
+                { label: "IS:13703 Compliant",    icon: "✅" },
+                { label: "IS/IEC 60947-3",        icon: "✅" },
+                { label: "Made in India",          icon: "🇮🇳" },
+                { label: "10KA Breaking Capacity", icon: "⚡" },
+                { label: "80KA HRC Fuses",         icon: "🔒" },
+              ].map((t, i) => (
+                <div key={i} className="flex items-center gap-1.5 text-xs sm:text-sm text-gray-600 font-medium whitespace-nowrap px-6 sm:px-8">
+                  <span>{t.icon}</span>
+                  <span>{t.label}</span>
+                  <span className="ml-6 sm:ml-8 text-gray-300">|</span>
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
 
