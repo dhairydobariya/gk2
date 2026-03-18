@@ -127,6 +127,7 @@
       "image2": "/products/product-2.jpeg",
       "image3": "/products/product-3.jpeg",
       "inStock": true,
+      "featured": true,
       "features": [
         "Standard single pole design",
         "10KA breaking capacity",
@@ -156,6 +157,7 @@
       "image2": "/products/product-4.jpeg",
       "image3": "/products/product-3.jpeg",
       "inStock": true,
+      "featured": true,
       "features": [
         "Standard double pole design",
         "10KA breaking capacity",
@@ -264,6 +266,7 @@
       "image": "/products/product-1.jpeg",
       "image2": "/products/product-2.jpeg",
       "inStock": true,
+      "featured": true,
       "features": [
         "Fitted with superior silver plated copper strips",
         "Heavy duty material ensures high strength",
@@ -330,6 +333,7 @@
       "image": "/products/product-1.jpeg",
       "image2": "/products/product-2.jpeg",
       "inStock": true,
+      "featured": true,
       "features": [
         "Range from 32 AMP to 630 AMP",
         "Conforms to IS/IEC:60947-3",

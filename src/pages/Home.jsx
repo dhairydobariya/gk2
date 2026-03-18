@@ -43,7 +43,7 @@ const advantages = [
       </svg>
     ),
     title: "Wide Product Range",
-    desc: "Single pole, double pole, modular and tiny MCBs — 6A to 32A ratings covering every protection need.",
+    desc: "MCBs, busbars, fuses, changeover switches and more — 6A to 1000A ratings covering every protection need.",
   },
   {
     icon: (
@@ -171,7 +171,7 @@ const standards = [
 
 export default function Home() {
   const { products } = getProductsData();
-  const featured = products.slice(0, 4);
+  const featured = products.filter(p => p.featured).slice(0, 4);
 
   const statsRef   = useReveal();
   const prodRef    = useReveal();
@@ -224,7 +224,7 @@ export default function Home() {
               <div>
                 <span className="inline-block text-blue-600 font-semibold text-xs tracking-widest uppercase mb-2 sm:mb-3 border-l-4 border-blue-600 pl-3">Our Products</span>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 leading-tight">
-                  MCB Product Range
+                  Featured Products
                 </h2>
               </div>
               <Link to="/products"
