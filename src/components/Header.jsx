@@ -17,20 +17,10 @@ function Header() {
   // Load products on mount
   useEffect(() => {
     loadProducts()
-    
-    // Listen for data updates
-    const handleDataUpdate = (event) => {
-      if (event.detail.key === 'products') {
-        loadProducts()
-      }
-    };
-    
-    window.addEventListener('dataUpdated', handleDataUpdate);
-    return () => window.removeEventListener('dataUpdated', handleDataUpdate);
   }, [])
 
-  const loadProducts = async () => {
-    const productsData = await getProducts()
+  const loadProducts = () => {
+    const productsData = getProducts()
     setAllProducts(productsData || [])
   }
 
@@ -51,10 +41,11 @@ function Header() {
   useEffect(() => {
     if (searchQuery.trim().length > 0 && allProducts.length > 0) {
       const filtered = allProducts.filter(product =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.rating.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.category.toLowerCase().includes(searchQuery.toLowerCase())
-      ).slice(0, 5) // Limit to 5 results
+        product.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.series?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.category?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.breakingCapacity?.toLowerCase().includes(searchQuery.toLowerCase())
+      ).slice(0, 5)
       
       setSearchResults(filtered)
       setShowResults(true)
@@ -203,9 +194,9 @@ function Header() {
                         {product.name}
                       </div>
                       <div className="text-sm text-gray-500 flex gap-2">
-                        <span>{product.rating}</span>
+                        <span>{product.series}</span>
                         <span>•</span>
-                        <span>{product.price}</span>
+                        <span>{product.breakingCapacity}</span>
                       </div>
                     </div>
                     <svg 

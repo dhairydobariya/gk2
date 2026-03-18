@@ -20,9 +20,15 @@ function Products() {
 
   const allCategories = [{ id: 'all', name: 'All Products' }, ...categories];
 
+  const scrollToTop = () => {
+    const isMobile = window.innerWidth < 640;
+    window.scrollTo({ top: isMobile ? 200 : 350, behavior: 'smooth' });
+  };
+
   const handleSelect = (id) => {
     setSelectedCategory(id);
     setFilterOpen(false);
+    scrollToTop();
   };
 
   return (
@@ -36,7 +42,7 @@ function Products() {
             {allCategories.map(cat => (
               <button
                 key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
+                onClick={() => { setSelectedCategory(cat.id); scrollToTop(); }}
                 className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 border ${
                   selectedCategory === cat.id
                     ? 'bg-blue-600 text-white border-blue-600 shadow-md'
