@@ -59,8 +59,8 @@ function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <span className="font-medium">Email:</span>{' '}
-                <a href="mailto:info@gk2.com" className="hover:text-white transition-colors">
-                  info@gk2.com
+                <a href="mailto:gk2switchgear@gmail.com" className="hover:text-white transition-colors">
+                  gk2switchgear@gmail.com
                 </a>
               </li>
               <li>

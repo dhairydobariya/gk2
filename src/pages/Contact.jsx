@@ -19,9 +19,9 @@ function useReveal(threshold = 0.12) {
 const contactCards = [
   {
     label: 'Email Us',
-    value: 'info@gk2.com',
+    value: 'gk2switchgear@gmail.com',
     sub: 'We reply within 24 hours',
-    href: 'mailto:info@gk2.com',
+    href: 'mailto:gk2switchgear@gmail.com',
     bg: 'bg-blue-50',
     border: 'border-blue-100',
     iconBg: 'bg-blue-600',
@@ -205,7 +205,7 @@ export default function Contact() {
                 </div>
                 <div className="mt-5 p-4 bg-blue-50 border border-blue-100 rounded-xl">
                   <p className="text-xs text-blue-700 leading-relaxed">
-                    For urgent inquiries outside business hours, email us at <span className="font-semibold">info@gk2.com</span> and we'll respond as soon as possible.
+                    For urgent inquiries outside business hours, email us at <span className="font-semibold">gk2switchgear@gmail.com</span> and we'll respond as soon as possible.
                   </p>
                 </div>
               </div>
@@ -263,7 +263,7 @@ export default function Contact() {
                       <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="1.8" className="w-4 h-4 flex-shrink-0">
                         <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/>
                       </svg>
-                      info@gk2.com
+                      gk2switchgear@gmail.com
                     </div>
                     <div className="flex items-center gap-2 text-gray-600">
                       <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="1.8" className="w-4 h-4 flex-shrink-0">
