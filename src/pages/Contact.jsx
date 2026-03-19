@@ -99,13 +99,13 @@ export default function Contact() {
           <div ref={cardsRef} className="ct-stagger grid grid-cols-2 sm:grid-cols-4 gap-4">
             {contactCards.map((c, i) => (
               <a key={i} href={c.href} target={c.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer"
-                className={`group flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 p-4 sm:p-6 rounded-2xl border ${c.border} ${c.bg} hover:shadow-md hover:-translate-y-1 transition-all duration-300`}>
+                className={`group flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 px-4 py-4 sm:px-6 sm:py-6 rounded-2xl border ${c.border} ${c.bg} hover:shadow-md hover:-translate-y-1 transition-all duration-300`}>
                 <div className={`flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 ${c.iconBg} text-white rounded-xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300`}>
                   {c.icon}
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 w-full">
                   <p className="text-xs text-gray-500 font-medium uppercase tracking-wide mb-0.5">{c.label}</p>
-                  <p className="font-bold text-gray-900 text-xs sm:text-sm leading-snug break-all">{c.value}</p>
+                  <p className="font-bold text-gray-900 text-[11px] sm:text-sm leading-snug break-all">{c.value}</p>
                   <p className="text-xs text-gray-400 mt-0.5 hidden sm:block">{c.sub}</p>
                 </div>
               </a>

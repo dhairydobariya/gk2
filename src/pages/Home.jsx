@@ -108,15 +108,7 @@ const categoryIcons = {
   "main-switch-rewirable": (<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-7 h-7"><rect x="6" y="8" width="20" height="16" rx="2"/><path d="M12 16h8"/><circle cx="12" cy="16" r="2" fill="currentColor"/></svg>),
 };
 
-// ── NEW: comparison table data ──
-const comparison = [
-  { feature: "IS/IEC Certified",         gk2: true,  generic: false },
-  { feature: "10KA Breaking Capacity",   gk2: true,  generic: false },
-  { feature: "Silver Plated Busbars",    gk2: true,  generic: false },
-  { feature: "Quick Make & Break",       gk2: true,  generic: false },
-  { feature: "Door Interlock Feature",   gk2: true,  generic: false },
-  { feature: "Pan-India Distribution",   gk2: true,  generic: false },
-];
+
 
 export default function Home() {
   const { products, categories } = getProductsData();
@@ -127,7 +119,6 @@ export default function Home() {
   const prodRef     = useReveal();
   const prodGridRef = useReveal();
   const advRef      = useReveal();
-  const cmpRef      = useReveal();
   const qualRef     = useReveal();
   const qualGridRef = useReveal();
   const indRef      = useReveal();
@@ -306,54 +297,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. GK2 vs GENERIC — new comparison table */}
-      <section className="py-14 sm:py-24 bg-white">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <div ref={cmpRef} className="reveal-section">
-            <div className="text-center mb-10 sm:mb-14">
-              <span className="inline-block text-blue-600 font-semibold text-xs tracking-widest uppercase mb-3 border-b-2 border-blue-600 pb-1">Why Choose Us</span>
-              <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mt-3 flex items-center justify-center gap-3 flex-wrap">
-                <img src={logo} alt="GK2" className="h-8 sm:h-10 w-auto inline-block" />
-                <span>vs Generic Brands</span>
-              </h2>
-              <p className="text-gray-500 mt-3 max-w-md mx-auto text-sm flex items-center justify-center gap-1.5 flex-wrap">
-                See why electrical contractors and panel builders across India prefer
-                <img src={logo} alt="GK2" className="h-4 w-auto inline-block" />.
-              </p>
-            </div>
-            <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
-              {/* Header */}
-              <div className="grid grid-cols-3 bg-gray-50 border-b border-gray-100">
-                <div className="p-4 sm:p-5 text-sm font-semibold text-gray-500 uppercase tracking-wide">Feature</div>
-                <div className="p-4 sm:p-5 text-center">
-                  <span className="inline-flex items-center gap-2 bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">
-                    <img src={logo} alt="GK2" className="h-4 w-auto" style={{ filter: "brightness(0) invert(1)" }} />
-                  </span>
-                </div>
-                <div className="p-4 sm:p-5 text-center">
-                  <span className="inline-block text-gray-400 text-xs font-semibold uppercase tracking-wide">Generic Brand</span>
-                </div>
-              </div>
-              {/* Rows */}
-              {comparison.map((row, i) => (
-                <div key={i} className={`grid grid-cols-3 border-b border-gray-50 last:border-0 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
-                  <div className="p-4 sm:p-5 text-sm text-gray-700 font-medium flex items-center">{row.feature}</div>
-                  <div className="p-4 sm:p-5 flex items-center justify-center">
-                    <span className="w-7 h-7 bg-green-100 rounded-full flex items-center justify-center">
-                      <svg viewBox="0 0 16 16" fill="none" stroke="#16a34a" strokeWidth="2" className="w-4 h-4"><path d="M3 8l3.5 3.5L13 5"/></svg>
-                    </span>
-                  </div>
-                  <div className="p-4 sm:p-5 flex items-center justify-center">
-                    <span className="w-7 h-7 bg-red-50 rounded-full flex items-center justify-center">
-                      <svg viewBox="0 0 16 16" fill="none" stroke="#ef4444" strokeWidth="2" className="w-4 h-4"><path d="M4 4l8 8M12 4l-8 8"/></svg>
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* 8. QUALITY & STANDARDS — updated to cover full range */}
       <section className="py-14 sm:py-24 bg-[#0f172a] relative overflow-hidden">
