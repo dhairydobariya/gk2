@@ -1,13 +1,195 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getProductsData } from '../utils/dataManager';
 import ImageWithFallback from '../components/ImageWithFallback';
+
+// ── LIGHTBOX ──────────────────────────────────────────────────────────────────
+function Lightbox({ images, startIndex, onClose }) {
+  const [idx, setIdx] = useState(startIndex);
+  const [zoom, setZoom] = useState(1);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [dragging, setDragging] = useState(false);
+  const dragStart = useRef(null);
+  const imgRef = useRef(null);
+
+  // pinch-to-zoom state
+  const lastDist = useRef(null);
+
+  const resetZoom = () => { setZoom(1); setPan({ x: 0, y: 0 }); };
+
+  const goTo = (i) => { setIdx((i + images.length) % images.length); resetZoom(); };
+
+  // keyboard
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowRight') goTo(idx + 1);
+      if (e.key === 'ArrowLeft') goTo(idx - 1);
+    };
+    window.addEventListener('keydown', handler);
+    document.body.style.overflow = 'hidden';
+    return () => { window.removeEventListener('keydown', handler); document.body.style.overflow = ''; };
+  }, [idx]);
+
+  // scroll-to-zoom (desktop)
+  const onWheel = (e) => {
+    e.preventDefault();
+    setZoom(z => Math.min(4, Math.max(1, z - e.deltaY * 0.002)));
+  };
+
+  // mouse drag (desktop)
+  const onMouseDown = (e) => {
+    if (zoom <= 1) return;
+    setDragging(true);
+    dragStart.current = { x: e.clientX - pan.x, y: e.clientY - pan.y };
+  };
+  const onMouseMove = (e) => {
+    if (!dragging) return;
+    setPan({ x: e.clientX - dragStart.current.x, y: e.clientY - dragStart.current.y });
+  };
+  const onMouseUp = () => setDragging(false);
+
+  // touch pinch-to-zoom + swipe
+  const touchStart = useRef(null);
+  const onTouchStart = (e) => {
+    if (e.touches.length === 2) {
+      lastDist.current = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+    } else {
+      touchStart.current = e.touches[0].clientX;
+    }
+  };
+  const onTouchMove = (e) => {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      if (lastDist.current) {
+        setZoom(z => Math.min(4, Math.max(1, z * (dist / lastDist.current))));
+      }
+      lastDist.current = dist;
+    }
+  };
+  const onTouchEnd = (e) => {
+    lastDist.current = null;
+    if (zoom > 1) return; // don't swipe when zoomed
+    if (touchStart.current === null) return;
+    const diff = touchStart.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) diff > 0 ? goTo(idx + 1) : goTo(idx - 1);
+    touchStart.current = null;
+  };
+
+  return (
+    <div className="fixed inset-0 z-[999] flex flex-col bg-black/95 backdrop-blur-sm"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+
+      {/* Top bar */}
+      <div className="flex items-center justify-between px-4 py-3 shrink-0">
+        <span className="text-white/50 text-sm font-mono">{idx + 1} / {images.length}</span>
+        <div className="flex items-center gap-2">
+          {/* Zoom controls */}
+          <button onClick={() => setZoom(z => Math.min(4, z + 0.5))}
+            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-lg transition-colors" title="Zoom in">+</button>
+          <span className="text-white/60 text-xs w-10 text-center">{Math.round(zoom * 100)}%</span>
+          <button onClick={() => { setZoom(z => Math.max(1, z - 0.5)); if (zoom <= 1.5) resetZoom(); }}
+            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-lg transition-colors" title="Zoom out">−</button>
+          <button onClick={resetZoom}
+            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors text-xs font-bold" title="Reset zoom">1:1</button>
+          <div className="w-px h-5 bg-white/20 mx-1" />
+          <button onClick={onClose}
+            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-red-500/80 text-white flex items-center justify-center transition-colors text-lg" title="Close">✕</button>
+        </div>
+      </div>
+
+      {/* Image area */}
+      <div className="flex-1 relative overflow-hidden flex items-center justify-center select-none"
+        onWheel={onWheel}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        onMouseLeave={onMouseUp}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+        style={{ cursor: zoom > 1 ? (dragging ? 'grabbing' : 'grab') : 'zoom-in' }}
+      >
+        <img
+          ref={imgRef}
+          src={images[idx]}
+          alt={`View ${idx + 1}`}
+          style={{
+            transform: `scale(${zoom}) translate(${pan.x / zoom}px, ${pan.y / zoom}px)`,
+            transition: dragging ? 'none' : 'transform 0.2s ease',
+            maxWidth: '90vw',
+            maxHeight: '80vh',
+            objectFit: 'contain',
+            userSelect: 'none',
+            pointerEvents: 'none',
+          }}
+          draggable={false}
+        />
+        {/* Hint */}
+        {zoom === 1 && (
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/30 text-xs pointer-events-none hidden sm:block">
+            Scroll to zoom · Drag to pan
+          </div>
+        )}
+      </div>
+
+      {/* Prev / Next */}
+      {images.length > 1 && (
+        <>
+          <button onClick={() => goTo(idx - 1)}
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center text-2xl transition-colors z-10">‹</button>
+          <button onClick={() => goTo(idx + 1)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center text-2xl transition-colors z-10">›</button>
+        </>
+      )}
+
+      {/* Thumbnail strip */}
+      {images.length > 1 && (
+        <div className="shrink-0 flex justify-center gap-2 px-4 py-3 overflow-x-auto">
+          {images.map((img, i) => (
+            <button key={i} onClick={() => goTo(i)}
+              className={`w-14 h-14 rounded-lg overflow-hidden border-2 shrink-0 transition-all duration-200 ${i === idx ? 'border-blue-400 opacity-100' : 'border-white/20 opacity-50 hover:opacity-80'}`}>
+              <img src={img} alt="" className="w-full h-full object-contain bg-white/5" draggable={false} />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 function ProductDetail() {
   const { id } = useParams();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
+  // hover zoom state
+  const [hoverPos, setHoverPos] = useState(null); // { x, y } as 0–1 fractions
+  const [panelTop, setPanelTop] = useState(0);    // fixed top position in px
+  const [panelLeft, setPanelLeft] = useState(0);  // fixed left position in px
+  const imgContainerRef = useRef(null);
+  const ZOOM_FACTOR = 2.5;
+
+  const handleMouseMove = (e) => {
+    const rect = imgContainerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+    const y = Math.min(1, Math.max(0, (e.clientY - rect.top) / rect.height));
+    setHoverPos({ x, y });
+    // Position panel to the right of the image, vertically centered on viewport
+    setPanelLeft(rect.right + 51);
+    setPanelTop(Math.max(16, rect.top + rect.height / 2 - 260));
+  };
+  const handleMouseLeave = () => setHoverPos(null);
 
   const { products } = getProductsData();
   const product = products.find(p => p.id === id);
@@ -70,78 +252,138 @@ function ProductDetail() {
         </div>
       </div>
 
-      <section className="py-8 sm:py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
+      <section className="py-8 sm:py-12 overflow-visible">
+        <div className="container mx-auto px-4 overflow-visible">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12 lg:overflow-visible">
             {/* Images */}
             <div>
-              {/* Main slider */}
-              <div className="bg-white rounded-2xl border-2 border-gray-200 shadow-sm mb-3 overflow-hidden">
-                <div
-                  className="relative aspect-square overflow-hidden bg-gradient-to-br from-gray-50 to-blue-50"
-                  onTouchStart={onTouchStart}
-                  onTouchEnd={onTouchEnd}
-                >
-                  {/* Strip: all images side by side, translateX moves to current */}
+              {/* Main slider + zoom lens wrapper */}
+              <div className="relative">
+                {/* Main slider */}
+                <div className="bg-white rounded-2xl border-2 border-gray-200 shadow-sm mb-3 overflow-hidden">
                   <div
+                    ref={imgContainerRef}
+                    className="relative aspect-square overflow-hidden bg-gradient-to-br from-gray-50 to-blue-50 cursor-zoom-in"
+                    onTouchStart={onTouchStart}
+                    onTouchEnd={onTouchEnd}
+                    onClick={() => setLightboxOpen(true)}
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                    title="Click to enlarge"
+                  >
+                    {/* Strip: all images side by side, translateX moves to current */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        width: `${images.length * 100}%`,
+                        height: '100%',
+                        transform: `translateX(-${(currentIndex * 100) / images.length}%)`,
+                        transition: 'transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                      }}
+                    >
+                      {images.map((img, i) => (
+                        <div
+                          key={i}
+                          style={{ width: `${100 / images.length}%`, flexShrink: 0, padding: '24px' }}
+                          className="flex items-center justify-center"
+                        >
+                          <img
+                            src={img}
+                            alt={`${product.name} ${i + 1}`}
+                            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                            onError={e => { e.target.style.display = 'none'; }}
+                          />
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Corner decorations */}
+                    <div className="absolute top-4 right-4 w-10 h-10 border-t-2 border-r-2 border-blue-200 pointer-events-none z-10" />
+                    <div className="absolute bottom-4 left-4 w-10 h-10 border-b-2 border-l-2 border-blue-200 pointer-events-none z-10" />
+
+                    {/* Zoom hint — hide when hovering */}
+                    {!hoverPos && (
+                      <div className="absolute top-3 left-3 z-20 bg-black/40 backdrop-blur-sm text-white rounded-lg px-2 py-1 flex items-center gap-1 text-xs font-medium pointer-events-none opacity-70">
+                        <svg viewBox="0 0 20 20" fill="currentColor" className="w-3.5 h-3.5">
+                          <path d="M9 3a6 6 0 100 12A6 6 0 009 3zM1 9a8 8 0 1114.32 4.906l3.387 3.387a1 1 0 01-1.414 1.414l-3.387-3.387A8 8 0 011 9z"/>
+                          <path d="M9 6v6M6 9h6" stroke="white" strokeWidth="1.5" fill="none"/>
+                        </svg>
+                        Hover to zoom · Click to enlarge
+                      </div>
+                    )}
+
+                    {/* Lens crosshair overlay */}
+                    {hoverPos && (
+                      <div
+                        className="absolute pointer-events-none z-20 border-2 border-blue-400/60 rounded-sm bg-blue-400/10"
+                        style={{
+                          width: `${100 / ZOOM_FACTOR}%`,
+                          height: `${100 / ZOOM_FACTOR}%`,
+                          left: `${Math.min(100 - 100 / ZOOM_FACTOR, Math.max(0, hoverPos.x * 100 - 50 / ZOOM_FACTOR))}%`,
+                          top: `${Math.min(100 - 100 / ZOOM_FACTOR, Math.max(0, hoverPos.y * 100 - 50 / ZOOM_FACTOR))}%`,
+                        }}
+                      />
+                    )}
+
+                    {/* Arrows */}
+                    {images.length > 1 && (
+                      <>
+                        <button
+                          onClick={e => { e.stopPropagation(); prev(); }}
+                          className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 border border-gray-200 shadow flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200 z-20 text-xl leading-none"
+                          aria-label="Previous image"
+                        >‹</button>
+                        <button
+                          onClick={e => { e.stopPropagation(); next(); }}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 border border-gray-200 shadow flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200 z-20 text-xl leading-none"
+                          aria-label="Next image"
+                        >›</button>
+
+                        {/* Dots */}
+                        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
+                          {images.map((_, i) => (
+                            <button
+                              key={i}
+                              onClick={e => { e.stopPropagation(); setCurrentIndex(i); }}
+                              className={`rounded-full transition-all duration-200 ${
+                                i === currentIndex ? 'w-5 h-2 bg-blue-600' : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
+                              }`}
+                              aria-label={`Image ${i + 1}`}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                {/* Zoom preview panel — fixed position, stays stable while hovering */}
+                {hoverPos && images[currentIndex] && (
+                  <div
+                    className="hidden lg:block fixed bg-white rounded-2xl border-2 border-blue-200 shadow-2xl overflow-hidden z-30"
                     style={{
-                      display: 'flex',
-                      width: `${images.length * 100}%`,
-                      height: '100%',
-                      transform: `translateX(-${(currentIndex * 100) / images.length}%)`,
-                      transition: 'transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                      pointerEvents: 'none',
+                      width: '400px',
+                      height: '400px',
+                      top: `${panelTop}px`,
+                      left: `${panelLeft}px`,
                     }}
                   >
-                    {images.map((img, i) => (
-                      <div
-                        key={i}
-                        style={{ width: `${100 / images.length}%`, flexShrink: 0, padding: '24px' }}
-                        className="flex items-center justify-center"
-                      >
-                        <img
-                          src={img}
-                          alt={`${product.name} ${i + 1}`}
-                          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                          onError={e => { e.target.style.display = 'none'; }}
-                        />
-                      </div>
-                    ))}
+                    <div
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        backgroundImage: `url(${images[currentIndex]})`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: `${ZOOM_FACTOR * 100}%`,
+                        backgroundPosition: `${hoverPos.x * 100}% ${hoverPos.y * 100}%`,
+                      }}
+                    />
+                    <div className="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                      {ZOOM_FACTOR}x
+                    </div>
                   </div>
-
-                  {/* Corner decorations */}
-                  <div className="absolute top-4 right-4 w-10 h-10 border-t-2 border-r-2 border-blue-200 pointer-events-none z-10" />
-                  <div className="absolute bottom-4 left-4 w-10 h-10 border-b-2 border-l-2 border-blue-200 pointer-events-none z-10" />
-
-                  {/* Arrows */}
-                  {images.length > 1 && (
-                    <>
-                      <button
-                        onClick={prev}
-                        className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 border border-gray-200 shadow flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200 z-20 text-xl leading-none"
-                        aria-label="Previous image"
-                      >‹</button>
-                      <button
-                        onClick={next}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 border border-gray-200 shadow flex items-center justify-center text-gray-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200 z-20 text-xl leading-none"
-                        aria-label="Next image"
-                      >›</button>
-
-                      {/* Dots */}
-                      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
-                        {images.map((_, i) => (
-                          <button
-                            key={i}
-                            onClick={() => setCurrentIndex(i)}
-                            className={`rounded-full transition-all duration-200 ${
-                              i === currentIndex ? 'w-5 h-2 bg-blue-600' : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
-                            }`}
-                            aria-label={`Image ${i + 1}`}
-                          />
-                        ))}
-                      </div>
-                    </>
-                  )}
-                </div>
+                )}
               </div>
 
               {/* Thumbnails */}
@@ -350,6 +592,11 @@ function ProductDetail() {
           )}
         </div>
       </section>
+
+      {/* LIGHTBOX */}
+      {lightboxOpen && (
+        <Lightbox images={images} startIndex={currentIndex} onClose={() => setLightboxOpen(false)} />
+      )}
     </div>
   );
 }
