@@ -97,7 +97,7 @@ function AdminSidebar({ activeSection, setActiveSection, onLogout, isOpen, onClo
           </button>
           <div className="mt-4 px-3">
             <p className="text-[11px] text-slate-600 leading-tight">Developed by</p>
-            <p className="text-[11px] font-semibold text-slate-500">Dhairya Dobariya</p>
+            <p className="text-[11px] font-semibold text-slate-500">Dhairy Dobariya</p>
           </div>
         </div>
       </div>
