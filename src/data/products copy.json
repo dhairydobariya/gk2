@@ -18,6 +18,7 @@
       "breakingCapacity": "10KA",
       "series": "C Series",
       "image": "/products/moduler-single-ploe-mcb.jpeg",
+      "image2": "/products/moduler-single-ploe-mcb.jpeg",
 
       "inStock": true,
       "features": [
@@ -44,6 +45,8 @@
       "breakingCapacity": "10KA",
       "series": "C Series",
       "image": "/products/moduler-double-pole-mcb.jpeg",
+      "image2": "/products/moduler-double-pole-mcb.jpeg",
+      "image3": "/products/moduler-double-pole-mcb.jpeg",
       "inStock": true,
       "features": [
         "Compact modular design",
@@ -69,6 +72,7 @@
       "breakingCapacity": "10KA",
       "series": "C Series",
       "image": "/products/tiny-single-pole-mcb.jpeg",
+      "image2": "/products/tiny-single-pole-mcb.jpeg",
       "inStock": true,
       "features": [
         "Ultra-compact tiny design",
@@ -94,6 +98,7 @@
       "breakingCapacity": "10KA",
       "series": "C Series",
       "image": "/products/tiny-double-pole-mcb.jpeg",
+      "image2": "/products/tiny-double-pole-mcb.jpeg",
       "inStock": true,
       "features": [
         "Ultra-compact tiny design",
@@ -119,6 +124,8 @@
       "breakingCapacity": "10KA",
       "series": "C Series",
       "image": "/products/single-pole-mcb-c-series.jpeg",
+      "image2": "/products/single-pole-mcb-c-series.jpeg",
+      "image3": "/products/single-pole-mcb-c-series.jpeg",
       "inStock": true,
       "featured": true,
       "features": [
@@ -147,6 +154,8 @@
       "breakingCapacity": "10KA",
       "series": "C Series",
       "image": "/products/double-pole-mcb-c-series.jpeg",
+      "image2": "/products/double-pole-mcb-c-series.jpeg",
+      "image3": "/products/double-pole-mcb-c-series.jpeg",
       "inStock": true,
       "featured": true,
       "features": [
@@ -175,6 +184,8 @@
       "breakingCapacity": "10KA",
       "series": "C Series",
       "image": "/products/three-pole-mcb-c-series.jpeg",
+      "image2": "/products/three-pole-mcb-c-series.jpeg",
+      "image3": "/products/three-pole-mcb-c-series.jpeg",
       "inStock": true,
       "features": [
         "Triple pole three-phase protection",
@@ -202,6 +213,8 @@
       "breakingCapacity": "10KA",
       "series": "C Series",
       "image": "/products/four-pole-mcb-c-series.jpeg",
+      "image2": "/products/four-pole-mcb-c-series.jpeg",
+      "image3": "/products/four-pole-mcb-c-series.jpeg",
       "inStock": true,
       "features": [
         "Four pole three-phase + neutral protection",
@@ -229,6 +242,7 @@
       "breakingCapacity": "—",
       "series": "Heavy Duty",
       "image": "/products/reverse-forward-switch.jpeg",
+      "image2": "/products/reverse-forward-switch.jpeg",
       "inStock": true,
       "features": [
         "Heavy duty material ensures high strength and durability",
@@ -250,6 +264,7 @@
       "breakingCapacity": "—",
       "series": "Heavy Duty",
       "image": "/products/busbar.jpeg",
+      "image2": "/products/busbar.jpeg",
       "inStock": true,
       "featured": true,
       "features": [
@@ -272,6 +287,7 @@
       "breakingCapacity": "80KA",
       "series": "HRC",
       "image": "/products/hrc-fuce-base.jpeg",
+      "image2": "/products/hrc-fuce-base.jpeg",
       "inStock": true,
       "features": [
         "Range from 100 AMP to 630 AMP",
@@ -293,6 +309,7 @@
       "breakingCapacity": "80KA",
       "series": "HRC",
       "image": "/products/hrc-fuce-base.jpeg",
+      "image2": "/products/hrc-fuce-base.jpeg",
       "inStock": true,
       "features": [
         "Range from 32 AMP to 630 AMP",
@@ -314,6 +331,7 @@
       "breakingCapacity": "—",
       "series": "SDF",
       "image": "/products/switch-disconnector-fuse.jpeg",
+      "image2": "/products/switch-disconnector-fuse.jpeg",
       "inStock": true,
       "featured": true,
       "features": [
@@ -336,6 +354,7 @@
       "breakingCapacity": "—",
       "series": "OCS",
       "image": "/products/onload-changeover-switch.jpeg",
+      "image2": "/products/onload-changeover-switch.jpeg",
       "inStock": true,
       "features": [
         "Range from 63 AMP to 1000 AMP",
@@ -357,6 +376,7 @@
       "breakingCapacity": "80KA",
       "series": "LBS",
       "image": "/products/onload-isolator.jpeg",
+      "image2": "/products/onload-isolator.jpeg",
       "inStock": true,
       "features": [
         "Range from 63 AMP to 1000 AMP",
@@ -379,6 +399,7 @@
       "breakingCapacity": "—",
       "series": "OCS",
       "image": "/products/offload-changeover-switch.jpeg",
+      "image2": "/products/offload-changeover-switch.jpeg",
       "inStock": true,
       "features": [
         "Range from 63 AMP to 1000 AMP",
@@ -400,6 +421,7 @@
       "breakingCapacity": "—",
       "series": "MSR",
       "image": "/products/main-switch-rewirable.jpeg",
+      "image2": "/products/main-switch-rewirable.jpeg",
       "inStock": true,
       "features": [
         "Range from 32 AMP to 200 AMP",

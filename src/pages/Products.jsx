@@ -19,11 +19,20 @@ function ProductSkeleton() {
 
 // Product card that shows skeleton until image loads
 function ProductCard({ product, idx, getCategoryName }) {
-  const [loaded, setLoaded] = useState(false);
+  // Check if image is already cached — skip skeleton if so
+  const [loaded, setLoaded] = useState(() => {
+    if (!product.image) return false;
+    const img = new window.Image();
+    img.src = product.image;
+    return img.complete && img.naturalWidth > 0;
+  });
   const [error, setError] = useState(false);
 
-  // Reset loaded state when product changes (category switch)
-  useEffect(() => { setLoaded(false); setError(false); }, [product.id]);
+  // Only reset when the image src actually changes (not on every remount)
+  const prevSrc = useState(product.image)[0];
+  useEffect(() => {
+    if (product.image !== prevSrc) { setLoaded(false); setError(false); }
+  }, [product.image]);
 
   return (
     <div className="relative w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] max-w-sm">
@@ -75,7 +84,7 @@ function Products() {
   const [searchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState(() => searchParams.get('category') || 'all');
   const [filterOpen, setFilterOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(true);
   const { categories, products } = getProductsData();
 
   // Sync if URL param changes (e.g. navigating from home)
@@ -83,12 +92,6 @@ function Products() {
     const cat = searchParams.get('category');
     if (cat) setSelectedCategory(cat);
   }, [searchParams]);
-
-  // Brief delay so skeletons show before cards render
-  useEffect(() => {
-    const t = setTimeout(() => setMounted(true), 50);
-    return () => clearTimeout(t);
-  }, []);
 
   const filteredProducts = useMemo(() =>
     selectedCategory === 'all' ? products : products.filter(p => p.category === selectedCategory),
