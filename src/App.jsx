@@ -11,6 +11,7 @@ import Distributors from './pages/Distributors'
 import DistributorDetail from './pages/DistributorDetail'
 import Contact from './pages/Contact'
 import Admin from './pages/Admin'
+import NotFound from './pages/NotFound'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -21,6 +22,16 @@ function ScrollToTop() {
 function AppContent() {
   const location = useLocation()
   const isAdminPage = location.pathname.startsWith('/admin')
+  const knownRoutes = ['/', '/about', '/products', '/distributors', '/contact', '/admin']
+  const isKnown = knownRoutes.includes(location.pathname)
+    || location.pathname.startsWith('/products/')
+    || location.pathname.startsWith('/distributors/')
+    || location.pathname.startsWith('/admin')
+
+  // 404 — full screen, no header/footer
+  if (!isKnown) {
+    return <Routes><Route path="*" element={<NotFound />} /></Routes>
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -36,6 +47,7 @@ function AppContent() {
           <Route path="/distributors/:id" element={<DistributorDetail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       {!isAdminPage && <Footer />}
