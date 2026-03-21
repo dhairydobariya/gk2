@@ -1,5 +1,5 @@
 ﻿import { Link } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import logo from "../assets/logo.png";
 import DynamicBanner from "../components/DynamicBanner";
 import { getProductsData } from "../utils/dataManager";
@@ -17,6 +17,54 @@ function useReveal() {
     return () => obs.disconnect();
   }, []);
   return ref;
+}
+
+// Featured product card with per-card skeleton loader
+function FeaturedCard({ product }) {
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
+  return (
+    <div className="relative">
+      {/* Skeleton overlay until image loads */}
+      {!loaded && !error && (
+        <div className="absolute inset-0 z-10 bg-white rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm overflow-hidden animate-pulse">
+          <div className="aspect-square bg-gradient-to-br from-slate-100 to-blue-50" />
+          <div className="p-3 sm:p-5 space-y-2">
+            <div className="h-3 bg-gray-200 rounded-lg w-1/2 hidden sm:block" />
+            <div className="h-4 bg-gray-200 rounded-lg w-3/4" />
+            <div className="h-3 bg-gray-100 rounded-lg w-1/3 mt-2" />
+          </div>
+        </div>
+      )}
+      <Link to={`/products/${product.id}`}
+        className={`card-hover group bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-gray-100 shadow-sm block ${loaded || error ? 'opacity-100' : 'opacity-0'}`}
+        style={{ transition: 'opacity 0.3s ease' }}>
+        <div className="relative bg-gradient-to-br from-slate-50 to-blue-50 aspect-square overflow-hidden">
+          <img src={product.image} alt={product.name}
+            className="w-full h-full object-contain p-4 sm:p-6 group-hover:scale-105 transition-transform duration-500"
+            loading="eager"
+            fetchpriority="high"
+            onLoad={() => setLoaded(true)}
+            onError={() => { setError(true); setLoaded(true); }} />
+          {product.breakingCapacity && product.breakingCapacity !== '—' && (
+            <div className="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+              {product.breakingCapacity}
+            </div>
+          )}
+        </div>
+        <div className="p-3 sm:p-5">
+          <p className="text-xs text-blue-500 font-semibold uppercase tracking-wide mb-1 hidden sm:block">{product.series}</p>
+          <h3 className="font-bold text-gray-900 text-xs sm:text-base mb-2 sm:mb-3 group-hover:text-blue-600 transition-colors leading-snug">{product.name}</h3>
+          <div className="flex items-center justify-between">
+            <span className="text-xs bg-blue-50 text-blue-700 border border-blue-100 px-2 py-0.5 rounded-full font-semibold">
+              {product.variants?.length || 0} Variants
+            </span>
+            <span className="text-blue-600 text-xs sm:text-sm font-semibold group-hover:translate-x-1 transition-transform duration-200 inline-block">View →</span>
+          </div>
+        </div>
+      </Link>
+    </div>
+  );
 }
 
 // ── UPDATED: credible, specific stats ──
@@ -117,7 +165,6 @@ export default function Home() {
   const statsRef    = useReveal();
   const catRef      = useReveal();
   const prodRef     = useReveal();
-  const prodGridRef = useReveal();
   const advRef      = useReveal();
   const qualRef     = useReveal();
   const qualGridRef = useReveal();
@@ -189,7 +236,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 4. PRODUCT CATEGORIES STRIP — new */}
+      {/* 4. PRODUCT CATEGORIES STRIP */}
       <section className="py-14 sm:py-20 bg-gray-50">
         <div className="container mx-auto px-4 max-w-6xl">
           <div ref={catRef} className="reveal-section">
@@ -216,7 +263,9 @@ export default function Home() {
                       )}
                     </div>
                     <p className="font-bold text-gray-900 text-xs sm:text-sm leading-snug group-hover:text-blue-600 transition-colors">{cat.name}</p>
-                    <p className="text-xs text-gray-400 mt-1">{count} product{count !== 1 ? 's' : ''}</p>
+                    <span className="mt-1.5 text-xs font-semibold bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                      {count}
+                    </span>
                   </Link>
                 );
               })}
@@ -238,32 +287,10 @@ export default function Home() {
                 View All →
               </Link>
             </div>
-            <div ref={prodGridRef} className="stagger-child grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+            {/* No stagger animation — cards load independently with their own skeleton */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
               {featured.map((product) => (
-                <Link key={product.id} to={`/products/${product.id}`}
-                  className="card-hover group bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
-                  <div className="relative bg-gradient-to-br from-slate-50 to-blue-50 aspect-square overflow-hidden">
-                    <img src={product.image} alt={product.name}
-                      className="w-full h-full object-contain p-4 sm:p-6 group-hover:scale-105 transition-transform duration-500"
-                      onError={e => { e.target.style.display = 'none'; }} />
-                    {/* ── FIXED: only show badge if not "—" ── */}
-                    {product.breakingCapacity && product.breakingCapacity !== '—' && (
-                      <div className="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
-                        {product.breakingCapacity}
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-3 sm:p-5">
-                    <p className="text-xs text-blue-500 font-semibold uppercase tracking-wide mb-1 hidden sm:block">{product.series}</p>
-                    <h3 className="font-bold text-gray-900 text-xs sm:text-base mb-2 sm:mb-3 group-hover:text-blue-600 transition-colors leading-snug">{product.name}</h3>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs bg-blue-50 text-blue-700 border border-blue-100 px-2 py-0.5 rounded-full font-semibold">
-                        {product.variants?.length || 0} Variants
-                      </span>
-                      <span className="text-blue-600 text-xs sm:text-sm font-semibold group-hover:translate-x-1 transition-transform duration-200 inline-block">View →</span>
-                    </div>
-                  </div>
-                </Link>
+                <FeaturedCard key={product.id} product={product} />
               ))}
             </div>
           </div>

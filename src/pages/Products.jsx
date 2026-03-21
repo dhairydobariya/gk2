@@ -1,17 +1,99 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useMemo, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { getProductsData } from '../utils/dataManager';
-import ImageWithFallback from '../components/ImageWithFallback';
 import DynamicBanner from '../components/DynamicBanner';
 
+// Full skeleton card — same dimensions as real card
+function ProductSkeleton() {
+  return (
+    <div className="bg-white rounded-xl border border-gray-100 overflow-hidden w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] max-w-sm animate-pulse">
+      <div className="aspect-square bg-gradient-to-br from-slate-100 to-blue-50" />
+      <div className="p-4 space-y-3">
+        <div className="h-4 bg-gray-200 rounded-lg w-3/4" />
+        <div className="h-3 bg-gray-100 rounded-lg w-1/2" />
+        <div className="h-3 bg-blue-50 rounded-lg w-1/3" />
+      </div>
+    </div>
+  );
+}
+
+// Product card that shows skeleton until image loads
+function ProductCard({ product, idx, getCategoryName }) {
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
+
+  // Reset loaded state when product changes (category switch)
+  useEffect(() => { setLoaded(false); setError(false); }, [product.id]);
+
+  return (
+    <div className="relative w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] max-w-sm">
+      {/* Skeleton — shown until image loads */}
+      {!loaded && !error && (
+        <div className="absolute inset-0 z-10 bg-white rounded-xl border border-gray-100 overflow-hidden animate-pulse">
+          <div className="aspect-square bg-gradient-to-br from-slate-100 to-blue-50" />
+          <div className="p-4 space-y-3">
+            <div className="h-4 bg-gray-200 rounded-lg w-3/4" />
+            <div className="h-3 bg-gray-100 rounded-lg w-1/2" />
+            <div className="h-3 bg-blue-50 rounded-lg w-1/3" />
+          </div>
+        </div>
+      )}
+      {/* Real card — fades in when image ready */}
+      <Link
+        to={`/products/${product.id}`}
+        className={`group bg-white rounded-xl border border-gray-200 hover:border-blue-400 transition-all duration-300 hover:shadow-xl overflow-hidden block ${loaded || error ? 'opacity-100' : 'opacity-0'}`}
+        style={{ transition: 'opacity 0.3s ease' }}
+      >
+        <div className="relative bg-gray-50 aspect-square flex items-center justify-center p-6 overflow-hidden">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
+            loading={idx < 8 ? 'eager' : 'lazy'}
+            fetchpriority={idx < 4 ? 'high' : undefined}
+            onLoad={() => setLoaded(true)}
+            onError={() => { setError(true); setLoaded(true); }}
+          />
+        </div>
+        <div className="p-4">
+          <h3 className="font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
+            {product.name}
+          </h3>
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-gray-500">{getCategoryName(product.category)}</span>
+          </div>
+          <div className="mt-2 text-sm text-blue-600 font-medium group-hover:translate-x-1 transition-transform">
+            View Details →
+          </div>
+        </div>
+      </Link>
+    </div>
+  );
+}
+
 function Products() {
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchParams] = useSearchParams();
+  const [selectedCategory, setSelectedCategory] = useState(() => searchParams.get('category') || 'all');
   const [filterOpen, setFilterOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { categories, products } = getProductsData();
 
-  const filteredProducts = selectedCategory === 'all'
-    ? products
-    : products.filter(p => p.category === selectedCategory);
+  // Sync if URL param changes (e.g. navigating from home)
+  useEffect(() => {
+    const cat = searchParams.get('category');
+    if (cat) setSelectedCategory(cat);
+  }, [searchParams]);
+
+  // Brief delay so skeletons show before cards render
+  useEffect(() => {
+    const t = setTimeout(() => setMounted(true), 50);
+    return () => clearTimeout(t);
+  }, []);
+
+  const filteredProducts = useMemo(() =>
+    selectedCategory === 'all' ? products : products.filter(p => p.category === selectedCategory),
+    [selectedCategory, products]
+  );
 
   const getCategoryName = (categoryId) => {
     const cat = categories.find(c => c.id === categoryId);
@@ -128,32 +210,17 @@ function Products() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-6">
-            {filteredProducts.map(product => (
-              <Link
-                key={product.id}
-                to={`/products/${product.id}`}
-                className="group bg-white rounded-xl border border-gray-200 hover:border-blue-400 transition-all duration-300 hover:shadow-xl overflow-hidden w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] max-w-sm"
-              >
-                <div className="relative bg-gray-50 aspect-square flex items-center justify-center p-6 overflow-hidden">
-                  <ImageWithFallback
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
+            {!mounted
+              ? Array.from({ length: 8 }).map((_, i) => <ProductSkeleton key={i} />)
+              : filteredProducts.map((product, idx) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    idx={idx}
+                    getCategoryName={getCategoryName}
                   />
-                </div>
-                <div className="p-4">
-                  <h3 className="font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
-                    {product.name}
-                  </h3>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-500">{getCategoryName(product.category)}</span>
-                  </div>
-                  <div className="mt-2 text-sm text-blue-600 font-medium group-hover:translate-x-1 transition-transform">
-                    View Details →
-                  </div>
-                </div>
-              </Link>
-            ))}
+                ))
+            }
           </div>
 
           {filteredProducts.length === 0 && (
