@@ -7,9 +7,18 @@ import logo from '../assets/logo.png';
 function CompactBanner({ banner }) {
   return (
     <section className="relative text-white flex items-center overflow-hidden min-h-[260px] sm:min-h-[300px]">
-      {banner.image && (
+      {banner.video ? (
+        <video
+          key={banner.video}
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay muted loop playsInline
+          poster={banner.videoFallbackImage || banner.image || undefined}
+        >
+          <source src={banner.video} type="video/mp4" />
+        </video>
+      ) : banner.image ? (
         <img src={banner.image} alt={banner.title} className="absolute inset-0 w-full h-full object-cover" />
-      )}
+      ) : null}
       <div className={`absolute inset-0 bg-gradient-to-br ${banner.backgroundColor || 'from-blue-900 via-blue-800 to-blue-950'} opacity-90`} />
       <div className="absolute inset-0 opacity-10" style={{
         backgroundImage: 'linear-gradient(90deg,rgba(255,255,255,0.05) 1px,transparent 1px),linear-gradient(rgba(255,255,255,0.05) 1px,transparent 1px)',
@@ -73,10 +82,26 @@ function HeroSlider({ banners }) {
       {banners.map((banner, i) => (
         <div key={banner.id} className="absolute inset-0 transition-opacity duration-700"
           style={{ opacity: i === current ? 1 : 0, zIndex: i === current ? 1 : 0 }}>
-          {banner.image
-            ? <img src={banner.image} alt={banner.title} className="w-full h-full object-cover object-center" />
-            : <div className="w-full h-full bg-blue-950" />
-          }
+          {/* Video background — used when banner.video is set */}
+          {banner.video ? (
+            <video
+              key={banner.video}
+              className="w-full h-full object-cover object-center"
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster={banner.videoFallbackImage || banner.image || undefined}
+            >
+              <source src={banner.video} type="video/mp4" />
+              {/* Fallback to image if video can't play */}
+              {banner.image && <img src={banner.image} alt={banner.title} className="w-full h-full object-cover object-center" />}
+            </video>
+          ) : banner.image ? (
+            <img src={banner.image} alt={banner.title} className="w-full h-full object-cover object-center" />
+          ) : (
+            <div className="w-full h-full bg-blue-950" />
+          )}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/75" />
           <div className={`absolute inset-0 bg-gradient-to-br ${banner.backgroundColor || 'from-blue-950/60 via-transparent to-blue-950/60'}`} />
         </div>
