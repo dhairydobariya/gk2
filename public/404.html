@@ -4,13 +4,11 @@
   <meta charset="utf-8">
   <title>GK2 Switchgear</title>
   <script>
-    // GitHub Pages SPA redirect trick
-    // Encodes the full URL into a query param and redirects to index.html
     var l = window.location;
     l.replace(
       l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-      l.pathname.split('/').slice(0, 1).join('/') +
-      '/?p=' + encodeURIComponent(l.pathname + l.search) +
+      '/gk2/' +
+      '?p=' + encodeURIComponent(l.pathname.replace('/gk2', '') + l.search) +
       (l.hash ? '&h=' + encodeURIComponent(l.hash) : '')
     );
   </script>
