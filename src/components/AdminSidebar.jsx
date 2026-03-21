@@ -1,56 +1,76 @@
 import logo from '../assets/logo.png';
 
-function AdminSidebar({ activeSection, setActiveSection, onLogout }) {
-  const menuItems = [
-    { id: 'banners', label: 'Banners', icon: '🎨' },
-    { id: 'categories', label: 'Categories', icon: '📁' },
-    { id: 'products', label: 'Products', icon: '📦' },
-    { id: 'distributors', label: 'Distributors', icon: '🏢' },
-  ];
+const menuItems = [
+  { id: 'overview',      label: 'Overview',      icon: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
+      <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+      <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+    </svg>
+  )},
+  { id: 'banners',       label: 'Banners',       icon: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
+      <rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>
+    </svg>
+  )},
+  { id: 'categories',    label: 'Categories',    icon: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
+      <path d="M4 6h16M4 12h16M4 18h7"/>
+    </svg>
+  )},
+  { id: 'products',      label: 'Products',      icon: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
+      <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+    </svg>
+  )},
+  { id: 'distributors',  label: 'Distributors',  icon: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
+      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+    </svg>
+  )},
+];
 
+function AdminSidebar({ activeSection, setActiveSection, onLogout }) {
   return (
-    <div className="w-64 bg-gray-900 text-white flex flex-col">
+    <div className="w-60 bg-[#0f172a] text-white flex flex-col shrink-0">
       {/* Logo */}
-      <div className="p-6 border-b border-gray-800">
-        <img 
-          src={logo} 
-          alt="GK2 Logo" 
-          className="h-12 w-auto"
-          style={{ filter: 'brightness(0) invert(1)' }}
-        />
-        <p className="text-sm text-gray-400 mt-2">Admin Panel</p>
+      <div className="px-6 py-5 border-b border-white/[0.07]">
+        <img src={logo} alt="GK2" className="h-9 w-auto" style={{ filter: 'brightness(0) invert(1)' }} />
+        <p className="text-xs text-slate-500 mt-1.5 font-medium tracking-wide uppercase">Admin Panel</p>
       </div>
 
-      {/* Menu Items */}
-      <nav className="flex-1 p-4">
-        <ul className="space-y-2">
-          {menuItems.map((item) => (
-            <li key={item.id}>
-              <button
-                onClick={() => setActiveSection(item.id)}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                  activeSection === item.id
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-300 hover:bg-gray-800'
-                }`}
-              >
-                <span className="text-xl">{item.icon}</span>
-                <span className="font-medium">{item.label}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
+      {/* Nav */}
+      <nav className="flex-1 px-3 py-4 space-y-0.5">
+        {menuItems.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => setActiveSection(item.id)}
+            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
+              activeSection === item.id
+                ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/30'
+                : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
+            }`}
+          >
+            {item.icon}
+            {item.label}
+          </button>
+        ))}
       </nav>
 
-      {/* Logout Button */}
-      <div className="p-4 border-t border-gray-800">
+      {/* Logout */}
+      <div className="px-3 py-4 border-t border-white/[0.07]">
         <button
           onClick={onLogout}
-          className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-red-600 hover:text-white transition-colors"
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-all duration-150"
         >
-          <span className="text-xl">🚪</span>
-          <span className="font-medium">Logout</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
+            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/>
+          </svg>
+          Logout
         </button>
+        <div className="mt-4 px-3">
+          <p className="text-[11px] text-slate-600 leading-tight">Developed by</p>
+          <p className="text-[11px] font-semibold text-slate-500">Dhairya Dobariya</p>
+        </div>
       </div>
     </div>
   );
