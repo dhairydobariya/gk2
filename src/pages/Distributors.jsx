@@ -37,8 +37,15 @@ function Distributors() {
       {/* Distributors Grid */}
       <section className="py-12">
         <div className="container mx-auto px-4">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-gray-900">{filteredDistributors.length} Distributors Found</h2>
+          <div className="mb-6 flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">Our Authorized Distributors</h2>
+              <p className="text-gray-500 text-sm mt-1">
+                {searchTerm
+                  ? `${filteredDistributors.length} result${filteredDistributors.length !== 1 ? 's' : ''} for "${searchTerm}"`
+                  : `${filteredDistributors.length} distributor${filteredDistributors.length !== 1 ? 's' : ''} across India`}
+              </p>
+            </div>
           </div>
 
           <div className="flex flex-wrap justify-center gap-6">
