@@ -281,7 +281,7 @@ function Header() {
         {mobileMenuOpen && (
           <div className="md:hidden pb-3 pt-2 space-y-1">
             {/* Mobile Search */}
-            <div className="px-3 pb-3">
+            <div className="px-3 pb-3" ref={searchRef}>
               <form onSubmit={handleSearchSubmit}>
                 <div className="relative">
                   <input
@@ -302,6 +302,31 @@ function Header() {
                   </svg>
                 </div>
               </form>
+              {/* Mobile Search Results */}
+              {showResults && searchResults.length > 0 && (
+                <div className="mt-2 w-full bg-white rounded-lg shadow-xl border border-gray-200 z-50 max-h-72 overflow-y-auto">
+                  {searchResults.map((product, index) => (
+                    <button
+                      key={product.id}
+                      onClick={() => { handleProductClick(product.id); setMobileMenuOpen(false); }}
+                      className="w-full flex items-center gap-3 p-3 transition-colors border-b border-gray-100 last:border-b-0 text-left hover:bg-gray-50"
+                    >
+                      <div className="w-10 h-10 flex-shrink-0 bg-gray-50 rounded overflow-hidden">
+                        <ImageWithFallback src={product.image} alt={product.name} className="w-full h-full object-contain" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="font-medium text-gray-900 truncate text-sm">{product.name}</div>
+                        <div className="text-xs text-gray-500">{product.series}</div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+              {showResults && searchQuery && searchResults.length === 0 && (
+                <div className="mt-2 w-full bg-white rounded-lg shadow-xl border border-gray-200 p-4 text-center text-gray-500 text-sm">
+                  No products found
+                </div>
+              )}
             </div>
 
             <NavLink to="/" className={mobileNavLinkClasses} onClick={toggleMobileMenu}>

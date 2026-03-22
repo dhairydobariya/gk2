@@ -1,7 +1,18 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getProductsData } from '../utils/dataManager';
 import DynamicBanner from '../components/DynamicBanner';
+
+// Inject keyframes once
+const STYLE = `
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+.card-animate {
+  animation: cardIn 0.3s ease both;
+}
+`;
 
 // Full skeleton card — same dimensions as real card
 function ProductSkeleton() {
@@ -18,7 +29,7 @@ function ProductSkeleton() {
 }
 
 // Product card that shows skeleton until image loads
-function ProductCard({ product, idx, getCategoryName }) {
+function ProductCard({ product, idx, getCategoryName, animDelay = 0 }) {
   // Check if image is already cached — skip skeleton if so
   const [loaded, setLoaded] = useState(() => {
     if (!product.image) return false;
@@ -35,7 +46,10 @@ function ProductCard({ product, idx, getCategoryName }) {
   }, [product.image]);
 
   return (
-    <div className="relative w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] max-w-sm">
+    <div
+      className="card-animate relative w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] max-w-sm"
+      style={{ animationDelay: `${animDelay}ms` }}
+    >
       {/* Skeleton — shown until image loads */}
       {!loaded && !error && (
         <div className="absolute inset-0 z-10 bg-white rounded-xl border border-gray-100 overflow-hidden animate-pulse">
@@ -83,7 +97,9 @@ function ProductCard({ product, idx, getCategoryName }) {
 function Products() {
   const [searchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState(() => searchParams.get('category') || 'all');
+  const [searchQuery, setSearchQuery] = useState('');
   const [filterOpen, setFilterOpen] = useState(false);
+  const [filterKey, setFilterKey] = useState(0);
   const [mounted, setMounted] = useState(true);
   const { categories, products } = getProductsData();
 
@@ -93,10 +109,24 @@ function Products() {
     if (cat) setSelectedCategory(cat);
   }, [searchParams]);
 
-  const filteredProducts = useMemo(() =>
-    selectedCategory === 'all' ? products : products.filter(p => p.category === selectedCategory),
-    [selectedCategory, products]
-  );
+  const filteredProducts = useMemo(() => {
+    let result = selectedCategory === 'all' ? products : products.filter(p => p.category === selectedCategory);
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter(p =>
+        p.name?.toLowerCase().includes(q) ||
+        p.series?.toLowerCase().includes(q)
+      );
+    }
+    return result;
+  }, [selectedCategory, searchQuery, products]);
+
+  // Bump key whenever filter changes to re-trigger animation
+  const isFirst = useRef(true);
+  useEffect(() => {
+    if (isFirst.current) { isFirst.current = false; return; }
+    setFilterKey(k => k + 1);
+  }, [selectedCategory, searchQuery]);
 
   const getCategoryName = (categoryId) => {
     const cat = categories.find(c => c.id === categoryId);
@@ -118,17 +148,18 @@ function Products() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <style>{STYLE}</style>
       <DynamicBanner page="products" compact />
 
-      {/* ── DESKTOP: centered wrap pills ── */}
       <section className="bg-white border-b shadow-sm hidden sm:block sticky top-0 z-40">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex flex-wrap justify-center gap-2">
+        <div className="container mx-auto px-4 py-3 flex items-center gap-3">
+          {/* Category pills — scrollable */}
+          <div className="flex-1 flex flex-wrap gap-2">
             {allCategories.map(cat => (
               <button
                 key={cat.id}
                 onClick={() => { setSelectedCategory(cat.id); scrollToTop(); }}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 border ${
+                className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 border whitespace-nowrap ${
                   selectedCategory === cat.id
                     ? 'bg-blue-600 text-white border-blue-600 shadow-md'
                     : 'bg-white text-gray-600 border-gray-200 hover:border-blue-400 hover:text-blue-600'
@@ -138,26 +169,60 @@ function Products() {
               </button>
             ))}
           </div>
+          {/* Search — pinned right */}
+          <div className="relative shrink-0 w-48">
+            <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              placeholder="Search..."
+              className="w-full pl-9 pr-7 py-1.5 rounded-full border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50"
+            />
+            {searchQuery && (
+              <button onClick={() => setSearchQuery('')} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs">✕</button>
+            )}
+          </div>
         </div>
       </section>
 
       {/* ── MOBILE: sticky filter bar ── */}
-      <div className="sm:hidden sticky top-0 z-40 bg-white border-b shadow-sm px-4 py-3 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2 min-w-0">
-          <span className="text-xs text-gray-400 font-medium uppercase tracking-wide shrink-0">Category:</span>
-          <span className="text-sm font-bold text-blue-600 truncate">
-            {getCategoryName(selectedCategory) === 'Unknown Category' ? 'All Products' : (selectedCategory === 'all' ? 'All Products' : getCategoryName(selectedCategory))}
-          </span>
+      <div className="sm:hidden sticky top-0 z-40 bg-white border-b shadow-sm px-4 py-3 space-y-2">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="text-xs text-gray-400 font-medium uppercase tracking-wide shrink-0">Category:</span>
+            <span className="text-sm font-bold text-blue-600 truncate">
+              {getCategoryName(selectedCategory) === 'Unknown Category' ? 'All Products' : (selectedCategory === 'all' ? 'All Products' : getCategoryName(selectedCategory))}
+            </span>
+          </div>
+          <button
+            onClick={() => setFilterOpen(true)}
+            className="shrink-0 flex items-center gap-1.5 bg-blue-600 text-white text-xs font-bold px-3 py-2 rounded-lg shadow"
+          >
+            <svg viewBox="0 0 20 20" fill="currentColor" className="w-3.5 h-3.5">
+              <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm2 4a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm2 4a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1z" clipRule="evenodd"/>
+            </svg>
+            Filter
+          </button>
         </div>
-        <button
-          onClick={() => setFilterOpen(true)}
-          className="shrink-0 flex items-center gap-1.5 bg-blue-600 text-white text-xs font-bold px-3 py-2 rounded-lg shadow"
-        >
-          <svg viewBox="0 0 20 20" fill="currentColor" className="w-3.5 h-3.5">
-            <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm2 4a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm2 4a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1z" clipRule="evenodd"/>
+        {/* Mobile search input */}
+        <div className="relative">
+          <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
           </svg>
-          Filter
-        </button>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            placeholder="Search products..."
+            className="w-full pl-9 pr-8 py-2 rounded-full border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50"
+          />
+          {searchQuery && (
+            <button onClick={() => setSearchQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs">✕</button>
+          )}
+        </div>
       </div>
 
       {/* ── MOBILE: filter bottom-sheet popup ── */}
@@ -212,7 +277,7 @@ function Products() {
             <p className="text-gray-600 mt-1">{filteredProducts.length} products available</p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-6">
+          <div key={filterKey} className="flex flex-wrap justify-center gap-6">
             {!mounted
               ? Array.from({ length: 8 }).map((_, i) => <ProductSkeleton key={i} />)
               : filteredProducts.map((product, idx) => (
@@ -221,6 +286,7 @@ function Products() {
                     product={product}
                     idx={idx}
                     getCategoryName={getCategoryName}
+                    animDelay={Math.min(idx * 40, 300)}
                   />
                 ))
             }
@@ -230,7 +296,7 @@ function Products() {
             <div className="text-center py-16">
               <div className="text-gray-400 text-6xl mb-4">📦</div>
               <h3 className="text-2xl font-semibold text-gray-700 mb-2">No Products Found</h3>
-              <p className="text-gray-600">Try selecting a different category</p>
+              <p className="text-gray-600">{searchQuery ? `No results for "${searchQuery}"` : 'Try selecting a different category'}</p>
             </div>
           )}
         </div>
