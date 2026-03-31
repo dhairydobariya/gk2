@@ -247,7 +247,7 @@ export default function About() {
                   ))}
                 </ul>
                 <div className="flex flex-wrap gap-3">
-                  <a href="https://wa.me/919687084620?text=Hello%20GK2%2C%20I%20am%20interested%20in%20becoming%20a%20distributor."
+                  <a href="https://wa.me/918460645021?text=Hello%20GK2%2C%20I%20am%20interested%20in%20becoming%20a%20distributor."
                     target="_blank" rel="noreferrer"
                     className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bc5a] text-white px-6 py-3 rounded-xl font-semibold transition-colors duration-200 shadow-lg text-sm">
                     <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 flex-shrink-0">
@@ -300,8 +300,8 @@ export default function About() {
                 <Link to="/contact" className="px-9 py-4 bg-white text-blue-700 rounded-xl font-bold hover:bg-blue-50 transition-colors duration-200 shadow-lg text-base">
                   Get in Touch
                 </Link>
-                <Link to="/distributors" className="px-9 py-4 border-2 border-white/40 text-white rounded-xl font-bold hover:bg-white/10 transition-colors duration-200 text-base">
-                  Find a Distributor
+                <Link to="/products" className="px-9 py-4 border-2 border-white/40 text-white rounded-xl font-bold hover:bg-white/10 transition-colors duration-200 text-base">
+                  Browse Products
                 </Link>
               </div>
             </div>

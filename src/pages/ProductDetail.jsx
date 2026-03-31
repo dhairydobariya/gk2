@@ -439,12 +439,21 @@ function ProductDetail() {
                           }`}
                         >
                           {variant.capacity}
+                          {variant.size !== undefined && variant.size !== '' && (
+                            <span className="block text-xs font-normal opacity-80">Size: {variant.size}</span>
+                          )}
                         </button>
                       ))}
                     </div>
                     {selectedVariant && (
                       <p className="mt-2 text-sm text-gray-500">
-                        Selected: <span className="font-semibold text-blue-600">{selectedVariant.capacity} — {selectedVariant.poles}</span>
+                        Selected: <span className="font-semibold text-blue-600">{selectedVariant.capacity}</span>
+                        {selectedVariant.size !== undefined && selectedVariant.size !== '' && (
+                          <span className="ml-2 text-gray-500">· Size: <span className="font-semibold text-gray-700">{selectedVariant.size}</span></span>
+                        )}
+                        {selectedVariant.poles && selectedVariant.poles !== '—' && (
+                          <span className="ml-2">· <span className="font-semibold text-blue-600">{selectedVariant.poles}</span></span>
+                        )}
                       </p>
                     )}
                   </div>
@@ -499,7 +508,7 @@ function ProductDetail() {
                         ? `${selectedVariant.capacity} (${selectedVariant.poles})`
                         : 'Not selected';
                       const msg = `Hello GK2,\n\nI'm interested in the following product:\n\n*Product:* ${product.name}\n*Series:* ${product.series || 'N/A'}\n*Rating:* ${variant}\n*Quantity:* ${quantity}\n\nPlease share availability and pricing details.\n\nThank you.`;
-                      return `https://wa.me/919687084620?text=${encodeURIComponent(msg)}`;
+                      return `https://wa.me/918460645021?text=${encodeURIComponent(msg)}`;
                     })()}
                     target="_blank"
                     rel="noreferrer"

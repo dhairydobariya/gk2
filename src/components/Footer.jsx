@@ -65,12 +65,12 @@ function Footer() {
               </li>
               <li>
                 <span className="font-medium">Phone:</span>{' '}
-                <a href="tel:+1234567890" className="hover:text-white transition-colors">
-                  +1 (234) 567-890
+                <a href="tel:+918460645021" className="hover:text-white transition-colors">
+                  +91 84606 45021
                 </a>
               </li>
               <li>
-                <span className="font-medium">Address:</span> 123 Industrial Ave, Tech City, TC 12345
+                <span className="font-medium">Address:</span> Plot 1,2,3 Om Textile Park, 13, Kamrej Kadodara Road, Umbhel — 394325
               </li>
             </ul>
           </div>

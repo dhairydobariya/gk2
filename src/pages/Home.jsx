@@ -281,7 +281,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-8 sm:mb-14 gap-3">
               <div>
                 <span className="inline-block text-blue-600 font-semibold text-xs tracking-widest uppercase mb-2 sm:mb-3 border-l-4 border-blue-600 pl-3">Our Products</span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 leading-tight">Featured Products</h2>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 leading-tight">Our Best Products</h2>
               </div>
               <Link to="/products" className="inline-flex items-center gap-2 text-blue-600 font-semibold text-sm border border-blue-200 rounded-lg px-4 py-2 sm:px-5 sm:py-2.5 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-200 self-start sm:self-auto">
                 View All →
@@ -415,7 +415,7 @@ export default function Home() {
                 <Link to="/products" className="px-7 sm:px-9 py-3.5 sm:py-4 bg-white text-blue-700 rounded-xl font-bold hover:bg-blue-50 transition-colors duration-200 shadow-lg text-sm sm:text-base">
                   Browse Products
                 </Link>
-                <a href="https://wa.me/919687084620?text=Hello%20GK2%2C%20I%20would%20like%20to%20enquire%20about%20your%20products."
+                <a href="https://wa.me/918460645021?text=Hello%20GK2%2C%20I%20would%20like%20to%20enquire%20about%20your%20products."
                   target="_blank" rel="noreferrer"
                   className="px-7 sm:px-9 py-3.5 sm:py-4 bg-[#25D366] hover:bg-[#20bc5a] text-white rounded-xl font-bold transition-colors duration-200 shadow-lg text-sm sm:text-base flex items-center justify-center gap-2">
                   <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 flex-shrink-0">

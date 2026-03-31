@@ -25,20 +25,20 @@ const contactCards = [
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>),
   },
   {
-    label: 'Call Us', value: '+91 96870 84620', sub: 'Mon–Sat, 9 AM – 6 PM',
-    href: 'tel:+919687084620',
+    label: 'Call Us', value: '+91 84606 45021', sub: 'Mon–Sat, 9 AM – 6 PM',
+    href: 'tel:+918460645021',
     bg: 'bg-green-50', border: 'border-green-100', iconBg: 'bg-green-600',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.39 19a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>),
   },
   {
-    label: 'WhatsApp', value: '+91 96870 84620', sub: 'Quick response guaranteed',
-    href: 'https://wa.me/919687084620?text=Hello%20GK2%2C%20I%20would%20like%20to%20enquire%20about%20your%20products.',
+    label: 'WhatsApp', value: '+91 84606 45021', sub: 'Quick response guaranteed',
+    href: 'https://wa.me/918460645021?text=Hello%20GK2%2C%20I%20would%20like%20to%20enquire%20about%20your%20products.',
     bg: 'bg-emerald-50', border: 'border-emerald-100', iconBg: 'bg-[#25D366]',
     icon: (<svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L.057 23.882a.5.5 0 0 0 .61.61l6.086-1.461A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.006-1.371l-.36-.214-3.724.894.924-3.638-.235-.374A9.818 9.818 0 1 1 12 21.818z"/></svg>),
   },
   {
-    label: 'Visit Us', value: 'Industrial Area, Gujarat', sub: 'India — 380001',
-    href: 'https://maps.google.com/?q=Ahmedabad+GIDC+Industrial+Area',
+    label: 'Visit Us', value: 'Plot 1,2,3 Om Textile Park, Umbhel', sub: 'Kamrej Kadodara Road — 394325',
+    href: 'https://maps.google.com/?q=Umbhel+Kamrej+Kadodara+Road+394325',
     bg: 'bg-indigo-50', border: 'border-indigo-100', iconBg: 'bg-indigo-600',
     icon: (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-5 h-5"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>),
   },
@@ -213,7 +213,6 @@ export default function Contact() {
                 <div className="space-y-2.5">
                   {[
                     { label: 'Browse Products', to: '/products' },
-                    { label: 'Find Distributors', to: '/distributors' },
                     { label: 'About GK2', to: '/about' },
                   ].map((l, i) => (
                     <Link key={i} to={l.to} className="flex items-center justify-between py-2 border-b border-white/10 last:border-0 text-slate-300 hover:text-white transition-colors text-sm group">
@@ -225,7 +224,7 @@ export default function Contact() {
               </div>
 
               {/* WhatsApp CTA */}
-              <a href="https://wa.me/919687084620?text=Hello%20GK2%2C%20I%20would%20like%20to%20enquire%20about%20your%20products."
+              <a href="https://wa.me/918460645021?text=Hello%20GK2%2C%20I%20would%20like%20to%20enquire%20about%20your%20products."
                 target="_blank" rel="noreferrer"
                 className="flex items-center gap-4 p-5 bg-[#25D366] hover:bg-[#20bc5a] rounded-2xl transition-colors duration-200 group">
                 <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
@@ -258,7 +257,7 @@ export default function Contact() {
                   </div>
                   <h3 className="font-bold text-gray-900 text-lg mb-3">GK2 Manufacturing Unit</h3>
                   <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                    Industrial Area, GIDC<br />Ahmedabad, Gujarat<br />India — 380 001
+                    Plot 1,2,3 Om Textile Park<br />13, Kamrej Kadodara Road<br />Umbhel, Gujarat — 394325
                   </p>
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center gap-2 text-gray-600">
@@ -267,11 +266,11 @@ export default function Contact() {
                     </div>
                     <div className="flex items-center gap-2 text-gray-600">
                       <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="1.8" className="w-4 h-4 flex-shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.39 19a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                      +91 96870 84620
+                      +91 84606 45021
                     </div>
                   </div>
                 </div>
-                <a href="https://maps.google.com/?q=Ahmedabad+GIDC+Industrial+Area" target="_blank" rel="noreferrer"
+                <a href="https://maps.google.com/?q=Umbhel+Kamrej+Kadodara+Road+394325" target="_blank" rel="noreferrer"
                   className="mt-8 inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-semibold text-sm transition-all duration-200">
                   Open in Google Maps →
                 </a>

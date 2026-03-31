@@ -22,10 +22,9 @@ function ScrollToTop() {
 function AppContent() {
   const location = useLocation()
   const isAdminPage = location.pathname.startsWith('/admin')
-  const knownRoutes = ['/', '/about', '/products', '/distributors', '/contact', '/admin']
+  const knownRoutes = ['/', '/about', '/products', '/contact', '/admin']
   const isKnown = knownRoutes.includes(location.pathname)
     || location.pathname.startsWith('/products/')
-    || location.pathname.startsWith('/distributors/')
     || location.pathname.startsWith('/admin')
 
   // 404 — full screen, no header/footer
