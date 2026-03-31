@@ -46,7 +46,7 @@ const contactCards = [
 
 const hours = [
   { day: 'Monday – Friday', time: '9:00 AM – 6:00 PM', open: true },
-  { day: 'Saturday',        time: '9:00 AM – 2:00 PM', open: true },
+  { day: 'Saturday',        time: '9:00 AM – 6:00 PM', open: true },
   { day: 'Sunday',          time: 'Closed',             open: false },
 ];
 
@@ -270,18 +270,25 @@ export default function Contact() {
                     </div>
                   </div>
                 </div>
-                <a href="https://maps.google.com/?q=Umbhel+Kamrej+Kadodara+Road+394325" target="_blank" rel="noreferrer"
-                  className="mt-8 inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-semibold text-sm transition-all duration-200">
+                <a 
+                  href="https://www.google.com/maps/place/?q=place_id:0x3be0435f005352f9:0xab5849bd8406df77"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-8 inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-semibold text-sm transition-all duration-200"
+                >
                   Open in Google Maps →
                 </a>
               </div>
               <div className="lg:col-span-2 rounded-2xl overflow-hidden border border-gray-100 shadow-sm min-h-[360px]">
                 <iframe
                   title="GK2 Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.9!2d72.5714!3d23.0225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sGIDC%20Industrial%20Estate%2C%20Ahmedabad%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1700000000000"
-                  width="100%" height="100%"
-                  style={{ border: 0, minHeight: '360px', display: 'block' }}
-                  allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3371.502133951037!2d72.99177902481243!3d21.18109968050661!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be0435f005352f9%3A0xab5849bd8406df77!2sOm%20Textile%20Park!5e1!3m2!1sen!2sin!4v1774979954881!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, minHeight: "360px" }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
                 />
               </div>
             </div>
