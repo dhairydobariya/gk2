@@ -197,7 +197,7 @@ function ProductDetail() {
     ? products.filter(p => p.category === product.category && p.id !== id).slice(0, 4)
     : [];
 
-  const images = product ? [product.image, product.image2, product.image3].filter(Boolean) : [];
+  const images = product ? [product.image, product.image1, product.image2, product.image3].filter(Boolean) : [];
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
