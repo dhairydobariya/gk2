@@ -67,7 +67,34 @@ function FeaturedCard({ product }) {
   );
 }
 
-// ── UPDATED: credible, specific stats ──
+// Combined card for HRC Fuse Base + Link
+function FuseCombinedCard({ fuseBase, fuseLink }) {
+  return (
+    <div className="card-hover group bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-gray-100 shadow-sm block">
+      <div className="relative bg-gradient-to-br from-slate-50 to-blue-50 aspect-square overflow-hidden flex items-center justify-center gap-2 p-4 sm:p-6">
+        <Link to={`/products/${fuseBase.id}`} className="flex-1 h-full flex items-center justify-center hover:scale-105 transition-transform duration-300">
+          <img src={fuseBase.image} alt={fuseBase.name} className="w-full h-full object-contain" loading="eager" />
+        </Link>
+        <div className="w-px h-3/4 bg-blue-100 shrink-0" />
+        <Link to={`/products/${fuseLink.id}`} className="flex-1 h-full flex items-center justify-center hover:scale-105 transition-transform duration-300">
+          <img src={fuseLink.image} alt={fuseLink.name} className="w-full h-full object-contain" loading="eager" />
+        </Link>
+        <div className="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">80KA</div>
+      </div>
+      <div className="p-3 sm:p-5">
+        <p className="text-xs text-blue-500 font-semibold uppercase tracking-wide mb-1 hidden sm:block">HRC Series</p>
+        <h3 className="font-bold text-gray-900 text-xs sm:text-base mb-2 sm:mb-3 leading-snug">HRC Fuse Base & Link</h3>
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex gap-1.5">
+            <Link to={`/products/${fuseBase.id}`} className="text-xs bg-blue-50 text-blue-700 border border-blue-100 px-2 py-0.5 rounded-full font-semibold hover:bg-blue-600 hover:text-white transition-colors">Base</Link>
+            <Link to={`/products/${fuseLink.id}`} className="text-xs bg-blue-50 text-blue-700 border border-blue-100 px-2 py-0.5 rounded-full font-semibold hover:bg-blue-600 hover:text-white transition-colors">Link</Link>
+          </div>
+          <Link to="/products?category=fuse" className="text-blue-600 text-xs sm:text-sm font-semibold group-hover:translate-x-1 transition-transform duration-200 inline-block">View →</Link>
+        </div>
+      </div>
+    </div>
+  );
+}
 const stats = [
   { value: "10+",  label: "Years of Excellence" },
   { value: "12+",  label: "Product Categories"  },
@@ -160,7 +187,13 @@ const categoryIcons = {
 
 export default function Home() {
   const { products, categories } = getProductsData();
-  const featured = products.filter(p => p.featured).slice(0, 4);
+  const allFeatured = products.filter(p => p.featured);
+  const fuseBase = products.find(p => p.id === 'hrc-fuse-base');
+  const fuseLink = products.find(p => p.id === 'hrc-fuse-link');
+  // Build featured list: replace hrc-fuse-base with combined slot, exclude hrc-fuse-link
+  const featured = allFeatured
+    .filter(p => p.id !== 'hrc-fuse-link')
+    .slice(0, 4);
 
   const statsRef    = useReveal();
   const catRef      = useReveal();
@@ -290,7 +323,9 @@ export default function Home() {
             {/* No stagger animation — cards load independently with their own skeleton */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
               {featured.map((product) => (
-                <FeaturedCard key={product.id} product={product} />
+                product.id === 'hrc-fuse-base' && fuseBase && fuseLink
+                  ? <FuseCombinedCard key="fuse-combined" fuseBase={fuseBase} fuseLink={fuseLink} />
+                  : <FeaturedCard key={product.id} product={product} />
               ))}
             </div>
           </div>
@@ -431,7 +466,7 @@ export default function Home() {
       </section>
 
       {/* 11. FLOATING WHATSAPP BUTTON — new */}
-      <a href="https://wa.me/919687084620?text=Hello%20GK2%2C%20I%20would%20like%20to%20enquire%20about%20your%20products."
+      <a href="https://wa.me/918460645021?text=Hello%20GK2%2C%20I%20would%20like%20to%20enquire%20about%20your%20products."
         target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp"
         className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] hover:bg-[#20bc5a] text-white rounded-full shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110">
         <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7">

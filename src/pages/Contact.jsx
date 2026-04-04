@@ -271,7 +271,7 @@ export default function Contact() {
                   </div>
                 </div>
                 <a 
-                  href="https://www.google.com/maps/place/?q=place_id:0x3be0435f005352f9:0xab5849bd8406df77"
+                  href="https://maps.app.goo.gl/F69GTFWiuSvP3pGG9"
                   target="_blank"
                   rel="noreferrer"
                   className="mt-8 inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-semibold text-sm transition-all duration-200"
@@ -282,11 +282,11 @@ export default function Contact() {
               <div className="lg:col-span-2 rounded-2xl overflow-hidden border border-gray-100 shadow-sm min-h-[360px]">
                 <iframe
                   title="GK2 Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3371.502133951037!2d72.99177902481243!3d21.18109968050661!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be0435f005352f9%3A0xab5849bd8406df77!2sOm%20Textile%20Park!5e1!3m2!1sen!2sin!4v1774979954881!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1031.1445770933287!2d72.99637323974541!3d21.18292290044955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDExJzAxLjEiTiA3MsKwNTknNDcuNiJF!5e1!3m2!1sen!2sin!4v1775306508432!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
-                  style={{ border: 0, minHeight: "360px" }}
-                  allowFullScreen
+                  style={{ border: 0, minHeight: "360px", display: 'block' }}
+                  allowFullScreen=""
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 />

@@ -148,7 +148,6 @@
       "series": "C Series",
       "image": "/products/double-pole-mcb-c-series.jpeg",
       "inStock": true,
-      "featured": true,
       "features": [
         "Standard double pole design",
         "10KA breaking capacity",
@@ -282,6 +281,7 @@
       "image1": "/products/hrc-fuce-base-1.jpeg",
       "image2": "/products/hrc-fuce-base-2.jpeg",
       "inStock": true,
+      "featured": true,
       "features": [
         "Range from 100 AMP to 630 AMP",
         "Conforms to IS:13703 & IEC:269",
