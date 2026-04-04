@@ -258,25 +258,29 @@ function Header() {
           <div className="md:hidden">
             <button
               onClick={toggleMobileMenu}
-              className="text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white p-2"
+              className="text-gray-300 hover:text-white focus:outline-none p-2"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
+              <div className="relative w-5 h-4">
+                <span className={`absolute left-0 w-5 h-[1.5px] bg-current rounded-full transition-all duration-400 ease-in-out ${mobileMenuOpen ? 'rotate-45 top-[7px]' : 'top-0'}`} />
+                <span className={`absolute left-0 top-[7px] w-5 h-[1.5px] bg-current rounded-full transition-all duration-300 ease-in-out ${mobileMenuOpen ? 'opacity-0 scale-x-0' : 'opacity-100 scale-x-100'}`} />
+                <span className={`absolute left-0 w-5 h-[1.5px] bg-current rounded-full transition-all duration-400 ease-in-out ${mobileMenuOpen ? '-rotate-45 top-[7px]' : 'top-[14px]'}`} />
+              </div>
             </button>
           </div>
         </div>
 
-        {/* Mobile Navigation Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden pb-3 pt-2 space-y-1">
+        {/* Mobile Navigation Menu — animated slide down */}
+        <div
+          className="md:hidden overflow-hidden"
+          style={{
+            maxHeight: mobileMenuOpen ? '500px' : '0px',
+            opacity: mobileMenuOpen ? 1 : 0,
+            transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-6px)',
+            transition: 'max-height 0.5s ease, opacity 0.4s ease, transform 0.4s ease',
+          }}
+        >
+          <div className="pb-3 pt-2 space-y-1">
             {/* Mobile Search */}
             <div className="px-3 pb-3" ref={searchRef}>
               <form onSubmit={handleSearchSubmit}>
@@ -339,7 +343,7 @@ function Header() {
               Contact Us
             </NavLink>
           </div>
-        )}
+        </div>
       </nav>
     </header>
   )
