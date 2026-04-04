@@ -6,6 +6,9 @@ import ImageWithFallback from './ImageWithFallback'
 
 function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [menuHeight, setMenuHeight] = useState(0)
+  const menuRef = useRef(null)
+  const navRef = useRef(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [showResults, setShowResults] = useState(false)
@@ -31,8 +34,11 @@ function Header() {
         setShowResults(false)
         setSelectedIndex(-1)
       }
+      // Close mobile menu when clicking outside nav
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setMobileMenuOpen(false)
+      }
     }
-
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
@@ -108,6 +114,9 @@ function Header() {
   }
 
   const toggleMobileMenu = () => {
+    if (!mobileMenuOpen && menuRef.current) {
+      setMenuHeight(menuRef.current.scrollHeight)
+    }
     setMobileMenuOpen(!mobileMenuOpen)
   }
 
@@ -126,7 +135,7 @@ function Header() {
     }`
 
   return (
-    <header className="bg-blue-800 shadow-lg">
+    <header className="bg-blue-800 shadow-lg" ref={navRef}>
       <nav className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-14 sm:h-16 gap-4">
           {/* Logo/Company Name */}
@@ -262,9 +271,9 @@ function Header() {
               aria-label="Toggle menu"
             >
               <div className="relative w-5 h-4">
-                <span className={`absolute left-0 w-5 h-[1.5px] bg-current rounded-full transition-all duration-400 ease-in-out ${mobileMenuOpen ? 'rotate-45 top-[7px]' : 'top-0'}`} />
-                <span className={`absolute left-0 top-[7px] w-5 h-[1.5px] bg-current rounded-full transition-all duration-300 ease-in-out ${mobileMenuOpen ? 'opacity-0 scale-x-0' : 'opacity-100 scale-x-100'}`} />
-                <span className={`absolute left-0 w-5 h-[1.5px] bg-current rounded-full transition-all duration-400 ease-in-out ${mobileMenuOpen ? '-rotate-45 top-[7px]' : 'top-[14px]'}`} />
+                <span className={`absolute left-0 w-5 h-[1.5px] bg-current rounded-full transition-all duration-600 ease-in-out ${mobileMenuOpen ? 'rotate-45 top-[7px]' : 'top-0'}`} style={{transitionDuration:'0.6s'}} />
+                <span className={`absolute left-0 top-[7px] w-5 h-[1.5px] bg-current rounded-full transition-all ease-in-out ${mobileMenuOpen ? 'opacity-0 scale-x-0' : 'opacity-100 scale-x-100'}`} style={{transitionDuration:'0.4s'}} />
+                <span className={`absolute left-0 w-5 h-[1.5px] bg-current rounded-full transition-all ease-in-out ${mobileMenuOpen ? '-rotate-45 top-[7px]' : 'top-[14px]'}`} style={{transitionDuration:'0.6s'}} />
               </div>
             </button>
           </div>
@@ -274,13 +283,13 @@ function Header() {
         <div
           className="md:hidden overflow-hidden"
           style={{
-            maxHeight: mobileMenuOpen ? '500px' : '0px',
+            maxHeight: mobileMenuOpen ? `${menuHeight}px` : '0px',
             opacity: mobileMenuOpen ? 1 : 0,
-            transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-6px)',
-            transition: 'max-height 0.5s ease, opacity 0.4s ease, transform 0.4s ease',
+            transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-10px)',
+            transition: 'max-height 0.75s cubic-bezier(0.4,0,0.2,1), opacity 0.6s ease, transform 0.6s ease',
           }}
         >
-          <div className="pb-3 pt-2 space-y-1">
+          <div ref={menuRef} className="pb-3 pt-2 space-y-1">
             {/* Mobile Search */}
             <div className="px-3 pb-3" ref={searchRef}>
               <form onSubmit={handleSearchSubmit}>
