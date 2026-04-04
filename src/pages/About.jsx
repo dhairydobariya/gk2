@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import DynamicBanner from '../components/DynamicBanner';
+import useSEO from '../hooks/useSEO';
 
 function useReveal(threshold = 0.12) {
   const ref = useRef(null);
@@ -69,6 +70,11 @@ const mfgHighlights = [
 ];
 
 export default function About() {
+  useSEO({
+    title: 'About GK2 Switchgear | Electrical Manufacturer Gujarat, India',
+    description: 'Learn about GK2 Switchgear — a trusted manufacturer of IS/IEC certified electrical switchgear products including MCBs, busbars, fuses and more. Based in Umbhel, Gujarat, India.',
+    canonical: '/about',
+  });
   const introRef   = useReveal();
   const valuesRef  = useReveal();
   const mfgCommRef = useReveal();

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import DynamicBanner from '../components/DynamicBanner';
+import useSEO from '../hooks/useSEO';
 
 function useReveal(threshold = 0.12) {
   const ref = useRef(null);
@@ -57,6 +58,17 @@ const trustPoints = [
 ];
 
 export default function Contact() {
+  useSEO({
+    title: 'Contact GK2 Switchgear | Get a Quote | Umbhel, Gujarat',
+    description: 'Contact GK2 Switchgear for product enquiries, bulk orders and pricing. Call +91 84606 45021 or WhatsApp us. Located at Om Textile Park, Umbhel, Gujarat — 394325.',
+    canonical: '/contact',
+    schema: {
+      '@context': 'https://schema.org',
+      '@type': 'ContactPage',
+      name: 'Contact GK2 Switchgear',
+      url: 'https://gk2switchgear.com/contact',
+    }
+  });
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
   const [sent, setSent] = useState(false);
 

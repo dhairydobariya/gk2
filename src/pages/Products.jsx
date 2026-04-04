@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { getProductsData } from '../utils/dataManager';
 import DynamicBanner from '../components/DynamicBanner';
+import useSEO from '../hooks/useSEO';
 
 // Inject keyframes once
 const STYLE = `
@@ -102,6 +103,17 @@ function Products() {
   const [filterKey, setFilterKey] = useState(0);
   const [mounted, setMounted] = useState(true);
   const { categories, products } = getProductsData();
+
+  const activeCat = categories.find(c => c.id === selectedCategory);
+  useSEO({
+    title: activeCat
+      ? `${activeCat.name} | GK2 Switchgear Products`
+      : 'All Products | MCB, Busbar, Fuse & Switchgear | GK2',
+    description: activeCat
+      ? `${activeCat.description} — GK2 Switchgear, IS/IEC certified manufacturer, Gujarat, India.`
+      : 'Browse GK2 Switchgear products — MCBs, busbars, HRC fuses, switch disconnector fuses, changeover switches. IS/IEC certified. Made in India.',
+    canonical: selectedCategory !== 'all' ? `/products?category=${selectedCategory}` : '/products',
+  });
 
   // Sync if URL param changes (e.g. navigating from home)
   useEffect(() => {

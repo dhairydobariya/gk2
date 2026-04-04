@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import logo from "../assets/logo.png";
 import DynamicBanner from "../components/DynamicBanner";
 import { getProductsData } from "../utils/dataManager";
+import useSEO from "../hooks/useSEO";
 
 function useReveal() {
   const ref = useRef(null);
@@ -187,6 +188,11 @@ const categoryIcons = {
 
 export default function Home() {
   const { products, categories } = getProductsData();
+  useSEO({
+    title: 'GK2 Switchgear | MCB, Busbar, Fuse & Electrical Switchgear Manufacturer India',
+    description: 'GK2 Switchgear — leading manufacturer of MCBs, busbars, HRC fuses, switch disconnector fuses & changeover switches. IS/IEC certified. Made in India, Gujarat.',
+    canonical: '/',
+  });
   const allFeatured = products.filter(p => p.featured);
   const fuseBase = products.find(p => p.id === 'hrc-fuse-base');
   const fuseLink = products.find(p => p.id === 'hrc-fuse-link');

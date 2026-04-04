@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getProductsData } from '../utils/dataManager';
 import ImageWithFallback from '../components/ImageWithFallback';
+import useSEO from '../hooks/useSEO';
 
 // ── LIGHTBOX ──────────────────────────────────────────────────────────────────
 function Lightbox({ images, startIndex, onClose }) {
@@ -196,6 +197,22 @@ function ProductDetail() {
   const relatedProducts = product
     ? products.filter(p => p.category === product.category && p.id !== id).slice(0, 4)
     : [];
+
+  useSEO(product ? {
+    title: `${product.name} | ${product.series} | GK2 Switchgear`,
+    description: `${product.name} — ${product.series}, ${product.breakingCapacity !== '—' ? product.breakingCapacity + ' breaking capacity, ' : ''}${product.variants?.length || 0} variants available. IS/IEC certified. GK2 Switchgear, Gujarat, India.`,
+    canonical: `/products/${product.id}`,
+    schema: {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: product.name,
+      description: product.features?.join('. ') || product.name,
+      image: `https://gk2switchgear.com${product.image}`,
+      brand: { '@type': 'Brand', name: 'GK2 Switchgear' },
+      manufacturer: { '@type': 'Organization', name: 'GK2 Switchgear' },
+      offers: { '@type': 'Offer', availability: product.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock', priceCurrency: 'INR', seller: { '@type': 'Organization', name: 'GK2 Switchgear' } },
+    }
+  } : {});
 
   const images = product ? [product.image, product.image1, product.image2, product.image3].filter(Boolean) : [];
 

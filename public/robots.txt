@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gk2switchgear.com/sitemap.xml
