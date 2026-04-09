@@ -71,9 +71,30 @@ const mfgHighlights = [
 
 export default function About() {
   useSEO({
-    title: 'About GK2 Switchgear | Electrical Manufacturer Gujarat, India',
-    description: 'Learn about GK2 Switchgear — a trusted manufacturer of IS/IEC certified electrical switchgear products including MCBs, busbars, fuses and more. Based in Umbhel, Gujarat, India.',
+    title: 'About GK2 Switchgear | Electrical Switchgear Manufacturer Gujarat, India',
+    description: 'GK2 Switchgear — IS/IEC certified electrical switchgear manufacturer in Umbhel, Gujarat, India. 10+ years experience manufacturing MCBs, busbars, HRC fuses, changeover switches. Made in India.',
     canonical: '/about',
+    schema: {
+      '@context': 'https://schema.org',
+      '@type': 'AboutPage',
+      name: 'About GK2 Switchgear',
+      description: 'GK2 Switchgear is a leading IS/IEC certified electrical switchgear manufacturer based in Umbhel, Gujarat, India. Manufacturer of MCBs, busbars, HRC fuses, switch disconnector fuses, and changeover switches.',
+      url: 'https://gk2switchgear.com/about',
+      mainEntity: {
+        '@type': 'Organization',
+        name: 'GK2 Switchgear',
+        foundingDate: '2014',
+        description: 'IS/IEC certified manufacturer of MCBs, busbars, HRC fuses, switch disconnector fuses, changeover switches and onload isolators.',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'Plot 1,2,3 Om Textile Park, 13, Kamrej Kadodara Road',
+          addressLocality: 'Umbhel',
+          addressRegion: 'Gujarat',
+          postalCode: '394325',
+          addressCountry: 'IN',
+        },
+      },
+    },
   });
   const introRef   = useReveal();
   const valuesRef  = useReveal();

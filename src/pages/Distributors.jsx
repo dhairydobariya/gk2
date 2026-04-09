@@ -4,8 +4,14 @@ import { getDistributors } from '../utils/dataManager';
 import logo from '../assets/logo.png';
 import ImageWithFallback from '../components/ImageWithFallback';
 import DynamicBanner from '../components/DynamicBanner';
+import useSEO from '../hooks/useSEO';
 
 function Distributors() {
+  useSEO({
+    title: 'Authorized Distributors | GK2 Switchgear Across India',
+    description: 'Find GK2 Switchgear authorized distributors across India. Buy genuine IS/IEC certified MCBs, busbars, HRC fuses and switchgear products from our trusted distribution network.',
+    canonical: '/distributors',
+  });
   const [searchTerm, setSearchTerm] = useState('');
   const distributors = getDistributors();
 

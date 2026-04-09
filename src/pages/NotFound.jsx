@@ -1,8 +1,14 @@
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/logo.png';
+import useSEO from '../hooks/useSEO';
 
 export default function NotFound() {
   const { pathname } = useLocation();
+
+  useSEO({
+    title: 'Page Not Found | GK2 Switchgear',
+    description: 'The page you are looking for does not exist. Browse GK2 Switchgear products — MCBs, busbars, HRC fuses, changeover switches. IS/IEC certified manufacturer, Gujarat, India.',
+  });
 
   return (
     <div className="min-h-screen bg-[#0a0f1e] flex flex-col items-center justify-center relative overflow-hidden px-4">

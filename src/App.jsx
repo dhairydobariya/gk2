@@ -11,6 +11,8 @@ import Distributors from './pages/Distributors'
 import DistributorDetail from './pages/DistributorDetail'
 import Contact from './pages/Contact'
 import Admin from './pages/Admin'
+import Blog from './pages/Blog'
+import BlogPost from './pages/BlogPost'
 import NotFound from './pages/NotFound'
 
 function ScrollToTop() {
@@ -22,10 +24,11 @@ function ScrollToTop() {
 function AppContent() {
   const location = useLocation()
   const isAdminPage = location.pathname.startsWith('/admin')
-  const knownRoutes = ['/', '/about', '/products', '/contact', '/admin']
+  const knownRoutes = ['/', '/about', '/products', '/contact', '/admin', '/blog']
   const isKnown = knownRoutes.includes(location.pathname)
     || location.pathname.startsWith('/products/')
     || location.pathname.startsWith('/admin')
+    || location.pathname.startsWith('/blog/')
 
   // 404 — full screen, no header/footer
   if (!isKnown) {
@@ -45,6 +48,8 @@ function AppContent() {
           <Route path="/distributors" element={<Distributors />} />
           <Route path="/distributors/:id" element={<DistributorDetail />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

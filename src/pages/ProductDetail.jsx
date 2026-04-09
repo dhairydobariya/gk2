@@ -199,18 +199,30 @@ function ProductDetail() {
     : [];
 
   useSEO(product ? {
-    title: `${product.name} | ${product.series} | GK2 Switchgear`,
-    description: `${product.name} — ${product.series}, ${product.breakingCapacity !== '—' ? product.breakingCapacity + ' breaking capacity, ' : ''}${product.variants?.length || 0} variants available. IS/IEC certified. GK2 Switchgear, Gujarat, India.`,
+    title: `${product.name} | ${product.series} Series | GK2 Switchgear India`,
+    description: `Buy ${product.name} from GK2 Switchgear — ${product.series} series, ${product.breakingCapacity !== '—' ? product.breakingCapacity + ' breaking capacity, ' : ''}${product.variants?.length || 0} variants available. IS/IEC certified switchgear manufacturer, Gujarat, India. Get a quote today.`,
     canonical: `/products/${product.id}`,
     schema: {
       '@context': 'https://schema.org',
-      '@type': 'Product',
-      name: product.name,
-      description: product.features?.join('. ') || product.name,
-      image: `https://gk2switchgear.com${product.image}`,
-      brand: { '@type': 'Brand', name: 'GK2 Switchgear' },
-      manufacturer: { '@type': 'Organization', name: 'GK2 Switchgear' },
-      offers: { '@type': 'Offer', availability: product.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock', priceCurrency: 'INR', seller: { '@type': 'Organization', name: 'GK2 Switchgear' } },
+      '@graph': [
+        {
+          '@type': 'Product',
+          name: product.name,
+          description: product.features?.join('. ') || product.name,
+          image: `https://gk2switchgear.com${product.image}`,
+          brand: { '@type': 'Brand', name: 'GK2 Switchgear' },
+          manufacturer: { '@type': 'Organization', name: 'GK2 Switchgear' },
+          offers: { '@type': 'Offer', availability: product.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock', priceCurrency: 'INR', seller: { '@type': 'Organization', name: 'GK2 Switchgear' } },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://gk2switchgear.com/' },
+            { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://gk2switchgear.com/products' },
+            { '@type': 'ListItem', position: 3, name: product.name, item: `https://gk2switchgear.com/products/${product.id}` },
+          ],
+        },
+      ],
     }
   } : {});
 

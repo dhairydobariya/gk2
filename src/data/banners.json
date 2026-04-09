@@ -103,6 +103,18 @@
       "order": 1,
       "showOn": ["contact"],
       "backgroundColor": "from-blue-900 via-blue-800 to-blue-950"
+    },
+    {
+      "id": "banner-blog-001",
+      "title": "Switchgear Knowledge Hub",
+      "subtitle": "Expert Guides on MCBs, Busbars, HRC Fuses & More",
+      "image": "",
+      "buttonText": "Browse Products",
+      "buttonLink": "/products",
+      "isActive": true,
+      "order": 1,
+      "showOn": ["blog"],
+      "backgroundColor": "from-blue-900 via-blue-800 to-blue-950"
     }
   ]
 }

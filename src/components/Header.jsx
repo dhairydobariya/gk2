@@ -258,6 +258,9 @@ function Header() {
             <NavLink to="/products" className={navLinkClasses}>
               Products
             </NavLink>
+            <NavLink to="/blog" className={navLinkClasses}>
+              Blog
+            </NavLink>
             <NavLink to="/contact" className={navLinkClasses}>
               Contact Us
             </NavLink>
@@ -347,6 +350,9 @@ function Header() {
             </NavLink>
             <NavLink to="/products" className={mobileNavLinkClasses} onClick={toggleMobileMenu}>
               Products
+            </NavLink>
+            <NavLink to="/blog" className={mobileNavLinkClasses} onClick={toggleMobileMenu}>
+              Blog
             </NavLink>
             <NavLink to="/contact" className={mobileNavLinkClasses} onClick={toggleMobileMenu}>
               Contact Us

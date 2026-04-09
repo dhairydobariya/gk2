@@ -1,0 +1,112 @@
+================================================================
+GK2 SWITCHGEAR — GOOGLE SEARCH CONSOLE URL INSPECTION LIST
+================================================================
+Go to: https://search.google.com/search-console
+Then: URL Inspection → paste each URL → click "Request Indexing"
+
+Do this one by one for ALL URLs below.
+Priority order: do HIGH priority first.
+================================================================
+
+----------------------------------------------------------------
+PRIORITY: HIGH (do these first)
+----------------------------------------------------------------
+
+https://gk2switchgear.com/
+https://gk2switchgear.com/products
+https://gk2switchgear.com/about
+https://gk2switchgear.com/contact
+https://gk2switchgear.com/blog
+
+----------------------------------------------------------------
+PRIORITY: HIGH — Individual Product Pages
+----------------------------------------------------------------
+
+https://gk2switchgear.com/products/busbar
+https://gk2switchgear.com/products/single-pole-mcb
+https://gk2switchgear.com/products/double-pole-mcb
+https://gk2switchgear.com/products/triple-pole-mcb
+https://gk2switchgear.com/products/four-pole-mcb
+https://gk2switchgear.com/products/hrc-fuse-base
+https://gk2switchgear.com/products/hrc-fuse-link
+https://gk2switchgear.com/products/switch-disconnector-fuse
+https://gk2switchgear.com/products/onload-changeover-switch
+https://gk2switchgear.com/products/onload-isolator
+https://gk2switchgear.com/products/offload-changeover-switch
+https://gk2switchgear.com/products/main-switch-rewirable
+https://gk2switchgear.com/products/reverse-forward-switch
+https://gk2switchgear.com/products/modular-single-pole-mcb
+https://gk2switchgear.com/products/modular-double-pole-mcb
+https://gk2switchgear.com/products/tiny-single-pole-mcb
+https://gk2switchgear.com/products/tiny-double-pole-mcb
+
+----------------------------------------------------------------
+PRIORITY: MEDIUM — Product Category Pages
+----------------------------------------------------------------
+
+https://gk2switchgear.com/products?category=mcb
+https://gk2switchgear.com/products?category=busbar
+https://gk2switchgear.com/products?category=fuse
+https://gk2switchgear.com/products?category=switch-disconnector-fuse
+https://gk2switchgear.com/products?category=onload-changeover-switch
+https://gk2switchgear.com/products?category=onload-isolator
+https://gk2switchgear.com/products?category=offload-changeover-switch
+https://gk2switchgear.com/products?category=main-switch-rewirable
+https://gk2switchgear.com/products?category=reverse-forward
+
+----------------------------------------------------------------
+PRIORITY: MEDIUM — Blog Pages
+----------------------------------------------------------------
+
+https://gk2switchgear.com/blog/what-is-switchgear
+https://gk2switchgear.com/blog/types-of-switchgear
+https://gk2switchgear.com/blog/mcb-vs-mccb
+https://gk2switchgear.com/blog/importance-of-switchgear
+https://gk2switchgear.com/blog/best-switchgear-manufacturer-india
+
+================================================================
+ALSO DO THIS — Submit Sitemap (do this only ONCE)
+================================================================
+
+1. Go to Google Search Console
+2. Click "Sitemaps" in the left menu
+3. In the "Add a new sitemap" box type:
+   sitemap.xml
+4. Click Submit
+
+This tells Google to crawl ALL your URLs automatically.
+You only need to do this once.
+
+================================================================
+STEP BY STEP — How to Request Indexing
+================================================================
+
+1. Open: https://search.google.com/search-console
+2. Make sure you are on the correct property: gk2switchgear.com
+3. Click "URL Inspection" in the left sidebar
+4. Paste a URL from the list above into the search bar at top
+5. Press Enter and wait for Google to check it
+6. Click the button "REQUEST INDEXING"
+7. Wait for confirmation message
+8. Go back and repeat for the next URL
+
+NOTE: Google allows limited indexing requests per day.
+      If you hit the limit, continue the next day.
+      Start with HIGH priority URLs first.
+
+================================================================
+EXPECTED RESULTS TIMELINE
+================================================================
+
+After requesting indexing:
+- 1 to 3 days  : Google starts crawling the pages
+- 1 to 2 weeks : Pages start appearing in search results
+- 2 to 4 weeks : Rankings stabilize for product-specific searches
+
+After submitting sitemap:
+- Google will automatically discover and crawl all pages
+- No need to request indexing again for future small changes
+
+================================================================
+TOTAL URLs TO SUBMIT: 39
+================================================================

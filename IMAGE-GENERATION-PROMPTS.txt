@@ -1,0 +1,165 @@
+================================================================
+GK2 SWITCHGEAR — IMAGE GENERATION PROMPTS FOR CHATGPT
+================================================================
+Use ChatGPT (DALL-E) or any AI image generator with these prompts.
+After generating, save each image with the EXACT filename shown.
+Place all blog images in: public/banners/
+Place the OG image in: public/
+
+================================================================
+BLOG HERO IMAGES (place in: public/banners/)
+================================================================
+
+----------------------------------------------------------------
+IMAGE 1
+Filename: blog-what-is-switchgear.jpg
+Size: 1200 x 630 pixels (landscape)
+----------------------------------------------------------------
+PROMPT:
+Professional product photography of a modern electrical distribution 
+board panel with multiple miniature circuit breakers (MCBs) neatly 
+installed on DIN rails inside a white metal enclosure. The MCBs are 
+blue and white colored, arranged in rows. Clean industrial setting 
+with soft studio lighting. Sharp focus on the circuit breakers. 
+No text, no people, no logos. Photorealistic style. 
+High resolution, commercial product photography quality.
+
+----------------------------------------------------------------
+IMAGE 2
+Filename: blog-types-of-switchgear.jpg
+Size: 1200 x 630 pixels (landscape)
+----------------------------------------------------------------
+PROMPT:
+Professional flat lay product photography of various electrical 
+switchgear components arranged neatly on a clean white surface. 
+Include: miniature circuit breakers (MCBs) in blue/white, 
+copper busbars, HRC fuse bases, and a changeover switch. 
+All components arranged in an organized grid layout. 
+Soft even studio lighting from above. No text, no people, no logos. 
+Photorealistic commercial product photography. High resolution.
+
+----------------------------------------------------------------
+IMAGE 3
+Filename: blog-mcb-vs-mccb.jpg
+Size: 1200 x 630 pixels (landscape)
+----------------------------------------------------------------
+PROMPT:
+Professional product photography showing a side-by-side comparison 
+of two electrical circuit breakers on a clean white background. 
+On the left: a small compact miniature circuit breaker (MCB) in 
+blue and white. On the right: a larger moulded case circuit breaker 
+(MCCB) in dark grey. Both standing upright, clearly showing the 
+size difference. Clean studio lighting, sharp focus, no shadows. 
+No text, no people, no logos. Photorealistic style. High resolution.
+
+----------------------------------------------------------------
+IMAGE 4
+Filename: blog-importance-of-switchgear.jpg
+Size: 1200 x 630 pixels (landscape)
+----------------------------------------------------------------
+PROMPT:
+Professional photograph of a large industrial electrical panel board 
+with organized rows of circuit breakers, busbars, and wiring inside 
+an open metal enclosure. The panel shows neat cable management with 
+blue and red wires. Industrial factory background slightly blurred. 
+Professional lighting highlighting the panel components. 
+No text, no people, no logos. Photorealistic industrial photography. 
+High resolution, commercial quality.
+
+----------------------------------------------------------------
+IMAGE 5
+Filename: blog-best-switchgear-manufacturer.jpg
+Size: 1200 x 630 pixels (landscape)
+----------------------------------------------------------------
+PROMPT:
+Professional product photography of a complete lineup of electrical 
+switchgear products displayed on a clean surface or shelf. 
+Products include: rows of MCBs, copper busbars, HRC fuse assemblies, 
+and changeover switches. All products neatly arranged and well-lit 
+with professional studio lighting. Clean white or light grey 
+background. No text, no people, no logos. 
+Photorealistic commercial product photography. High resolution.
+
+================================================================
+OG IMAGE (place in: public/)
+================================================================
+
+----------------------------------------------------------------
+OG IMAGE
+Filename: og-image.jpg
+Size: 1200 x 630 pixels (landscape) — THIS SIZE IS MANDATORY
+----------------------------------------------------------------
+
+IMPORTANT INSTRUCTIONS FOR OG IMAGE:
+This image requires your GK2 logo. Follow these steps:
+
+STEP 1 — Upload your GK2 logo image to ChatGPT first.
+
+STEP 2 — Use this prompt:
+
+PROMPT:
+Create a professional social media banner image at exactly 
+1200x630 pixels. Dark navy blue background (color: #0f172a). 
+On the left side, place the uploaded GK2 logo in white color 
+(use the logo I uploaded, make it white/inverted). 
+On the right side, show a high-quality photograph of electrical 
+switchgear products — MCBs, busbars, and fuse components arranged 
+professionally. Add a subtle blue gradient overlay on the right side. 
+The overall look should be clean, professional, and corporate. 
+No additional text needed. High resolution, sharp image quality.
+
+ALTERNATIVE PROMPT (if ChatGPT cannot use your logo):
+Create a professional social media banner at 1200x630 pixels. 
+Dark navy blue background (color: #0f172a). Left half: clean dark 
+blue panel with the text "GK2 SWITCHGEAR" in bold white letters 
+and below it "Switchgear Manufacturer India" in smaller blue-grey 
+text. Right half: professional photograph of electrical MCBs and 
+switchgear products. Subtle blue glow effect. Corporate and 
+professional style. High resolution.
+
+================================================================
+AFTER GENERATING — WHERE TO SAVE FILES
+================================================================
+
+Blog images (5 files) → save in:  public/banners/
+  - blog-what-is-switchgear.jpg
+  - blog-types-of-switchgear.jpg
+  - blog-mcb-vs-mccb.jpg
+  - blog-importance-of-switchgear.jpg
+  - blog-best-switchgear-manufacturer.jpg
+
+OG image (1 file) → save in:  public/
+  - og-image.jpg
+
+================================================================
+TIPS FOR BEST RESULTS IN CHATGPT
+================================================================
+
+1. Use ChatGPT-4o with DALL-E for best quality images.
+
+2. If the first result is not good, add to your prompt:
+   "Make it more photorealistic, professional product photography style"
+
+3. For the OG image, upload your logo file BEFORE sending the prompt
+   by clicking the attachment/image icon in ChatGPT.
+
+4. If ChatGPT generates images with unwanted text or watermarks,
+   add to your prompt: "No text, no watermarks, no labels"
+
+5. Download images in the highest quality available (JPG format).
+
+6. Recommended: compress images using https://squoosh.app before
+   adding to the project (keep file size under 200KB each for
+   best page load speed).
+
+================================================================
+ONCE YOU HAVE ALL IMAGES — TELL KIRO
+================================================================
+
+After placing all images in the correct folders, tell Kiro:
+"Images are ready" and Kiro will:
+- Add hero images to each blog article
+- Update the OG image tag in index.html
+- Add image schema to blog articles for Google rich results
+
+================================================================

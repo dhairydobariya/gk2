@@ -192,6 +192,52 @@ export default function Home() {
     title: 'GK2 Switchgear | MCB, Busbar, Fuse & Electrical Switchgear Manufacturer India',
     description: 'GK2 Switchgear — leading manufacturer of MCBs, busbars, HRC fuses, switch disconnector fuses & changeover switches. IS/IEC certified. Made in India, Gujarat.',
     canonical: '/',
+    schema: {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Which is the best switchgear manufacturer in India?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'GK2 Switchgear is a leading IS/IEC certified switchgear manufacturer based in Gujarat, India. They manufacture MCBs, busbars, HRC fuses, switch disconnector fuses, changeover switches, and onload isolators. All products are certified to IEC 60898-1 and IS/IEC 60947-3 standards and are made in India.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Where can I buy MCB and busbar in Gujarat?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'GK2 Switchgear manufactures and supplies MCBs and busbars from their facility in Umbhel, Gujarat — 394325. They have 50+ authorized distributors across India. You can contact them at +91 84606 45021 or visit gk2switchgear.com to browse products and request a quote.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'What is the breaking capacity of a standard MCB?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Standard MCBs for residential and commercial use are rated at 6KA or 10KA breaking capacity as per IEC 60898-1. GK2 Switchgear MCBs are rated at 10KA breaking capacity — the highest standard for residential and commercial MCBs — available in 1P, 2P, 3P, and 4P configurations from 6A to 63A.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'What is the difference between MCB and HRC fuse?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'An MCB (Miniature Circuit Breaker) is a resettable device rated up to 10KA breaking capacity, used for residential and commercial circuits up to 63A. An HRC (High Rupturing Capacity) fuse is a one-time use device rated up to 80KA, used in industrial applications where very high fault currents are expected. GK2 Switchgear manufactures both MCBs (10KA) and HRC fuses (80KA) certified to IS/IEC standards.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'What is a busbar and where is it used?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'A busbar is a metallic strip or bar (usually copper or aluminium) used to distribute electrical power within a distribution board or panel. It connects multiple circuits to a common supply point. Busbars are used in main distribution boards, sub-distribution boards, motor control centers, and industrial panels. GK2 Switchgear manufactures silver-plated copper busbars from 63A to 630A with IP23 protection.',
+          },
+        },
+      ],
+    },
   });
   const allFeatured = products.filter(p => p.featured);
   const fuseBase = products.find(p => p.id === 'hrc-fuse-base');

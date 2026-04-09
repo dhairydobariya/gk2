@@ -79,13 +79,39 @@ export default function Contact() {
 
   const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    const subject = encodeURIComponent(`[GK2 Enquiry] ${form.subject} — ${form.name}`);
-    const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nSubject: ${form.subject}\n\nMessage:\n${form.message}`);
-    window.open(`mailto:gk2switchgear@gmail.com?subject=${subject}&body=${body}`, '_blank');
-    setSent(true);
-    setForm({ name: '', email: '', phone: '', subject: '', message: '' });
+    try {
+      const res = await fetch('https://formspree.io/f/gk2switchgear', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          subject: form.subject,
+          message: form.message,
+        }),
+      });
+      if (res.ok) {
+        setSent(true);
+        setForm({ name: '', email: '', phone: '', subject: '', message: '' });
+      } else {
+        // Fallback to mailto if Formspree not configured
+        const subject = encodeURIComponent(`[GK2 Enquiry] ${form.subject} — ${form.name}`);
+        const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nSubject: ${form.subject}\n\nMessage:\n${form.message}`);
+        window.open(`mailto:gk2switchgear@gmail.com?subject=${subject}&body=${body}`, '_blank');
+        setSent(true);
+        setForm({ name: '', email: '', phone: '', subject: '', message: '' });
+      }
+    } catch {
+      // Fallback to mailto on network error
+      const subject = encodeURIComponent(`[GK2 Enquiry] ${form.subject} — ${form.name}`);
+      const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nSubject: ${form.subject}\n\nMessage:\n${form.message}`);
+      window.open(`mailto:gk2switchgear@gmail.com?subject=${subject}&body=${body}`, '_blank');
+      setSent(true);
+      setForm({ name: '', email: '', phone: '', subject: '', message: '' });
+    }
   };
 
   return (

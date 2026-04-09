@@ -1,33 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://gk2switchgear.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://gk2switchgear.com/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://gk2switchgear.com/products</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://gk2switchgear.com/products?category=mcb</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://gk2switchgear.com/products?category=busbar</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://gk2switchgear.com/products?category=fuse</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://gk2switchgear.com/products?category=switch-disconnector-fuse</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://gk2switchgear.com/products?category=onload-changeover-switch</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://gk2switchgear.com/products?category=onload-isolator</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://gk2switchgear.com/products?category=offload-changeover-switch</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://gk2switchgear.com/products?category=main-switch-rewirable</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://gk2switchgear.com/products?category=reverse-forward</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://gk2switchgear.com/products/modular-single-pole-mcb</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://gk2switchgear.com/products/modular-double-pole-mcb</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://gk2switchgear.com/products/tiny-single-pole-mcb</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://gk2switchgear.com/products/tiny-double-pole-mcb</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://gk2switchgear.com/products/single-pole-mcb</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://gk2switchgear.com/products/double-pole-mcb</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://gk2switchgear.com/products/triple-pole-mcb</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://gk2switchgear.com/products/four-pole-mcb</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://gk2switchgear.com/products/reverse-forward-switch</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://gk2switchgear.com/products/busbar</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://gk2switchgear.com/products/hrc-fuse-base</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://gk2switchgear.com/products/hrc-fuse-link</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://gk2switchgear.com/products/switch-disconnector-fuse</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://gk2switchgear.com/products/onload-changeover-switch</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://gk2switchgear.com/products/onload-isolator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://gk2switchgear.com/products/offload-changeover-switch</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://gk2switchgear.com/products/main-switch-rewirable</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://gk2switchgear.com/contact</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <!-- Core pages -->
+  <url><loc>https://gk2switchgear.com/</loc><lastmod>2025-03-01</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://gk2switchgear.com/about</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://gk2switchgear.com/products</loc><lastmod>2025-03-01</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://gk2switchgear.com/contact</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://gk2switchgear.com/distributors</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Product category pages -->
+  <url><loc>https://gk2switchgear.com/products?category=mcb</loc><lastmod>2025-03-01</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://gk2switchgear.com/products?category=busbar</loc><lastmod>2025-03-01</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://gk2switchgear.com/products?category=fuse</loc><lastmod>2025-03-01</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://gk2switchgear.com/products?category=switch-disconnector-fuse</loc><lastmod>2025-03-01</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://gk2switchgear.com/products?category=onload-changeover-switch</loc><lastmod>2025-03-01</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://gk2switchgear.com/products?category=onload-isolator</loc><lastmod>2025-03-01</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://gk2switchgear.com/products?category=offload-changeover-switch</loc><lastmod>2025-03-01</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://gk2switchgear.com/products?category=main-switch-rewirable</loc><lastmod>2025-03-01</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://gk2switchgear.com/products?category=reverse-forward</loc><lastmod>2025-03-01</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Individual product pages -->
+  <url><loc>https://gk2switchgear.com/products/modular-single-pole-mcb</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/products/modular-double-pole-mcb</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/products/tiny-single-pole-mcb</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/products/tiny-double-pole-mcb</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/products/single-pole-mcb</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/products/double-pole-mcb</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/products/triple-pole-mcb</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/products/four-pole-mcb</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/products/reverse-forward-switch</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/products/busbar</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/products/hrc-fuse-base</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/products/hrc-fuse-link</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/products/switch-disconnector-fuse</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/products/onload-changeover-switch</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/products/onload-isolator</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/products/offload-changeover-switch</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/products/main-switch-rewirable</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Blog pages -->
+  <url><loc>https://gk2switchgear.com/blog</loc><lastmod>2025-03-01</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://gk2switchgear.com/blog/what-is-switchgear</loc><lastmod>2025-01-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/blog/types-of-switchgear</loc><lastmod>2025-01-20</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/blog/mcb-vs-mccb</loc><lastmod>2025-02-05</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/blog/importance-of-switchgear</loc><lastmod>2025-02-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://gk2switchgear.com/blog/best-switchgear-manufacturer-india</loc><lastmod>2025-03-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>
