@@ -9,7 +9,7 @@ export const blogPosts = [
     category: 'Education',
     date: '2025-01-10',
     readTime: '6 min read',
-    image: '/banners/blog-what-is-switchgear.png',
+    image: '/banners/blog-what-is-switchgear.webp',
     imageAlt: 'Electrical distribution board with MCBs installed — GK2 Switchgear India',
     excerpt: 'Switchgear is the combination of electrical disconnect switches, fuses, and circuit breakers used to control, protect, and isolate electrical equipment. Learn everything you need to know.',
     content: `
@@ -85,7 +85,7 @@ Browse specific products: [MCBs](/products?category=mcb) · [Busbars](/products?
     category: 'Products',
     date: '2025-01-20',
     readTime: '7 min read',
-    image: '/banners/blog-types-of-switchgear.png',
+    image: '/banners/blog-types-of-switchgear.webp',
     imageAlt: 'Various types of electrical switchgear products — MCB, busbar, HRC fuse by GK2 Switchgear',
     excerpt: 'From MCBs to HRC fuses and changeover switches — understand the different types of switchgear and when to use each one in your electrical installation.',
     content: `
@@ -208,7 +208,7 @@ Browse the complete [GK2 Switchgear product range](/products) or [contact us](/c
     category: 'Education',
     date: '2025-02-05',
     readTime: '5 min read',
-    image: '/banners/blog-mcb-vs-mccb.png',
+    image: '/banners/blog-mcb-vs-mccb.webp',
     imageAlt: 'MCB vs MCCB comparison — Miniature Circuit Breaker and Moulded Case Circuit Breaker',
     excerpt: 'MCB and MCCB are both circuit breakers but serve different purposes. This guide explains the key differences in breaking capacity, current rating, size, and application.',
     content: `
@@ -309,7 +309,7 @@ Also read: [Types of Switchgear](/blog/types-of-switchgear) · [Importance of Sw
     category: 'Safety',
     date: '2025-02-18',
     readTime: '5 min read',
-    image: '/banners/blog-importance-of-switchgear.png',
+    image: '/banners/blog-importance-of-switchgear.webp',
     imageAlt: 'Industrial electrical panel board with switchgear — importance of electrical safety',
     excerpt: 'Switchgear is the backbone of electrical safety. Without proper switchgear, electrical systems are vulnerable to faults, fires, and equipment damage. Here is why it matters.',
     content: `
@@ -395,7 +395,7 @@ Also read: [What is Switchgear?](/blog/what-is-switchgear) · [MCB vs MCCB](/blo
     category: 'Company',
     date: '2025-03-01',
     readTime: '6 min read',
-    image: '/banners/blog-best-switchgear-manufacturer.png',
+    image: '/banners/blog-best-switchgear-manufacturer.webp',
     imageAlt: 'GK2 Switchgear product lineup — best switchgear manufacturer in India, Gujarat',
     excerpt: 'GK2 Switchgear has established itself as one of India\'s trusted switchgear manufacturers with IS/IEC certified products, 10+ years of experience, and a growing network of 50+ distributors.',
     content: `
