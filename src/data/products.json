@@ -17,7 +17,7 @@
       "category": "mcb",
       "breakingCapacity": "10KA",
       "series": "C Series",
-      "image": "/products/moduler-single-ploe-mcb.jpeg",
+      "image": "/products/moduler-single-ploe-mcb.webp",
 
       "inStock": true,
       "features": [
@@ -43,7 +43,7 @@
       "category": "mcb",
       "breakingCapacity": "10KA",
       "series": "C Series",
-      "image": "/products/moduler-double-pole-mcb.jpeg",
+      "image": "/products/moduler-double-pole-mcb.webp",
       "inStock": true,
       "features": [
         "Compact modular design",
@@ -68,7 +68,7 @@
       "category": "mcb",
       "breakingCapacity": "10KA",
       "series": "C Series",
-      "image": "/products/tiny-single-pole-mcb.jpeg",
+      "image": "/products/tiny-single-pole-mcb.webp",
       "inStock": true,
       "features": [
         "Ultra-compact tiny design",
@@ -93,7 +93,7 @@
       "category": "mcb",
       "breakingCapacity": "10KA",
       "series": "C Series",
-      "image": "/products/tiny-double-pole-mcb.jpeg",
+      "image": "/products/tiny-double-pole-mcb.webp",
       "inStock": true,
       "features": [
         "Ultra-compact tiny design",
@@ -118,7 +118,7 @@
       "category": "mcb",
       "breakingCapacity": "10KA",
       "series": "C Series",
-      "image": "/products/single-pole-mcb-c-series.jpeg",
+      "image": "/products/single-pole-mcb-c-series.webp",
       "inStock": true,
       "featured": true,
       "features": [
@@ -146,7 +146,7 @@
       "category": "mcb",
       "breakingCapacity": "10KA",
       "series": "C Series",
-      "image": "/products/double-pole-mcb-c-series.jpeg",
+      "image": "/products/double-pole-mcb-c-series.webp",
       "inStock": true,
       "features": [
         "Standard double pole design",
@@ -173,7 +173,7 @@
       "category": "mcb",
       "breakingCapacity": "10KA",
       "series": "C Series",
-      "image": "/products/three-pole-mcb-c-series.jpeg",
+      "image": "/products/three-pole-mcb-c-series.webp",
       "inStock": true,
       "features": [
         "Triple pole three-phase protection",
@@ -200,7 +200,7 @@
       "category": "mcb",
       "breakingCapacity": "10KA",
       "series": "C Series",
-      "image": "/products/four-pole-mcb-c-series.jpeg",
+      "image": "/products/four-pole-mcb-c-series.webp",
       "inStock": true,
       "features": [
         "Four pole three-phase + neutral protection",
@@ -227,7 +227,7 @@
       "category": "reverse-forward",
       "breakingCapacity": "—",
       "series": "Heavy Duty",
-      "image": "/products/reverse-forward-switch.jpeg",
+      "image": "/products/reverse-forward-switch.webp",
       "inStock": true,
       "features": [
         "Heavy duty material ensures high strength and durability",
@@ -248,9 +248,9 @@
       "category": "busbar",
       "breakingCapacity": "—",
       "series": "Heavy Duty",
-      "image": "/products/busbar.jpeg",
-      "image1": "/products/busbar-1.jpeg",
-      "image2": "/products/busbar-2.jpeg",
+      "image": "/products/busbar.webp",
+      "image1": "/products/busbar-1.webp",
+      "image2": "/products/busbar-2.webp",
       "inStock": true,
       "featured": true,
       "features": [
@@ -277,9 +277,9 @@
       "category": "fuse",
       "breakingCapacity": "80KA",
       "series": "HRC",
-      "image": "/products/hrc-fuce-base-main.jpeg",
-      "image1": "/products/hrc-fuce-base-1.jpeg",
-      "image2": "/products/hrc-fuce-base-2.jpeg",
+      "image": "/products/hrc-fuce-base-main.webp",
+      "image1": "/products/hrc-fuce-base-1.webp",
+      "image2": "/products/hrc-fuce-base-2.webp",
       "inStock": true,
       "featured": true,
       "features": [
@@ -305,10 +305,10 @@
       "category": "fuse",
       "breakingCapacity": "80KA",
       "series": "HRC",
-      "image": "/products/hrc-fuce-link-main.jpeg",
-      "image1": "/products/hrc-fuce-link-1.jpeg",
-      "image2": "/products/hrc-fuce-link-2.jpeg",
-      "image3": "/products/hrc-fuce-link-3.jpeg",
+      "image": "/products/hrc-fuce-link-main.webp",
+      "image1": "/products/hrc-fuce-link-1.webp",
+      "image2": "/products/hrc-fuce-link-2.webp",
+      "image3": "/products/hrc-fuce-link-3.webp",
       "inStock": true,
       "features": [
         "Range from 32 AMP to 630 AMP",
@@ -335,9 +335,9 @@
       "category": "switch-disconnector-fuse",
       "breakingCapacity": "—",
       "series": "SDF",
-      "image": "/products/switch-disconnector-fuse.jpeg",
-      "image1": "/products/switch-disconnector-1.jpeg",
-      "image2": "/products/switch-disconnector-2.jpeg",
+      "image": "/products/switch-disconnector-fuse.webp",
+      "image1": "/products/switch-disconnector-1.webp",
+      "image2": "/products/switch-disconnector-2.webp",
       "inStock": true,
       "featured": true,
       "features": [
@@ -363,7 +363,7 @@
       "category": "onload-changeover-switch",
       "breakingCapacity": "—",
       "series": "OCS",
-      "image": "/products/onload-changeover-switch.jpeg",
+      "image": "/products/onload-changeover-switch.webp",
       "inStock": true,
       "features": [
         "Range from 63 AMP to 1000 AMP",
@@ -390,7 +390,7 @@
       "category": "onload-isolator",
       "breakingCapacity": "80KA",
       "series": "LBS",
-      "image": "/products/onload-isolator.jpeg",
+      "image": "/products/onload-isolator.webp",
       "inStock": true,
       "features": [
         "Range from 63 AMP to 1000 AMP",
@@ -418,7 +418,7 @@
       "category": "offload-changeover-switch",
       "breakingCapacity": "—",
       "series": "OCS",
-      "image": "/products/offload-changeover-switch.jpeg",
+      "image": "/products/offload-changeover-switch.webp",
       "inStock": true,
       "features": [
         "Range from 63 AMP to 1000 AMP",
@@ -444,7 +444,7 @@
       "category": "main-switch-rewirable",
       "breakingCapacity": "—",
       "series": "MSR",
-      "image": "/products/main-switch-rewirable.jpeg",
+      "image": "/products/main-switch-rewirable.webp",
       "inStock": true,
       "features": [
         "Range from 32 AMP to 200 AMP",
