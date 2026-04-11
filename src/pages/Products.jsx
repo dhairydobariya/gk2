@@ -194,7 +194,7 @@ function Products() {
               className="w-full pl-9 pr-7 py-1.5 rounded-full border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50"
             />
             {searchQuery && (
-              <button onClick={() => setSearchQuery('')} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs">✕</button>
+              <button onClick={() => setSearchQuery('')} aria-label="Clear search" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs">✕</button>
             )}
           </div>
         </div>
@@ -232,7 +232,7 @@ function Products() {
             className="w-full pl-9 pr-8 py-2 rounded-full border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50"
           />
           {searchQuery && (
-            <button onClick={() => setSearchQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs">✕</button>
+            <button onClick={() => setSearchQuery('')} aria-label="Clear search" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs">✕</button>
           )}
         </div>
       </div>
@@ -248,7 +248,7 @@ function Products() {
             <div className="w-10 h-1 bg-gray-300 rounded-full mx-auto mb-5" />
             <div className="flex items-center justify-between mb-5">
               <h3 className="text-lg font-black text-gray-900">Filter by Category</h3>
-              <button onClick={() => setFilterOpen(false)} className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500">✕</button>
+              <button onClick={() => setFilterOpen(false)} aria-label="Close filter" className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500">✕</button>
             </div>
             <div className="grid grid-cols-2 gap-3">
               {allCategories.map(cat => (

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Header from './components/Header'
@@ -7,13 +7,15 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Products from './pages/Products'
 import ProductDetail from './pages/ProductDetail'
-import Distributors from './pages/Distributors'
-import DistributorDetail from './pages/DistributorDetail'
 import Contact from './pages/Contact'
-import Admin from './pages/Admin'
-import Blog from './pages/Blog'
-import BlogPost from './pages/BlogPost'
 import NotFound from './pages/NotFound'
+
+// Lazy load heavy/less-critical pages
+const Distributors    = lazy(() => import('./pages/Distributors'))
+const DistributorDetail = lazy(() => import('./pages/DistributorDetail'))
+const Admin           = lazy(() => import('./pages/Admin'))
+const Blog            = lazy(() => import('./pages/Blog'))
+const BlogPost        = lazy(() => import('./pages/BlogPost'))
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -40,19 +42,21 @@ function AppContent() {
       <ScrollToTop />
       <Header />
       <main className="flex-grow">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/:id" element={<ProductDetail />} />
-          <Route path="/distributors" element={<Distributors />} />
-          <Route path="/distributors/:id" element={<DistributorDetail />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={<div className="min-h-screen bg-white" />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/:id" element={<ProductDetail />} />
+            <Route path="/distributors" element={<Distributors />} />
+            <Route path="/distributors/:id" element={<DistributorDetail />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </main>
       {!isAdminPage && <Footer />}
     </div>

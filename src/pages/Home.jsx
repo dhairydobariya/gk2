@@ -389,10 +389,10 @@ export default function Home() {
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-10 sm:mb-16">
             <span className="inline-flex items-center gap-1.5 text-blue-600 font-semibold text-xs tracking-widest uppercase mb-3 border-b-2 border-blue-600 pb-1">
-              Why <img src={logo} alt="GK2" className="h-3.5 w-auto" style={{ filter: "invert(29%) sepia(98%) saturate(1500%) hue-rotate(210deg) brightness(90%)" }} />
+              Why <img src={logo} alt="GK2" width="696" height="358" className="h-3.5 w-auto" style={{ filter: "invert(29%) sepia(98%) saturate(1500%) hue-rotate(210deg) brightness(90%)" }} />
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mt-3 flex items-center justify-center gap-3 flex-wrap">
-              The <img src={logo} alt="GK2" className="h-9 sm:h-11 md:h-12 w-auto inline-block" /> Advantage
+              The <img src={logo} alt="GK2" width="696" height="358" className="h-9 sm:h-11 md:h-12 w-auto inline-block" /> Advantage
             </h2>
             <p className="text-gray-500 mt-3 max-w-xl mx-auto text-sm sm:text-lg">Built on decades of manufacturing expertise and an uncompromising commitment to quality.</p>
           </div>
@@ -426,7 +426,7 @@ export default function Home() {
                 Built to the<br /><span className="text-blue-400">Highest Standards</span>
               </h2>
               <p className="text-slate-400 text-base sm:text-lg leading-relaxed mb-7 sm:mb-10">
-                Every <img src={logo} alt="GK2" className="h-4 w-auto inline-block mx-0.5 align-middle" style={{ filter: "brightness(0) invert(1)" }} /> product — from MCBs to busbars to changeover switches — is engineered and tested to meet international electrical safety standards, giving you confidence in every installation.
+                Every <img src={logo} alt="GK2" width="696" height="358" className="h-4 w-auto inline-block mx-0.5 align-middle" style={{ filter: "brightness(0) invert(1)" }} /> product — from MCBs to busbars to changeover switches — is engineered and tested to meet international electrical safety standards, giving you confidence in every installation.
               </p>
               <div className="flex flex-wrap gap-3">
                 <Link to="/products" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-5 sm:px-7 py-3 sm:py-3.5 rounded-xl font-semibold transition-all duration-200 shadow-lg shadow-blue-900/40 text-sm sm:text-base">
@@ -457,7 +457,7 @@ export default function Home() {
             <span className="inline-block text-blue-600 font-semibold text-xs tracking-widest uppercase mb-3 border-b-2 border-blue-600 pb-1">Sectors We Serve</span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 mt-3">Industries We Power</h2>
             <p className="text-gray-500 mt-3 max-w-lg mx-auto text-sm sm:text-base flex items-center justify-center gap-1.5 flex-wrap">
-              From homes to heavy industry — <img src={logo} alt="GK2" className="h-4 w-auto inline-block" /> switchgear protects every kind of electrical installation.
+              From homes to heavy industry — <img src={logo} alt="GK2" width="696" height="358" className="h-4 w-auto inline-block" /> switchgear protects every kind of electrical installation.
             </p>
           </div>
           <div ref={indRef} className="stagger-child grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
@@ -473,7 +473,7 @@ export default function Home() {
                   <p className="text-gray-500 text-xs sm:text-sm mt-0.5">{ind.desc}</p>
                   {/* ── FIXED: generic copy instead of MCB-only ── */}
                   <div className={`mt-1.5 inline-flex items-center gap-1 text-xs font-semibold`}>
-                    <img src={logo} alt="GK2" className="h-5 w-auto inline-block align-middle" /> <span className="align-middle">Protected</span> <span className="text-gray-400 align-middle">→</span>
+                    <img src={logo} alt="GK2" width="696" height="358" className="h-5 w-auto inline-block align-middle" /> <span className="align-middle">Protected</span> <span className="text-gray-400 align-middle">→</span>
                   </div>
                 </div>
               </div>
@@ -489,7 +489,7 @@ export default function Home() {
             <div className="absolute -top-16 -right-16 w-64 h-64 bg-white/5 rounded-full" />
             <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-white/5 rounded-full" />
             <div className="absolute top-4 left-4 sm:top-6 sm:left-6">
-              <img src={logo} alt="GK2" className="h-8 sm:h-10 w-auto opacity-30" style={{ filter: "brightness(0) invert(1)" }} />
+              <img src={logo} alt="GK2" width="696" height="358" className="h-8 sm:h-10 w-auto opacity-30" style={{ filter: "brightness(0) invert(1)" }} />
             </div>
             <div className="relative">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 sm:mb-4 leading-tight">

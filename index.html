@@ -2,16 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/assets/logo.png" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RJCYCEF8BX"></script>
+    <!-- Preconnect to external origins -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.google-analytics.com" />
+
+    <!-- Preload LCP image — first hero banner -->
+    <link rel="preload" as="image" href="/banners/banner-1.png" fetchpriority="high" />
+
+    <!-- Google Analytics — deferred to avoid blocking main thread -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-RJCYCEF8BX');
+      window.addEventListener('load', function() {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-RJCYCEF8BX';
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-RJCYCEF8BX', { 'transport_type': 'beacon' });
+      });
     </script>
 
     <!-- Google Search Console Verification -->

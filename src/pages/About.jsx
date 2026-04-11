@@ -147,7 +147,7 @@ export default function About() {
             <div className="relative">
               <div className="absolute -inset-3 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl -z-10" />
               <div className="bg-white rounded-2xl border border-gray-100 shadow-lg p-8 sm:p-10 text-center">
-                <img src={logo} alt="GK2" className="h-16 sm:h-20 w-auto mx-auto mb-6" />
+                <img src={logo} alt="GK2" width="696" height="358" className="h-16 sm:h-20 w-auto mx-auto mb-6" />
                 <div className="w-12 h-1 bg-blue-600 mx-auto rounded-full mb-6" />
                 <p className="text-gray-700 text-base sm:text-lg font-medium italic leading-relaxed mb-8">
                   "Powering safety and reliability across India's electrical infrastructure."
@@ -314,7 +314,7 @@ export default function About() {
             <div className="absolute -top-16 -right-16 w-64 h-64 bg-white/5 rounded-full" />
             <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-white/5 rounded-full" />
             <div className="absolute top-4 left-4 sm:top-6 sm:left-6">
-              <img src={logo} alt="GK2" className="h-8 sm:h-10 w-auto opacity-30" style={{ filter: 'brightness(0) invert(1)' }} />
+              <img src={logo} alt="GK2" width="696" height="358" className="h-8 sm:h-10 w-auto opacity-30" style={{ filter: 'brightness(0) invert(1)' }} />
             </div>
             <div className="relative">
               <h2 className="text-3xl sm:text-4xl font-black text-white mb-4 leading-tight">

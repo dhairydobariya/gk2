@@ -94,15 +94,15 @@ function Lightbox({ images, startIndex, onClose }) {
         <div className="flex items-center gap-2">
           {/* Zoom controls */}
           <button onClick={() => setZoom(z => Math.min(4, z + 0.5))}
-            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-lg transition-colors" title="Zoom in">+</button>
+            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-lg transition-colors" aria-label="Zoom in" title="Zoom in">+</button>
           <span className="text-white/60 text-xs w-10 text-center">{Math.round(zoom * 100)}%</span>
           <button onClick={() => { setZoom(z => Math.max(1, z - 0.5)); if (zoom <= 1.5) resetZoom(); }}
-            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-lg transition-colors" title="Zoom out">−</button>
+            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-lg transition-colors" aria-label="Zoom out" title="Zoom out">−</button>
           <button onClick={resetZoom}
-            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors text-xs font-bold" title="Reset zoom">1:1</button>
+            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors text-xs font-bold" aria-label="Reset zoom" title="Reset zoom">1:1</button>
           <div className="w-px h-5 bg-white/20 mx-1" />
           <button onClick={onClose}
-            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-red-500/80 text-white flex items-center justify-center transition-colors text-lg" title="Close">✕</button>
+            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-red-500/80 text-white flex items-center justify-center transition-colors text-lg" aria-label="Close lightbox" title="Close">✕</button>
         </div>
       </div>
 
@@ -144,9 +144,9 @@ function Lightbox({ images, startIndex, onClose }) {
       {/* Prev / Next */}
       {images.length > 1 && (
         <>
-          <button onClick={() => goTo(idx - 1)}
+          <button onClick={() => goTo(idx - 1)} aria-label="Previous image"
             className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center text-2xl transition-colors z-10">‹</button>
-          <button onClick={() => goTo(idx + 1)}
+          <button onClick={() => goTo(idx + 1)} aria-label="Next image"
             className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center text-2xl transition-colors z-10">›</button>
         </>
       )}
@@ -155,9 +155,9 @@ function Lightbox({ images, startIndex, onClose }) {
       {images.length > 1 && (
         <div className="shrink-0 flex justify-center gap-2 px-4 py-3 overflow-x-auto">
           {images.map((img, i) => (
-            <button key={i} onClick={() => goTo(i)}
+            <button key={i} onClick={() => goTo(i)} aria-label={`View image ${i + 1}`}
               className={`w-14 h-14 rounded-lg overflow-hidden border-2 shrink-0 transition-all duration-200 ${i === idx ? 'border-blue-400 opacity-100' : 'border-white/20 opacity-50 hover:opacity-80'}`}>
-              <img src={img} alt="" className="w-full h-full object-contain bg-white/5" draggable={false} />
+              <img src={img} alt={`Thumbnail ${i + 1}`} className="w-full h-full object-contain bg-white/5" draggable={false} />
             </button>
           ))}
         </div>
@@ -510,15 +510,16 @@ function ProductDetail() {
                   <h3 className="font-bold text-gray-900 mb-3">Quantity</h3>
                   <div className="flex items-center gap-4">
                     <div className="flex items-center border-2 border-gray-200 rounded-lg overflow-hidden">
-                      <button onClick={() => handleQuantityChange(-1)} className="px-4 py-2 bg-gray-50 hover:bg-gray-100 font-bold text-gray-700">−</button>
+                      <button onClick={() => handleQuantityChange(-1)} aria-label="Decrease quantity" className="px-4 py-2 bg-gray-50 hover:bg-gray-100 font-bold text-gray-700">−</button>
                       <input
                         type="number"
                         value={quantity}
                         onChange={e => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
                         className="w-16 text-center font-semibold border-x-2 border-gray-200 py-2 focus:outline-none"
                         min="1"
+                        aria-label="Quantity"
                       />
-                      <button onClick={() => handleQuantityChange(1)} className="px-4 py-2 bg-gray-50 hover:bg-gray-100 font-bold text-gray-700">+</button>
+                      <button onClick={() => handleQuantityChange(1)} aria-label="Increase quantity" className="px-4 py-2 bg-gray-50 hover:bg-gray-100 font-bold text-gray-700">+</button>
                     </div>
                   </div>
                 </div>

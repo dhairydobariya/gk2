@@ -25,7 +25,7 @@ function CompactBanner({ banner }) {
         backgroundSize: '50px 50px'
       }} />
       <div className="container mx-auto px-4 relative z-10 text-center py-12">
-        <img src={logo} alt="GK2" className="h-12 sm:h-14 w-auto mx-auto mb-4"
+        <img src={logo} alt="GK2" width="696" height="358" className="h-12 sm:h-14 w-auto mx-auto mb-4"
           style={{ filter: 'brightness(0) invert(1) drop-shadow(0 0 12px rgba(59,130,246,0.7))' }} />
         {banner.title && <h1 className="text-2xl sm:text-3xl font-black text-white mb-2">{banner.title}</h1>}
         {banner.subtitle && <p className="text-blue-200 text-base sm:text-lg">{banner.subtitle}</p>}
@@ -94,11 +94,16 @@ function HeroSlider({ banners }) {
               poster={banner.videoFallbackImage || banner.image || undefined}
             >
               <source src={banner.video} type="video/mp4" />
-              {/* Fallback to image if video can't play */}
               {banner.image && <img src={banner.image} alt={banner.title} className="w-full h-full object-cover object-center" />}
             </video>
           ) : banner.image ? (
-            <img src={banner.image} alt={banner.title} className="w-full h-full object-cover object-center" />
+            <img
+              src={banner.image}
+              alt={banner.title}
+              className="w-full h-full object-cover object-center"
+              loading={i === 0 ? 'eager' : 'lazy'}
+              fetchpriority={i === 0 ? 'high' : 'low'}
+            />
           ) : (
             <div className="w-full h-full bg-blue-950" />
           )}
@@ -116,7 +121,7 @@ function HeroSlider({ banners }) {
         {/* Logo */}
         <div className="mb-4 sm:mb-6"
           style={{ transition: 'opacity 0.6s ease, transform 0.6s ease', opacity: animating ? 0 : 1, transform: animating ? 'translateY(-10px)' : 'translateY(0)' }}>
-          <img src={logo} alt="GK2"
+          <img src={logo} alt="GK2" width="696" height="358"
             className="h-14 sm:h-20 md:h-24 w-auto mx-auto"
             style={{ filter: 'brightness(0) invert(1) drop-shadow(0 0 20px rgba(59,130,246,0.9))' }} />
         </div>
@@ -153,12 +158,15 @@ function HeroSlider({ banners }) {
         <span>{String(banners.length).padStart(2, '0')}</span>
       </div>
 
-      {/* Dot indicators */}
-      <div className="absolute bottom-5 sm:bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 sm:gap-3">
+      {/* Dot indicators — wrapped in larger touch target */}
+      <div className="absolute bottom-5 sm:bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1">
         {banners.map((_, i) => (
           <button key={i} onClick={() => goTo(i)}
-            className={`rounded-full transition-all duration-300 ${i === current ? 'w-6 sm:w-8 h-2 sm:h-2.5 bg-white' : 'w-2 h-2 sm:w-2.5 sm:h-2.5 bg-white/40 hover:bg-white/70'}`}
-            aria-label={`Slide ${i + 1}`} />
+            className="p-2 flex items-center justify-center"
+            aria-label={`Slide ${i + 1}`}
+          >
+            <span className={`block rounded-full transition-all duration-300 ${i === current ? 'w-6 sm:w-8 h-2 sm:h-2.5 bg-white' : 'w-2 h-2 sm:w-2.5 sm:h-2.5 bg-white/40 hover:bg-white/70'}`} />
+          </button>
         ))}
       </div>
 

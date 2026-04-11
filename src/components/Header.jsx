@@ -141,13 +141,9 @@ function Header() {
           {/* Logo/Company Name */}
           <div className="flex-shrink-0">
             <NavLink to="/" className="flex items-center hover:opacity-80 transition-opacity">
-              <img 
-                src={logo} 
-                alt="GK2 Logo" 
+              <img src={logo} alt="GK2 Logo" width="696" height="358"
                 className="h-10 sm:h-12 w-auto"
-                style={{
-                  filter: 'brightness(0) invert(1)'
-                }}
+                style={{ filter: 'brightness(0) invert(1)' }}
               />
             </NavLink>
           </div>

@@ -12,9 +12,9 @@ function Footer() {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="mb-4">
-              <img src={logo} alt="GK2 Switchgear Logo" className="h-12 w-auto" style={{ filter: 'brightness(0) invert(1)' }} />
+              <img src={logo} alt="GK2 Switchgear Logo" width="696" height="358" className="h-12 w-auto" style={{ filter: 'brightness(0) invert(1)' }} />
             </div>
-            <p className="text-sm leading-relaxed mb-3">
+            <p className="text-sm leading-relaxed mb-3 text-gray-300">
               IS/IEC certified electrical switchgear manufacturer in Gujarat, India. MCBs, busbars, HRC fuses, changeover switches & more. Made in India.
             </p>
             <div className="flex items-center gap-2 mt-3">
@@ -35,7 +35,7 @@ function Footer() {
                 { label: 'Contact Us', to: '/contact' },
               ].map((l) => (
                 <li key={l.to}>
-                  <Link to={l.to} className="text-sm hover:text-white transition-colors">{l.label}</Link>
+                  <Link to={l.to} className="text-sm text-gray-300 hover:text-white transition-colors">{l.label}</Link>
                 </li>
               ))}
             </ul>
@@ -55,7 +55,7 @@ function Footer() {
                 { label: 'Reverse Forward Switch', to: '/products?category=reverse-forward' },
               ].map((l) => (
                 <li key={l.to}>
-                  <Link to={l.to} className="text-sm hover:text-white transition-colors">{l.label}</Link>
+                  <Link to={l.to} className="text-sm text-gray-300 hover:text-white transition-colors">{l.label}</Link>
                 </li>
               ))}
             </ul>
@@ -95,10 +95,10 @@ function Footer() {
         <div className="border-t border-gray-700 mt-6 sm:mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
           <p className="flex items-center gap-2 flex-wrap justify-center sm:justify-start">
             <span>&copy; {currentYear}</span>
-            <img src={logo} alt="GK2 Switchgear" className="h-5 w-auto inline-block" style={{ filter: 'brightness(0) invert(1)' }} />
+            <img src={logo} alt="GK2 Switchgear" width="696" height="358" className="h-5 w-auto inline-block" style={{ filter: 'brightness(0) invert(1)' }} />
             <span>All rights reserved.</span>
           </p>
-          <p className="text-gray-500 text-xs">Switchgear Manufacturer in India · Gujarat · IS/IEC Certified</p>
+          <p className="text-gray-300 text-xs">Switchgear Manufacturer in India · Gujarat · IS/IEC Certified</p>
         </div>
       </div>
     </footer>

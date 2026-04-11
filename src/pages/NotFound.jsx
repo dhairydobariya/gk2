@@ -23,7 +23,7 @@ export default function NotFound() {
       {/* Logo — top left */}
       <div className="absolute top-6 left-8 z-10">
         <Link to="/">
-          <img src={logo} alt="GK2" className="h-7 w-auto" style={{ filter: 'brightness(0) invert(1)' }} />
+          <img src={logo} alt="GK2" width="696" height="358" className="h-7 w-auto" style={{ filter: 'brightness(0) invert(1)' }} />
         </Link>
       </div>
 
