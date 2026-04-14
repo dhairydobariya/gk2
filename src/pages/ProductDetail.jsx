@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getProductsData } from '../utils/dataManager';
 import ImageWithFallback from '../components/ImageWithFallback';
 import useSEO from '../hooks/useSEO';
+import QuoteModal from '../components/QuoteModal';
 
 // ── LIGHTBOX ──────────────────────────────────────────────────────────────────
 function Lightbox({ images, startIndex, onClose }) {
@@ -172,6 +173,7 @@ function ProductDetail() {
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [quoteOpen, setQuoteOpen] = useState(false);
 
   // hover zoom state
   const [hoverPos, setHoverPos] = useState(null); // { x, y } as 0–1 fractions
@@ -526,12 +528,13 @@ function ProductDetail() {
 
                 {/* CTA */}
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <Link
-                    to="/contact"
+                  <button
+                    type="button"
+                    onClick={() => setQuoteOpen(true)}
                     className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-4 rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 transition-all text-center shadow-lg hover:shadow-xl transform hover:scale-105"
                   >
                     Request Quote
-                  </Link>
+                  </button>
                   <a
                     href={(() => {
                       const variant = selectedVariant
@@ -636,6 +639,13 @@ function ProductDetail() {
       {lightboxOpen && (
         <Lightbox images={images} startIndex={currentIndex} onClose={() => setLightboxOpen(false)} />
       )}
+
+      {/* QUOTE MODAL */}
+      <QuoteModal
+        isOpen={quoteOpen}
+        onClose={() => setQuoteOpen(false)}
+        initialProduct={product ? { id: product.id, variants: product.variants } : null}
+      />
     </div>
   );
 }

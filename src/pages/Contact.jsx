@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import DynamicBanner from '../components/DynamicBanner';
 import useSEO from '../hooks/useSEO';
+import QuoteModal from '../components/QuoteModal';
 
 function useReveal(threshold = 0.12) {
   const ref = useRef(null);
@@ -69,7 +70,7 @@ export default function Contact() {
       url: 'https://gk2switchgear.com/contact',
     }
   });
-  const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
+  const [quoteOpen, setQuoteOpen] = useState(false);
   const [sent, setSent] = useState(false);
 
   const cardsRef = useReveal();
@@ -77,42 +78,7 @@ export default function Contact() {
   const formRef  = useReveal();
   const mapRef   = useReveal();
 
-  const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
-
-  const handleSubmit = async e => {
-    e.preventDefault();
-    try {
-      const res = await fetch('https://formspree.io/f/gk2switchgear', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          subject: form.subject,
-          message: form.message,
-        }),
-      });
-      if (res.ok) {
-        setSent(true);
-        setForm({ name: '', email: '', phone: '', subject: '', message: '' });
-      } else {
-        // Fallback to mailto if Formspree not configured
-        const subject = encodeURIComponent(`[GK2 Enquiry] ${form.subject} — ${form.name}`);
-        const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nSubject: ${form.subject}\n\nMessage:\n${form.message}`);
-        window.open(`mailto:gk2switchgear@gmail.com?subject=${subject}&body=${body}`, '_blank');
-        setSent(true);
-        setForm({ name: '', email: '', phone: '', subject: '', message: '' });
-      }
-    } catch {
-      // Fallback to mailto on network error
-      const subject = encodeURIComponent(`[GK2 Enquiry] ${form.subject} — ${form.name}`);
-      const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nSubject: ${form.subject}\n\nMessage:\n${form.message}`);
-      window.open(`mailto:gk2switchgear@gmail.com?subject=${subject}&body=${body}`, '_blank');
-      setSent(true);
-      setForm({ name: '', email: '', phone: '', subject: '', message: '' });
-    }
-  };
+  const handleChange = e => setForm ? null : null; // unused, kept for safety
 
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
@@ -171,54 +137,61 @@ export default function Contact() {
             {/* Contact Form */}
             <div className="lg:col-span-2">
               <span className="inline-block text-blue-600 font-semibold text-xs tracking-widest uppercase mb-3 border-l-4 border-blue-600 pl-3">Send a Message</span>
-              <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-8">We'd Love to Hear From You</h2>
+              <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-4">We'd Love to Hear From You</h2>
+              <p className="text-gray-500 text-sm mb-8">Fill in your details and the products you need — we'll get back to you on WhatsApp within 24 hours.</p>
+
               {sent ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center bg-green-50 border border-green-100 rounded-2xl">
                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
                     <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="2" className="w-8 h-8"><path d="M20 6L9 17l-5-5"/></svg>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Message Sent!</h3>
-                  <p className="text-gray-500 text-sm max-w-xs">Your email client should have opened with the message. Our team will get back to you within 24 hours.</p>
-                  <button onClick={() => setSent(false)} className="mt-6 text-blue-600 font-semibold text-sm hover:underline">Send another message</button>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Enquiry Sent!</h3>
+                  <p className="text-gray-500 text-sm max-w-xs">Your WhatsApp should have opened with your enquiry. Our team will reply within 24 hours.</p>
+                  <button onClick={() => setSent(false)} className="mt-6 text-blue-600 font-semibold text-sm hover:underline">Send another enquiry</button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1.5">Full Name <span className="text-red-500">*</span></label>
-                      <input name="name" value={form.name} onChange={handleChange} required placeholder="Your full name" className="ct-input" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1.5">Email Address <span className="text-red-500">*</span></label>
-                      <input name="email" type="email" value={form.email} onChange={handleChange} required placeholder="you@example.com" className="ct-input" />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1.5">Phone Number</label>
-                      <input name="phone" value={form.phone} onChange={handleChange} placeholder="+91 96870 84620" className="ct-input" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1.5">Subject <span className="text-red-500">*</span></label>
-                      <select name="subject" value={form.subject} onChange={handleChange} required className="ct-input">
-                        <option value="">Select a subject</option>
-                        <option>Product Inquiry</option>
-                        <option>Pricing Request</option>
-                        <option>Bulk Order</option>
-                        <option>Distributor Partnership</option>
-                        <option>Other</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1.5">Message <span className="text-red-500">*</span></label>
-                    <textarea name="message" value={form.message} onChange={handleChange} required rows={5} placeholder="Tell us how we can help you..." className="ct-input resize-none" />
-                  </div>
-                  <button type="submit" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-10 py-3.5 rounded-xl font-bold transition-all duration-200 shadow-lg shadow-blue-200 hover:-translate-y-0.5">
-                    Send Message
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+                <div>
+                  <button
+                    type="button"
+                    onClick={() => setQuoteOpen(true)}
+                    className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 rounded-2xl font-bold text-base transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 mb-4"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5">
+                      <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+                      <rect x="9" y="3" width="6" height="4" rx="1"/>
+                      <path d="M9 12h6M9 16h4"/>
+                    </svg>
+                    Open Product Enquiry Form
                   </button>
-                </form>
+                  <p className="text-center text-xs text-gray-400">Select multiple products, ratings, and quantities — sends via WhatsApp</p>
+
+                  <div className="mt-8 pt-8 border-t border-gray-100">
+                    <p className="text-sm font-semibold text-gray-700 mb-4">Or reach us directly:</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <a href="https://wa.me/918460645021?text=Hello%20GK2%2C%20I%20would%20like%20to%20enquire%20about%20your%20products."
+                        target="_blank" rel="noreferrer"
+                        className="flex items-center gap-3 p-4 bg-[#25D366]/10 border border-[#25D366]/30 rounded-xl hover:bg-[#25D366]/20 transition-colors group">
+                        <div className="w-10 h-10 bg-[#25D366] rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                          <svg viewBox="0 0 24 24" fill="white" className="w-5 h-5"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L.057 23.882a.5.5 0 0 0 .61.61l6.086-1.461A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.006-1.371l-.36-.214-3.724.894.924-3.638-.235-.374A9.818 9.818 0 1 1 12 21.818z"/></svg>
+                        </div>
+                        <div>
+                          <p className="font-bold text-gray-900 text-sm">WhatsApp</p>
+                          <p className="text-xs text-gray-500">+91 84606 45021</p>
+                        </div>
+                      </a>
+                      <a href="tel:+918460645021"
+                        className="flex items-center gap-3 p-4 bg-green-50 border border-green-100 rounded-xl hover:bg-green-100 transition-colors group">
+                        <div className="w-10 h-10 bg-green-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" className="w-5 h-5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.39 19a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        </div>
+                        <div>
+                          <p className="font-bold text-gray-900 text-sm">Call Us</p>
+                          <p className="text-xs text-gray-500">Mon–Sat, 9AM–6PM</p>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
               )}
             </div>
 
@@ -333,6 +306,9 @@ export default function Contact() {
           </div>
         </div>
       </section>
+
+      {/* QUOTE MODAL */}
+      <QuoteModal isOpen={quoteOpen} onClose={() => setQuoteOpen(false)} />
     </div>
   );
 }

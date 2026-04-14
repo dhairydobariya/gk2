@@ -4,11 +4,11 @@
     { "id": "reverse-forward", "name": "Reverse Forward", "description": "Heavy duty reverse forward switches with CR sheet enclosure, phosphated & powder coated" },
     { "id": "busbar", "name": "Busbar", "description": "Silver plated copper strip busbars, 63A to 630A, IP23 protection, flame proof insulation" },
     { "id": "fuse", "name": "Fuse", "description": "HRC Fuse Base & Fuse Links, IS:13703 & IEC:269, 80KA breaking capacity, 500V AC" },
-    { "id": "switch-disconnector-fuse", "name": "Switch Disconnector Fuse", "description": "32A to 630A, IS/IEC:60947-3, quick make & break, fully insulated DMC body" },
-    { "id": "onload-changeover-switch", "name": "Onload Changeover Switch", "description": "63A to 1000A, quick make & break, compact model, open execution & sheet steel enclosure" },
-    { "id": "onload-isolator", "name": "Onload Isolator / Load Break Switch", "description": "63A to 1000A, IS/IEC:60947-3, 80KA breaking capacity, quick make & break, open execution & sheet steel enclosure" },
-    { "id": "offload-changeover-switch", "name": "Offload Changeover Switch", "description": "63A to 1000A, IS/IEC:60947-3, quick make & break, door interlock, CRC sheet enclosure" },
-    { "id": "main-switch-rewirable", "name": "Main Switch Rewirable", "description": "32A to 200A, IS/IEC:60947-3, quick make & break, door interlock, CRC sheet enclosure" }
+    { "id": "switch-disconnector-fuse", "name": "Switch Disconnector Fuse", "description": "125A to 630A, IS/IEC:60947-3, easy on/off operation, fully insulated DMC body" },
+    { "id": "onload-changeover-switch", "name": "Onload Changeover Switch", "description": "63A to 1000A, smooth and fast switching operation, compact model, open execution & sheet steel enclosure" },
+    { "id": "onload-isolator", "name": "Onload Isolator / Load Break Switch", "description": "63A to 630A, IS/IEC:60947-3, 80KA breaking capacity, smooth and fast switching operation, open execution & sheet steel enclosure" },
+    { "id": "offload-changeover-switch", "name": "Offload Changeover Switch", "description": "32A to 250A, IS/IEC:60947-3, smooth and fast switching operation, door interlock, CRC sheet enclosure" },
+    { "id": "main-switch-rewirable", "name": "Main Switch Rewirable", "description": "32A to 250A, IS/IEC:60947-3, smooth and fast switching operation, door interlock, CRC sheet enclosure" }
   ],
   "products": [
     {
@@ -341,20 +341,20 @@
       "inStock": true,
       "featured": true,
       "features": [
-        "Range from 32 AMP to 630 AMP",
+        "Range from 125 AMP to 630 AMP",
         "Conforms to IS/IEC:60947-3",
-        "Quick make & break mechanism",
+        "Easy to switch on and off instantly",
         "Ensures high mechanical & electrical strength",
         "Compact model fully insulated DMC body",
         "Available in open execution & sheet steel enclosure"
       ],
       "variants": [
-        { "name": "125 AMP",  "capacity": "125 AMP",  "poles": "3P", "specifications": { "Rated Current": "125 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Body": "Fully Insulated DMC", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel" } },
-        { "name": "160 AMP",  "capacity": "160 AMP",  "poles": "3P", "specifications": { "Rated Current": "160 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Body": "Fully Insulated DMC", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel" } },
-        { "name": "200 AMP",  "capacity": "200 AMP",  "poles": "3P", "specifications": { "Rated Current": "200 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Body": "Fully Insulated DMC", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel" } },
-        { "name": "250 AMP",  "capacity": "250 AMP",  "poles": "3P", "specifications": { "Rated Current": "250 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Body": "Fully Insulated DMC", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel" } },
-        { "name": "400 AMP",  "capacity": "400 AMP",  "poles": "3P", "specifications": { "Rated Current": "400 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Body": "Fully Insulated DMC", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel" } },
-        { "name": "630 AMP",  "capacity": "630 AMP",  "poles": "3P", "specifications": { "Rated Current": "630 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Body": "Fully Insulated DMC", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel" } }
+        { "name": "125 AMP",  "capacity": "125 AMP",  "poles": "3P", "specifications": { "Rated Current": "125 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Body": "Fully Insulated DMC", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel" } },
+        { "name": "160 AMP",  "capacity": "160 AMP",  "poles": "3P", "specifications": { "Rated Current": "160 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Body": "Fully Insulated DMC", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel" } },
+        { "name": "200 AMP",  "capacity": "200 AMP",  "poles": "3P", "specifications": { "Rated Current": "200 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Body": "Fully Insulated DMC", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel" } },
+        { "name": "250 AMP",  "capacity": "250 AMP",  "poles": "3P", "specifications": { "Rated Current": "250 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Body": "Fully Insulated DMC", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel" } },
+        { "name": "400 AMP",  "capacity": "400 AMP",  "poles": "3P", "specifications": { "Rated Current": "400 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Body": "Fully Insulated DMC", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel" } },
+        { "name": "630 AMP",  "capacity": "630 AMP",  "poles": "3P", "specifications": { "Rated Current": "630 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Body": "Fully Insulated DMC", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel" } }
       ]
     },
     {
@@ -367,21 +367,21 @@
       "inStock": true,
       "features": [
         "Range from 63 AMP to 1000 AMP",
-        "Quick make & break mechanism",
+        "Easy to switch on and off instantly",
         "Ensures high mechanical & electrical strength",
         "Compact model design",
         "Available in open execution & sheet steel enclosure",
         "Suitable for generator and mains changeover applications"
       ],
       "variants": [
-        { "name": "63 AMP",   "capacity": "63 AMP",   "poles": "4P", "specifications": { "Rated Current": "63 AMP",   "Rated Voltage": "415V AC", "Frequency": "50Hz", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel", "Application": "Onload Changeover" } },
-        { "name": "125 AMP",  "capacity": "125 AMP",  "poles": "4P", "specifications": { "Rated Current": "125 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel", "Application": "Onload Changeover" } },
-        { "name": "160 AMP",  "capacity": "160 AMP",  "poles": "4P", "specifications": { "Rated Current": "160 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel", "Application": "Onload Changeover" } },
-        { "name": "200 AMP",  "capacity": "200 AMP",  "poles": "4P", "specifications": { "Rated Current": "200 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel", "Application": "Onload Changeover" } },
-        { "name": "250 AMP",  "capacity": "250 AMP",  "poles": "4P", "specifications": { "Rated Current": "250 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel", "Application": "Onload Changeover" } },
-        { "name": "400 AMP",  "capacity": "400 AMP",  "poles": "4P", "specifications": { "Rated Current": "400 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel", "Application": "Onload Changeover" } },
-        { "name": "630 AMP",  "capacity": "630 AMP",  "poles": "4P", "specifications": { "Rated Current": "630 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel", "Application": "Onload Changeover" } },
-        { "name": "1000 AMP", "capacity": "1000 AMP", "poles": "4P", "specifications": { "Rated Current": "1000 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel", "Application": "Onload Changeover" } }
+        { "name": "63 AMP",   "capacity": "63 AMP",   "poles": "4P", "specifications": { "Rated Current": "63 AMP",   "Rated Voltage": "415V AC", "Frequency": "50Hz", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel", "Application": "Onload Changeover" } },
+        { "name": "125 AMP",  "capacity": "125 AMP",  "poles": "4P", "specifications": { "Rated Current": "125 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel", "Application": "Onload Changeover" } },
+        { "name": "160 AMP",  "capacity": "160 AMP",  "poles": "4P", "specifications": { "Rated Current": "160 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel", "Application": "Onload Changeover" } },
+        { "name": "200 AMP",  "capacity": "200 AMP",  "poles": "4P", "specifications": { "Rated Current": "200 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel", "Application": "Onload Changeover" } },
+        { "name": "250 AMP",  "capacity": "250 AMP",  "poles": "4P", "specifications": { "Rated Current": "250 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel", "Application": "Onload Changeover" } },
+        { "name": "400 AMP",  "capacity": "400 AMP",  "poles": "4P", "specifications": { "Rated Current": "400 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel", "Application": "Onload Changeover" } },
+        { "name": "630 AMP",  "capacity": "630 AMP",  "poles": "4P", "specifications": { "Rated Current": "630 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel", "Application": "Onload Changeover" } },
+        { "name": "1000 AMP", "capacity": "1000 AMP", "poles": "4P", "specifications": { "Rated Current": "1000 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel", "Application": "Onload Changeover" } }
       ]
     },
     {
@@ -393,22 +393,22 @@
       "image": "/products/onload-isolator.webp",
       "inStock": true,
       "features": [
-        "Range from 63 AMP to 1000 AMP",
+        "Range from 63 AMP to 630 AMP",
         "Conforms to IS/IEC:60947-3",
-        "Quick make & break mechanism",
+        "Easy to switch on and off instantly",
         "Ensures high mechanical & electrical strength",
         "Compact model design",
         "80KA breaking capacity",
         "Available in open execution & sheet steel enclosure"
       ],
       "variants": [
-        { "name": "63 AMP",   "capacity": "63 AMP",   "poles": "4P", "specifications": { "Rated Current": "63 AMP",   "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel" } },
-        { "name": "125 AMP",  "capacity": "125 AMP",  "poles": "4P", "specifications": { "Rated Current": "125 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel" } },
-        { "name": "160 AMP",  "capacity": "160 AMP",  "poles": "4P", "specifications": { "Rated Current": "160 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel" } },
-        { "name": "200 AMP",  "capacity": "200 AMP",  "poles": "4P", "specifications": { "Rated Current": "200 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel" } },
-        { "name": "250 AMP",  "capacity": "250 AMP",  "poles": "4P", "specifications": { "Rated Current": "250 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel" } },
-        { "name": "400 AMP",  "capacity": "400 AMP",  "poles": "4P", "specifications": { "Rated Current": "400 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel" } },
-        { "name": "630 AMP",  "capacity": "630 AMP",  "poles": "4P", "specifications": { "Rated Current": "630 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "Open / Sheet Steel" } }
+        { "name": "63 AMP",   "capacity": "63 AMP",   "poles": "4P", "specifications": { "Rated Current": "63 AMP",   "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel" } },
+        { "name": "125 AMP",  "capacity": "125 AMP",  "poles": "4P", "specifications": { "Rated Current": "125 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel" } },
+        { "name": "160 AMP",  "capacity": "160 AMP",  "poles": "4P", "specifications": { "Rated Current": "160 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel" } },
+        { "name": "200 AMP",  "capacity": "200 AMP",  "poles": "4P", "specifications": { "Rated Current": "200 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel" } },
+        { "name": "250 AMP",  "capacity": "250 AMP",  "poles": "4P", "specifications": { "Rated Current": "250 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel" } },
+        { "name": "400 AMP",  "capacity": "400 AMP",  "poles": "4P", "specifications": { "Rated Current": "400 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel" } },
+        { "name": "630 AMP",  "capacity": "630 AMP",  "poles": "4P", "specifications": { "Rated Current": "630 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Breaking Capacity": "80KA", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "Open / Sheet Steel" } }
        
       ]
     },
@@ -421,21 +421,21 @@
       "image": "/products/offload-changeover-switch.webp",
       "inStock": true,
       "features": [
-        "Range from 63 AMP to 1000 AMP",
+        "Range from 32 AMP to 250 AMP",
         "Conforms to IS/IEC:60947-3",
-        "Quick make & break mechanism",
+        "Easy to switch on and off instantly",
         "Comes with door interlock feature",
         "Enclosure made up of CRC sheet",
         "Safe and reliable source changeover"
       ],
       "variants": [
-        { "name": "32 AMP",   "capacity": "32 AMP",   "poles": "4P", "specifications": { "Rated Current": "32 AMP",   "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
-        { "name": "63 AMP",   "capacity": "63 AMP",   "poles": "4P", "specifications": { "Rated Current": "63 AMP",   "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
-        { "name": "100 AMP",  "capacity": "100 AMP",  "poles": "4P", "specifications": { "Rated Current": "100 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
-        { "name": "125 AMP",  "capacity": "125 AMP",  "poles": "4P", "specifications": { "Rated Current": "125 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
-        { "name": "160 AMP",  "capacity": "160 AMP",  "poles": "4P", "specifications": { "Rated Current": "160 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
-        { "name": "200 AMP",  "capacity": "200 AMP",  "poles": "4P", "specifications": { "Rated Current": "200 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
-        { "name": "250 AMP",  "capacity": "250 AMP",  "poles": "4P", "specifications": { "Rated Current": "250 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } }
+        { "name": "32 AMP",   "capacity": "32 AMP",   "poles": "4P", "specifications": { "Rated Current": "32 AMP",   "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
+        { "name": "63 AMP",   "capacity": "63 AMP",   "poles": "4P", "specifications": { "Rated Current": "63 AMP",   "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
+        { "name": "100 AMP",  "capacity": "100 AMP",  "poles": "4P", "specifications": { "Rated Current": "100 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
+        { "name": "125 AMP",  "capacity": "125 AMP",  "poles": "4P", "specifications": { "Rated Current": "125 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
+        { "name": "160 AMP",  "capacity": "160 AMP",  "poles": "4P", "specifications": { "Rated Current": "160 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
+        { "name": "200 AMP",  "capacity": "200 AMP",  "poles": "4P", "specifications": { "Rated Current": "200 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
+        { "name": "250 AMP",  "capacity": "250 AMP",  "poles": "4P", "specifications": { "Rated Current": "250 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } }
       ]
     },
     {
@@ -447,21 +447,21 @@
       "image": "/products/main-switch-rewirable.webp",
       "inStock": true,
       "features": [
-        "Range from 32 AMP to 200 AMP",
+        "Range from 32 AMP to 250 AMP",
         "Conforms to IS/IEC:60947-3",
-        "Quick make & break mechanism",
+        "Easy to switch on and off instantly",
         "Comes with door interlock feature",
         "Enclosure made up of CRC sheet",
         "Rewirable design for easy maintenance"
       ],
       "variants": [
-        { "name": "32 AMP",  "capacity": "32 AMP",  "poles": "3P", "specifications": { "Rated Current": "32 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
-        { "name": "63 AMP",  "capacity": "63 AMP",  "poles": "3P", "specifications": { "Rated Current": "63 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
-        { "name": "100 AMP", "capacity": "100 AMP", "poles": "3P", "specifications": { "Rated Current": "100 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
-        { "name": "125 AMP", "capacity": "125 AMP", "poles": "3P", "specifications": { "Rated Current": "125 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
-        { "name": "160 AMP", "capacity": "160 AMP", "poles": "3P", "specifications": { "Rated Current": "160 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
-        { "name": "200 AMP", "capacity": "200 AMP", "poles": "3P", "specifications": { "Rated Current": "200 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
-        { "name": "250 AMP", "capacity": "250 AMP", "poles": "3P", "specifications": { "Rated Current": "250 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Quick Make & Break", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } }
+        { "name": "32 AMP",  "capacity": "32 AMP",  "poles": "3P", "specifications": { "Rated Current": "32 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
+        { "name": "63 AMP",  "capacity": "63 AMP",  "poles": "3P", "specifications": { "Rated Current": "63 AMP",  "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
+        { "name": "100 AMP", "capacity": "100 AMP", "poles": "3P", "specifications": { "Rated Current": "100 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
+        { "name": "125 AMP", "capacity": "125 AMP", "poles": "3P", "specifications": { "Rated Current": "125 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
+        { "name": "160 AMP", "capacity": "160 AMP", "poles": "3P", "specifications": { "Rated Current": "160 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
+        { "name": "200 AMP", "capacity": "200 AMP", "poles": "3P", "specifications": { "Rated Current": "200 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } },
+        { "name": "250 AMP", "capacity": "250 AMP", "poles": "3P", "specifications": { "Rated Current": "250 AMP", "Rated Voltage": "415V AC", "Frequency": "50Hz", "Standard": "IS/IEC:60947-3", "Mechanism": "Easy On/Off Operation", "Enclosure": "CRC Sheet", "Door Interlock": "Yes" } }
       ]
     }
   ]
