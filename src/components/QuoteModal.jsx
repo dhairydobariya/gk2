@@ -224,7 +224,7 @@ export default function QuoteModal({ isOpen, onClose, initialProduct = null }) {
     });
   };
 
-  const addRow = () => setRows(prev => [...prev, { productId: '', selectedRatings: [], qty: 1 }]);
+  const addRow = () => setRows(prev => [{ productId: '', selectedRatings: [], qty: 1 }, ...prev]);
   const removeRow = (i) => setRows(prev => prev.filter((_, idx) => idx !== i));
 
   const validate = () => {

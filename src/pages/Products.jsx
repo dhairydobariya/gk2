@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { getProductsData } from '../utils/dataManager';
 import DynamicBanner from '../components/DynamicBanner';
 import useSEO from '../hooks/useSEO';
+import QuoteModal from '../components/QuoteModal';
 
 // Inject keyframes once
 const STYLE = `
@@ -30,7 +31,7 @@ function ProductSkeleton() {
 }
 
 // Product card that shows skeleton until image loads
-function ProductCard({ product, idx, getCategoryName, animDelay = 0 }) {
+function ProductCard({ product, idx, getCategoryName, animDelay = 0, onQuote }) {
   // Check if image is already cached — skip skeleton if so
   const [loaded, setLoaded] = useState(() => {
     if (!product.image) return false;
@@ -86,8 +87,17 @@ function ProductCard({ product, idx, getCategoryName, animDelay = 0 }) {
           <div className="flex items-center justify-between">
             <span className="text-sm text-gray-500">{getCategoryName(product.category)}</span>
           </div>
-          <div className="mt-2 text-sm text-blue-600 font-medium group-hover:translate-x-1 transition-transform">
-            View Details →
+          <div className="mt-3 flex items-center gap-2">
+            <div className="flex-1 text-sm text-blue-600 font-medium group-hover:translate-x-1 transition-transform">
+              View Details →
+            </div>
+            <button
+              type="button"
+              onClick={e => { e.preventDefault(); onQuote(product); }}
+              className="text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg transition-colors shrink-0"
+            >
+              Get Quote
+            </button>
           </div>
         </div>
       </Link>
@@ -102,6 +112,7 @@ function Products() {
   const [filterOpen, setFilterOpen] = useState(false);
   const [filterKey, setFilterKey] = useState(0);
   const [mounted, setMounted] = useState(true);
+  const [quoteProduct, setQuoteProduct] = useState(null);
   const { categories, products } = getProductsData();
 
   const activeCat = categories.find(c => c.id === selectedCategory);
@@ -299,6 +310,7 @@ function Products() {
                     idx={idx}
                     getCategoryName={getCategoryName}
                     animDelay={Math.min(idx * 40, 300)}
+                    onQuote={p => setQuoteProduct(p)}
                   />
                 ))
             }
@@ -345,6 +357,13 @@ function Products() {
           </div>
         </div>
       </section>
+
+      {/* Quote Modal */}
+      <QuoteModal
+        isOpen={!!quoteProduct}
+        onClose={() => setQuoteProduct(null)}
+        initialProduct={quoteProduct ? { id: quoteProduct.id, variants: quoteProduct.variants } : null}
+      />
     </div>
   );
 }
